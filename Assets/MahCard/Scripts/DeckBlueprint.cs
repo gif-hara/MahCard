@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MahCard
@@ -14,15 +15,7 @@ namespace MahCard
 
         public Deck CreateDeck()
         {
-            var deck = new Deck();
-            foreach (var card in cards)
-            {
-                foreach (var c in card.CreateCards())
-                {
-                    deck.Push(c);
-                }
-            }
-            return deck;
+            return new Deck(cards.SelectMany(c => c.CreateCards()).ToList());
         }
     }
 }
