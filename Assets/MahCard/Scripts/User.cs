@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MahCard
 {
@@ -27,6 +28,11 @@ namespace MahCard
             var card = Cards[index];
             Cards.RemoveAt(index);
             return card;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} ({string.Join(", ", Cards.Select(c => c.ToString()))})";
         }
     }
 }
