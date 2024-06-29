@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TinyStateMachineSystems;
+using UnityEngine.Assertions;
 
 namespace MahCard
 {
@@ -20,12 +21,23 @@ namespace MahCard
 
         private readonly TinyStateMachine stateMachine = new();
 
+        private UniTaskCompletionSource endGameCompletionSource = null;
+
         public Game(IEnumerable<User> users, Deck deck, Deck discardDeck, GameRules rules)
         {
             Users = new List<User>(users);
             Deck = deck;
             DiscardDeck = discardDeck;
             Rules = rules;
+        }
+
+        public UniTask Begin()
+        {
+            Assert.IsNotNull(endGameCompletionSource);
+            endGameCompletionSource = new UniTaskCompletionSource();
+            stateMachine.Change(StateGameStart);
+
+            return endGameCompletionSource.Task;
         }
 
         private UniTask StateGameStart(CancellationToken scope)
