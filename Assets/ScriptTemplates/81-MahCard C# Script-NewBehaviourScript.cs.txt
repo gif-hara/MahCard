@@ -1,0 +1,9 @@
+namespace MahCard
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class #SCRIPTNAME#
+    {
+    }
+}
