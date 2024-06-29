@@ -5,9 +5,14 @@ namespace MahCard
     /// <summary>
     /// 
     /// </summary>
-    public readonly struct Deck
+    public sealed class Deck
     {
         public Stack<Card> Cards { get; }
+
+        public Deck()
+        {
+            Cards = new Stack<Card>();
+        }
 
         public Deck(IEnumerable<Card> cards)
         {
