@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TinyStateMachineSystems;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace MahCard
@@ -33,7 +34,7 @@ namespace MahCard
 
         public UniTask Begin()
         {
-            Assert.IsNotNull(endGameCompletionSource);
+            Assert.IsNull(endGameCompletionSource);
             endGameCompletionSource = new UniTaskCompletionSource();
             stateMachine.Change(StateGameStart);
 
@@ -42,6 +43,7 @@ namespace MahCard
 
         private UniTask StateGameStart(CancellationToken scope)
         {
+            Debug.Log("GameStart");
             Deck.Shuffle();
             foreach (var user in Users)
             {
@@ -49,6 +51,7 @@ namespace MahCard
                 {
                     user.Draw(Deck);
                 }
+                Debug.Log(user);
             }
             return UniTask.CompletedTask;
         }
