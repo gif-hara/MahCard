@@ -14,7 +14,17 @@ namespace MahCard
         async void Start()
         {
             await BootSystem.IsReady;
-            Debug.Log("GameSceneController is ready!");
+            var users = new User[]
+            {
+                new("Player1"),
+                new("Player2"),
+                new("Player3"),
+                new("Player4")
+            };
+            var deck = debugRoomData.GameRules.DeckBlueprint.CreateDeck();
+            var discardDeck = new Deck();
+            var game = new Game(users, deck, discardDeck, debugRoomData.GameRules);
+            await game.Begin();
         }
     }
 }
