@@ -24,14 +24,13 @@ namespace MahCard
             Cards.Push(card);
         }
 
-        public void Shuffle()
+        public void Shuffle(Unity.Mathematics.Random random)
         {
             var cards = Cards.ToArray();
             Cards.Clear();
-            var random = new System.Random();
             for (var i = cards.Length - 1; i > 0; i--)
             {
-                var j = random.Next(0, i + 1);
+                var j = random.NextInt(0, i + 1);
                 var temp = cards[i];
                 cards[i] = cards[j];
                 cards[j] = temp;
