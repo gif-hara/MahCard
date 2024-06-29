@@ -24,8 +24,11 @@ namespace MahCard
 
         private UniTaskCompletionSource endGameCompletionSource = null;
 
-        public Game(IEnumerable<User> users, Deck deck, Deck discardDeck, GameRules rules)
+        private Unity.Mathematics.Random random;
+
+        public Game(IEnumerable<User> users, Deck deck, Deck discardDeck, GameRules rules, uint seed)
         {
+            random = new Unity.Mathematics.Random(seed);
             Users = new List<User>(users);
             Deck = deck;
             DiscardDeck = discardDeck;
@@ -44,7 +47,7 @@ namespace MahCard
         private UniTask StateGameStart(CancellationToken scope)
         {
             Debug.Log("GameStart");
-            Deck.Shuffle();
+            Deck.Shuffle(random);
             foreach (var user in Users)
             {
                 for (var i = 0; i < Rules.HandCardCount; i++)
