@@ -148,6 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5bdf65aa2f44ac2a2fcf3dc7430f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugRoomData:
+    gameRules: {fileID: 11400000, guid: 3d4eee8d23c33486bbf555af3dacf716, type: 2}
+    computerPlayerCount: 3
 --- !u!4 &23293993
 Transform:
   m_ObjectHideFlags: 0
