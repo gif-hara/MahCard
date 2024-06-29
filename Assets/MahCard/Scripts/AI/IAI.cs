@@ -8,6 +8,6 @@ namespace MahCard.AI
     /// </summary>
     public interface IAI
     {
-        UniTask BeginTurnAsync(CancellationToken scope);
+        UniTask<int> DiscardAsync(CancellationToken scope);
     }
 }
