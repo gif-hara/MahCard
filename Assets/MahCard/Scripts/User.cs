@@ -7,11 +7,14 @@ namespace MahCard
     /// </summary>
     public readonly struct User
     {
+        public string Name { get; }
+
         public List<Card> Cards { get; }
 
-        public User(IEnumerable<Card> cards)
+        public User(string name)
         {
-            Cards = new List<Card>(cards);
+            Name = name;
+            Cards = new List<Card>();
         }
 
         public readonly void Draw(Deck deck)
