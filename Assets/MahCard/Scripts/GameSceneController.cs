@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using HK;
 using UnityEngine;
 
@@ -14,16 +16,18 @@ namespace MahCard
         async void Start()
         {
             await BootSystem.IsReady;
-            var users = new User[]
+
+            var users = new List<User>
             {
-                new("Player1"),
-                new("Player2"),
-                new("Player3"),
-                new("Player4")
+                new User("Player")
             };
+            for (var i = 0; i < debugRoomData.ComputerPlayerCount; i++)
+            {
+                users.Add(new User($"Computer {i + 1}"));
+            }
             var deck = debugRoomData.GameRules.DeckBlueprint.CreateDeck();
             var discardDeck = new Deck();
-            var game = new Game(users, deck, discardDeck, debugRoomData.GameRules);
+            var game = new Game(users, deck, discardDeck, debugRoomData.GameRules, (uint)DateTime.Now.Ticks);
             await game.Begin();
         }
     }
