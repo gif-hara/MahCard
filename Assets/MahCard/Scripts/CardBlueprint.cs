@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace MahCard
@@ -5,7 +6,8 @@ namespace MahCard
     /// <summary>
     /// 
     /// </summary>
-    public sealed class CardBlueprint : ScriptableObject
+    [Serializable]
+    public sealed class CardBlueprint
     {
         [SerializeField]
         private Define.CardColor color;
@@ -14,5 +16,9 @@ namespace MahCard
         [SerializeField]
         private Define.CardAbility number;
         public Define.CardAbility Number => number;
+
+        [SerializeField]
+        private int count;
+        public int Count => count;
     }
 }
