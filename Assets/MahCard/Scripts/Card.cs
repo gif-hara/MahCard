@@ -15,5 +15,10 @@ namespace MahCard
             Color = color;
             Ability = ability;
         }
+
+        public override string ToString()
+        {
+            return $"{Color} {Ability}";
+        }
     }
 }
