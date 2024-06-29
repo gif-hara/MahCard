@@ -1,5 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using UnityEngine.InputSystem;
 
 namespace MahCard.AI
 {
@@ -10,7 +11,8 @@ namespace MahCard.AI
     {
         public UniTask<int> DiscardAsync(CancellationToken scope)
         {
-            return UniTask.FromResult(0);
+            var source = new UniTaskCompletionSource<int>();
+            return source.Task;
         }
     }
 }
