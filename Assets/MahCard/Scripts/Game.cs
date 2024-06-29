@@ -28,6 +28,8 @@ namespace MahCard
 
         private int parentIndex = 0;
 
+        private int turnCount = 0;
+
         public Game(IEnumerable<User> users, Deck deck, Deck discardDeck, GameRules rules, uint seed)
         {
             random = new Unity.Mathematics.Random(seed);
@@ -60,7 +62,22 @@ namespace MahCard
             }
             parentIndex = random.NextInt(0, Users.Count);
             Debug.Log($"ParentIndex: {parentIndex}");
+            stateMachine.Change(StateUserTurn);
             return UniTask.CompletedTask;
+        }
+
+        private async UniTask StateUserTurn(CancellationToken scope)
+        {
+            var index = (parentIndex + turnCount) % Users.Count;
+            var user = Users[index];
+            user.Draw(Deck);
+            Debug.Log($"UserTurn: {user}");
+            var discardIndex = await user.AI.DiscardAsync(scope);
+            var card = user.Discard(discardIndex);
+            Debug.Log($"{user.Name} Discard: {card}");
+            DiscardDeck.Push(card);
+            turnCount++;
+            stateMachine.Change(StateUserTurn);
         }
     }
 }
