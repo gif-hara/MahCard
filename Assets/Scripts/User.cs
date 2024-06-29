@@ -14,9 +14,9 @@ namespace MahCard
             Cards = new List<Card>(cards);
         }
 
-        public readonly void Draw(Card card)
+        public readonly void Draw(Deck deck)
         {
-            Cards.Add(card);
+            Cards.Add(deck.Draw());
         }
 
         public readonly Card Discard(int index)
