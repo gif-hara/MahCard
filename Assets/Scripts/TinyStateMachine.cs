@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-namespace TinyStateMachine
+namespace TinyStateMachineSystems
 {
     /// <summary>
     /// Represents a tiny state machine that allows changing states asynchronously.
