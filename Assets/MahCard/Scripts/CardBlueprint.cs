@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MahCard
@@ -20,5 +21,13 @@ namespace MahCard
         [SerializeField]
         private int count;
         public int Count => count;
+
+        public IEnumerable<Card> CreateCards()
+        {
+            for (var i = 0; i < count; i++)
+            {
+                yield return new Card(color, number);
+            }
+        }
     }
 }
