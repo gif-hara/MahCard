@@ -26,6 +26,8 @@ namespace MahCard
 
         private Unity.Mathematics.Random random;
 
+        private int parentIndex = 0;
+
         public Game(IEnumerable<User> users, Deck deck, Deck discardDeck, GameRules rules, uint seed)
         {
             random = new Unity.Mathematics.Random(seed);
@@ -56,6 +58,8 @@ namespace MahCard
                 }
                 Debug.Log(user);
             }
+            parentIndex = random.NextInt(0, Users.Count);
+            Debug.Log($"ParentIndex: {parentIndex}");
             return UniTask.CompletedTask;
         }
     }
