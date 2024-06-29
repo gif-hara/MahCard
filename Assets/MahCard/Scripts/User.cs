@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using MahCard.AI;
 
 namespace MahCard
 {
@@ -10,11 +11,14 @@ namespace MahCard
     {
         public string Name { get; }
 
+        public IAI AI { get; }
+
         public List<Card> Cards { get; }
 
-        public User(string name)
+        public User(string name, IAI ai)
         {
             Name = name;
+            AI = ai;
             Cards = new List<Card>();
         }
 

@@ -19,11 +19,11 @@ namespace MahCard
 
             var users = new List<User>
             {
-                new("Player")
+                new("Player", new AI.Input())
             };
             for (var i = 0; i < debugRoomData.ComputerPlayerCount; i++)
             {
-                users.Add(new($"Computer {i + 1}"));
+                users.Add(new($"Computer {i + 1}", new AI.Input()));
             }
             var deck = debugRoomData.GameRules.DeckBlueprint.CreateDeck();
             var discardDeck = new Deck();
