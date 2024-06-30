@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HK;
+using MahCard.View;
 using UnityEngine;
 
 namespace MahCard
@@ -27,7 +28,8 @@ namespace MahCard
             }
             var deck = debugRoomData.GameRules.DeckBlueprint.CreateDeck();
             var discardDeck = new Deck();
-            var game = new Game(users, deck, discardDeck, debugRoomData.GameRules, (uint)DateTime.Now.Ticks);
+            var view = new Log();
+            var game = new Game(users, deck, discardDeck, debugRoomData.GameRules, view, (uint)DateTime.Now.Ticks);
             await game.BeginAsync();
             Debug.Log("GameEnd");
         }
