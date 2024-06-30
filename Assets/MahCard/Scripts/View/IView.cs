@@ -7,6 +7,8 @@ namespace MahCard.View
     /// </summary>
     public interface IView
     {
+        void Setup(Game game);
+
         UniTask OnGameStartAsync(Game game);
 
         UniTask OnDeckShuffledAsync(Game game);
