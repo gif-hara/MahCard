@@ -41,6 +41,11 @@ namespace MahCard
             return Cards.All(c => c.Color == Cards[0].Color);
         }
 
+        public int GetCardIndex(Card card)
+        {
+            return Cards.FindIndex(c => c == card);
+        }
+
         public override string ToString()
         {
             return $"{Name} ({string.Join(", ", Cards.Select(c => c.ToString()))})";
