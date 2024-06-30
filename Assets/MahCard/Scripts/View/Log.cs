@@ -7,9 +7,8 @@ namespace MahCard.View
     /// </summary>
     public sealed class Log : View
     {
-        public override UniTask OnGameStartAsync()
+        public override UniTask OnGameStartAsync(Game game)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
