@@ -22,12 +22,12 @@ namespace MahCard
             Cards = new List<Card>();
         }
 
-        public readonly void Draw(Deck deck)
+        public void Draw(Deck deck)
         {
             Cards.Add(deck.Draw());
         }
 
-        public readonly Card Discard(int index)
+        public Card Discard(int index)
         {
             var card = Cards[index];
             Cards.RemoveAt(index);
