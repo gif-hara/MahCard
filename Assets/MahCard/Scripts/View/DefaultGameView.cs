@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using HK;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MahCard.View
 {
@@ -27,7 +28,8 @@ namespace MahCard.View
             {
                 var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card.Inside");
                 var cardParent = gameDocument.Q<HKUIDocument>("SubjectArea").Q<RectTransform>("CardArea");
-                UnityEngine.Object.Instantiate(cardPrefab, cardParent);
+                var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
+                cardInstance.Q<Image>("MainImage").color = game.GameDesignData.GetColor(card.Color);
             }
             return UniTask.CompletedTask;
         }

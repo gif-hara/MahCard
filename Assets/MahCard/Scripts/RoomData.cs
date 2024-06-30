@@ -11,6 +11,10 @@ namespace MahCard
     public sealed class RoomData
     {
         [SerializeField]
+        private GameDesignData gameDesignData;
+        public GameDesignData GameDesignData => gameDesignData;
+
+        [SerializeField]
         private GameRules gameRules;
         public GameRules GameRules => gameRules;
 
