@@ -19,7 +19,7 @@ namespace MahCard.View
 
         private HKUIDocument gameDocument;
 
-        private Dictionary<Card, HKUIDocument> cardDocuments = new();
+        private readonly Dictionary<Card, HKUIDocument> cardDocuments = new();
 
         public override void Setup(Game game)
         {
