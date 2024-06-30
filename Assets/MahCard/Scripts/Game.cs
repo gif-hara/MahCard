@@ -68,12 +68,11 @@ namespace MahCard
             {
                 for (var i = 0; i < Rules.HandCardCount; i++)
                 {
-                    DrawProcess(user);
+                    await DrawProcessAsync(user);
                 }
-                Debug.Log(user);
             }
             parentIndex = random.NextInt(0, Users.Count);
-            Debug.Log($"ParentIndex: {parentIndex}");
+            await view.OnDecidedParentAsync(this, Users[parentIndex]);
             stateMachine.Change(StateUserTurn);
         }
 
@@ -81,11 +80,11 @@ namespace MahCard
         {
             var index = (parentIndex + turnCount) % Users.Count;
             var user = Users[index];
-            DrawProcess(user);
-            Debug.Log($"UserTurn: {user}");
+            await view.OnStartTurnAsync(this, user);
+            await DrawProcessAsync(user);
             if (user.IsAllSame())
             {
-                Debug.Log($"{user.Name} Win!");
+                await view.OnWinAsync(this, user);
                 endGameCompletionSource.TrySetResult();
                 return;
             }
@@ -97,9 +96,10 @@ namespace MahCard
             stateMachine.Change(StateUserTurn);
         }
 
-        private void DrawProcess(User user)
+        private async UniTask DrawProcessAsync(User user)
         {
-            user.Draw(Deck);
+            var card = user.Draw(Deck);
+            await view.OnDrawCardAsync(this, user, card);
             if (Deck.IsEmpty())
             {
                 Deck.Fill(DiscardDeck, random);

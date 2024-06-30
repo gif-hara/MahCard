@@ -16,5 +16,25 @@ namespace MahCard.View
         {
             return UniTask.CompletedTask;
         }
+
+        public virtual UniTask OnDrawCardAsync(Game game, User user, Card card)
+        {
+            return UniTask.CompletedTask;
+        }
+
+        public virtual UniTask OnDecidedParentAsync(Game game, User user)
+        {
+            return UniTask.CompletedTask;
+        }
+
+        public virtual UniTask OnStartTurnAsync(Game game, User user)
+        {
+            return UniTask.CompletedTask;
+        }
+
+        public virtual UniTask OnWinAsync(Game game, User user)
+        {
+            return UniTask.CompletedTask;
+        }
     }
 }

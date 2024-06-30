@@ -23,9 +23,11 @@ namespace MahCard
             Cards = new List<Card>();
         }
 
-        public void Draw(Deck deck)
+        public Card Draw(Deck deck)
         {
-            Cards.Add(deck.Draw());
+            var result = deck.Draw();
+            Cards.Add(result);
+            return result;
         }
 
         public Card Discard(int index)
