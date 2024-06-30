@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MahCard.AI;
+using Unity.Mathematics;
 
 namespace MahCard
 {
@@ -22,9 +23,13 @@ namespace MahCard
             Cards = new List<Card>();
         }
 
-        public void Draw(Deck deck)
+        public void Draw(Deck deck, Deck discardDeck, Random random)
         {
             Cards.Add(deck.Draw());
+            if (deck.IsEmpty())
+            {
+                deck.Fill(discardDeck, random);
+            }
         }
 
         public Card Discard(int index)
