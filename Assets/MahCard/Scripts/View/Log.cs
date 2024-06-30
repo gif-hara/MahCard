@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace MahCard.View
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public sealed class Log : View
     {
         public override UniTask OnGameStartAsync(Game game)
