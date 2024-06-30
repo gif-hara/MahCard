@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MahCard.View;
 using TinyStateMachineSystems;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -20,6 +21,8 @@ namespace MahCard
 
         public GameRules Rules { get; }
 
+        private readonly IView view;
+
         private readonly TinyStateMachine stateMachine = new();
 
         private UniTaskCompletionSource endGameCompletionSource = null;
@@ -30,13 +33,21 @@ namespace MahCard
 
         private int turnCount = 0;
 
-        public Game(IEnumerable<User> users, Deck deck, Deck discardDeck, GameRules rules, uint seed)
+        public Game(
+            IEnumerable<User> users,
+            Deck deck,
+            Deck discardDeck,
+            GameRules rules,
+            IView view,
+            uint seed
+            )
         {
-            random = new Unity.Mathematics.Random(seed);
             Users = new List<User>(users);
             Deck = deck;
             DiscardDeck = discardDeck;
             Rules = rules;
+            this.view = view;
+            random = new Unity.Mathematics.Random(seed);
         }
 
         public UniTask BeginAsync()
