@@ -7,7 +7,7 @@ namespace MahCard.View
     /// </summary>
     public abstract class View : IView
     {
-        public UniTask OnGameStartAsync()
+        public virtual UniTask OnGameStartAsync()
         {
             return UniTask.CompletedTask;
         }
