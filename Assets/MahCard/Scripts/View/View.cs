@@ -36,5 +36,10 @@ namespace MahCard.View
         {
             return UniTask.CompletedTask;
         }
+
+        public virtual UniTask OnDiscardAsync(Game game, User user, Card card)
+        {
+            return UniTask.CompletedTask;
+        }
     }
 }

@@ -43,5 +43,11 @@ namespace MahCard.View
             Debug.Log($"{user.Name} Win");
             return UniTask.CompletedTask;
         }
+
+        public override UniTask OnDiscardAsync(Game game, User user, Card card)
+        {
+            Debug.Log($"{user.Name} Discard {card}");
+            return UniTask.CompletedTask;
+        }
     }
 }

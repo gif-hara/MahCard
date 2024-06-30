@@ -90,7 +90,7 @@ namespace MahCard
             }
             var discardIndex = await user.AI.DiscardAsync(scope);
             var card = user.Discard(discardIndex);
-            Debug.Log($"{user.Name} Discard: {card}");
+            await view.OnDiscardAsync(this, user, card);
             DiscardDeck.Push(card);
             turnCount++;
             stateMachine.Change(StateUserTurn);

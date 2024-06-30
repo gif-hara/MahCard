@@ -18,5 +18,7 @@ namespace MahCard.View
         UniTask OnStartTurnAsync(Game game, User user);
 
         UniTask OnWinAsync(Game game, User user);
+
+        UniTask OnDiscardAsync(Game game, User user, Card card);
     }
 }
