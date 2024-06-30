@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MahCard
 {
@@ -44,6 +45,21 @@ namespace MahCard
             {
                 Cards.Push(card);
             }
+        }
+
+        public bool IsEmpty()
+        {
+            return Cards.Count <= 0;
+        }
+
+        public void Fill(Deck other, Unity.Mathematics.Random random)
+        {
+            while (!other.IsEmpty())
+            {
+                Cards.Push(other.Draw());
+            }
+            Shuffle(random);
+            Debug.Log("Deck filled");
         }
     }
 }
