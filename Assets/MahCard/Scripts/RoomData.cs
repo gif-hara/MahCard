@@ -1,4 +1,5 @@
 using System;
+using MahCard.View;
 using UnityEngine;
 
 namespace MahCard
@@ -16,5 +17,9 @@ namespace MahCard
         [SerializeField]
         private int computerPlayerCount;
         public int ComputerPlayerCount => computerPlayerCount;
+
+        [SerializeReference, SubclassSelector]
+        private IView view;
+        public IView View => view;
     }
 }
