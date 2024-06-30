@@ -39,7 +39,7 @@ namespace MahCard
             Rules = rules;
         }
 
-        public UniTask Begin()
+        public UniTask BeginAsync()
         {
             Assert.IsNull(endGameCompletionSource);
             endGameCompletionSource = new UniTaskCompletionSource();
@@ -72,6 +72,12 @@ namespace MahCard
             var user = Users[index];
             user.Draw(Deck, DiscardDeck, random);
             Debug.Log($"UserTurn: {user}");
+            if (user.IsAllSame())
+            {
+                Debug.Log($"{user.Name} Win!");
+                endGameCompletionSource.TrySetResult();
+                return;
+            }
             var discardIndex = await user.AI.DiscardAsync(scope);
             var card = user.Discard(discardIndex);
             Debug.Log($"{user.Name} Discard: {card}");
