@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elements:
-  - document: {fileID: 1605889046648734887, guid: 3808e74dc81e8b04b8da63a30aa36fd3, type: 3}
-    overrideName: Prefab.Card.Inside
+  - document: {fileID: 5296763584044597622}
+    overrideName: CardArea
 --- !u!1 &5248254562995593729
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,14 +194,30 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[0].document
       value: 
       objectReference: {fileID: 5170780079513883580}
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
+      propertyPath: elements.Array.data[1].document
+      value: 
+      objectReference: {fileID: 1605889046648734887, guid: 3808e74dc81e8b04b8da63a30aa36fd3, type: 3}
+    - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
+      propertyPath: elements.Array.data[2].document
+      value: 
+      objectReference: {fileID: 5296763584044597622}
+    - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[0].overrideName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
+      propertyPath: elements.Array.data[1].overrideName
+      value: Prefab.UI.Card.Inside
+      objectReference: {fileID: 0}
+    - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
+      propertyPath: elements.Array.data[2].overrideName
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2404120827522946084, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}

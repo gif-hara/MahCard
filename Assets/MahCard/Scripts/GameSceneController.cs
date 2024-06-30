@@ -28,7 +28,15 @@ namespace MahCard
             }
             var deck = debugRoomData.GameRules.DeckBlueprint.CreateDeck();
             var discardDeck = new Deck();
-            var game = new Game(users, deck, discardDeck, debugRoomData.GameRules, debugRoomData.View, (uint)DateTime.Now.Ticks);
+            var game = new Game(
+                users,
+                deck,
+                discardDeck,
+                debugRoomData.GameRules,
+                debugRoomData.View,
+                (uint)DateTime.Now.Ticks,
+                0
+                );
             await game.BeginAsync();
             Debug.Log("GameEnd");
         }

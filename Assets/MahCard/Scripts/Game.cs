@@ -21,6 +21,8 @@ namespace MahCard
 
         public GameRules Rules { get; }
 
+        public int SubjectIndex { get; }
+
         private readonly IView view;
 
         private readonly TinyStateMachine stateMachine = new();
@@ -39,7 +41,8 @@ namespace MahCard
             Deck discardDeck,
             GameRules rules,
             IView view,
-            uint seed
+            uint seed,
+            int subjectIndex
             )
         {
             Users = new List<User>(users);
@@ -48,6 +51,7 @@ namespace MahCard
             Rules = rules;
             this.view = view;
             random = new Unity.Mathematics.Random(seed);
+            SubjectIndex = subjectIndex;
         }
 
         public UniTask BeginAsync()
@@ -58,6 +62,11 @@ namespace MahCard
             stateMachine.Change(StateGameStart);
 
             return endGameCompletionSource.Task;
+        }
+
+        public bool IsSubjectUser(User user)
+        {
+            return Users[SubjectIndex] == user;
         }
 
         private async UniTask StateGameStart(CancellationToken scope)
