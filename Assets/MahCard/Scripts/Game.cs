@@ -37,8 +37,6 @@ namespace MahCard
 
         public Game(
             IEnumerable<User> users,
-            Deck deck,
-            Deck discardDeck,
             GameRules rules,
             IView view,
             uint seed,
@@ -46,8 +44,8 @@ namespace MahCard
             )
         {
             Users = new List<User>(users);
-            Deck = deck;
-            DiscardDeck = discardDeck;
+            Deck = rules.DeckBlueprint.CreateDeck();
+            DiscardDeck = new Deck();
             Rules = rules;
             this.view = view;
             random = new Unity.Mathematics.Random(seed);
