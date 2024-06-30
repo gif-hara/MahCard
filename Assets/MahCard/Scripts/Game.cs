@@ -56,7 +56,7 @@ namespace MahCard
             {
                 for (var i = 0; i < Rules.HandCardCount; i++)
                 {
-                    user.Draw(Deck);
+                    user.Draw(Deck, DiscardDeck, random);
                 }
                 Debug.Log(user);
             }
@@ -70,7 +70,7 @@ namespace MahCard
         {
             var index = (parentIndex + turnCount) % Users.Count;
             var user = Users[index];
-            user.Draw(Deck);
+            user.Draw(Deck, DiscardDeck, random);
             Debug.Log($"UserTurn: {user}");
             var discardIndex = await user.AI.DiscardAsync(scope);
             var card = user.Discard(discardIndex);
