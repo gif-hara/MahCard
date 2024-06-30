@@ -21,8 +21,6 @@ namespace MahCard
 
         public GameRules Rules { get; }
 
-        public GameDesignData GameDesignData { get; }
-
         public int SubjectIndex { get; }
 
         private readonly IView view;
@@ -42,7 +40,6 @@ namespace MahCard
             Deck deck,
             Deck discardDeck,
             GameRules rules,
-            GameDesignData gameDesignData,
             IView view,
             uint seed,
             int subjectIndex
@@ -52,7 +49,6 @@ namespace MahCard
             Deck = deck;
             DiscardDeck = discardDeck;
             Rules = rules;
-            GameDesignData = gameDesignData;
             this.view = view;
             random = new Unity.Mathematics.Random(seed);
             SubjectIndex = subjectIndex;

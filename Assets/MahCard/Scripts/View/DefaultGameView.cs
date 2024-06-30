@@ -29,7 +29,7 @@ namespace MahCard.View
                 var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card.Inside");
                 var cardParent = gameDocument.Q<HKUIDocument>("SubjectArea").Q<RectTransform>("CardArea");
                 var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
-                cardInstance.Q<Image>("MainImage").color = game.GameDesignData.GetColor(card.Color);
+                cardInstance.Q<Image>("MainImage").color = game.Rules.GetColor(card.Color);
             }
             return UniTask.CompletedTask;
         }

@@ -14,3 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handCardCount: 4
   deckBlueprint: {fileID: 11400000, guid: 7fcff5db294c1407294d172d088a5439, type: 2}
+  colorDatabase:
+  - type: 0
+    color: {r: 1, g: 0, b: 0, a: 1}
+  - type: 1
+    color: {r: 0, g: 0, b: 1, a: 1}
+  - type: 2
+    color: {r: 0, g: 1, b: 0, a: 1}
+  - type: 3
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: 4
+    color: {r: 0, g: 0, b: 0, a: 1}

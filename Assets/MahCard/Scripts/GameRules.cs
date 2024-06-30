@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace MahCard
@@ -15,5 +18,31 @@ namespace MahCard
         [SerializeField]
         private DeckBlueprint deckBlueprint;
         public DeckBlueprint DeckBlueprint => deckBlueprint;
+
+        [SerializeField]
+        private List<ColorData> colorDatabase;
+
+        public Color GetColor(Define.CardColor type)
+        {
+            var data = colorDatabase.Find(c => c.Type == type);
+            if (data == null)
+            {
+                Assert.IsTrue(false, $"Not found color data. type: {type}");
+            }
+
+            return data.Color;
+        }
+
+        [Serializable]
+        public class ColorData
+        {
+            [SerializeField]
+            private Define.CardColor type;
+            public Define.CardColor Type => type;
+
+            [SerializeField]
+            private Color color;
+            public Color Color => color;
+        }
     }
 }

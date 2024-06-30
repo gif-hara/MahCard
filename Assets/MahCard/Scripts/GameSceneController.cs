@@ -33,7 +33,6 @@ namespace MahCard
                 deck,
                 discardDeck,
                 debugRoomData.GameRules,
-                debugRoomData.GameDesignData,
                 debugRoomData.View,
                 (uint)DateTime.Now.Ticks,
                 0
