@@ -7,7 +7,7 @@ namespace MahCard.View
     /// </summary>
     public abstract class View : IView
     {
-        public void Setup(Game game)
+        public virtual void Setup(Game game)
         {
         }
 
