@@ -151,6 +151,14 @@ MonoBehaviour:
   debugRoomData:
     gameRules: {fileID: 11400000, guid: 3d4eee8d23c33486bbf555af3dacf716, type: 2}
     computerPlayerCount: 1
+    view:
+      rid: 8626900860404236530
+  references:
+    version: 2
+    RefIds:
+    - rid: 8626900860404236530
+      type: {class: Log, ns: MahCard.View, asm: Assembly-CSharp}
+      data: 
 --- !u!4 &23293993
 Transform:
   m_ObjectHideFlags: 0
