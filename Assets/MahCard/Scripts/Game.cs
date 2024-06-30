@@ -59,29 +59,29 @@ namespace MahCard
             return endGameCompletionSource.Task;
         }
 
-        private UniTask StateGameStart(CancellationToken scope)
+        private async UniTask StateGameStart(CancellationToken scope)
         {
-            Debug.Log("GameStart");
+            await view.OnGameStartAsync(this);
             Deck.Shuffle(random);
+            await view.OnDeckShuffledAsync(this);
             foreach (var user in Users)
             {
                 for (var i = 0; i < Rules.HandCardCount; i++)
                 {
-                    user.Draw(Deck, DiscardDeck, random);
+                    DrawProcess(user);
                 }
                 Debug.Log(user);
             }
             parentIndex = random.NextInt(0, Users.Count);
             Debug.Log($"ParentIndex: {parentIndex}");
             stateMachine.Change(StateUserTurn);
-            return UniTask.CompletedTask;
         }
 
         private async UniTask StateUserTurn(CancellationToken scope)
         {
             var index = (parentIndex + turnCount) % Users.Count;
             var user = Users[index];
-            user.Draw(Deck, DiscardDeck, random);
+            DrawProcess(user);
             Debug.Log($"UserTurn: {user}");
             if (user.IsAllSame())
             {
@@ -95,6 +95,15 @@ namespace MahCard
             DiscardDeck.Push(card);
             turnCount++;
             stateMachine.Change(StateUserTurn);
+        }
+
+        private void DrawProcess(User user)
+        {
+            user.Draw(Deck);
+            if (Deck.IsEmpty())
+            {
+                Deck.Fill(DiscardDeck, random);
+            }
         }
     }
 }

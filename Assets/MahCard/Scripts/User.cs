@@ -23,13 +23,9 @@ namespace MahCard
             Cards = new List<Card>();
         }
 
-        public void Draw(Deck deck, Deck discardDeck, Random random)
+        public void Draw(Deck deck)
         {
             Cards.Add(deck.Draw());
-            if (deck.IsEmpty())
-            {
-                deck.Fill(discardDeck, random);
-            }
         }
 
         public Card Discard(int index)
