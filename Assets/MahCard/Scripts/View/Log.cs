@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace MahCard.View
 {
@@ -9,6 +10,8 @@ namespace MahCard.View
     {
         public override UniTask OnGameStartAsync(Game game)
         {
+            Debug.Log("GameStart");
+            return UniTask.CompletedTask;
         }
     }
 }
