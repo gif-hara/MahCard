@@ -54,6 +54,7 @@ namespace MahCard
         {
             Assert.IsNull(endGameCompletionSource);
             endGameCompletionSource = new UniTaskCompletionSource();
+            view.Setup(this);
             stateMachine.Change(StateGameStart);
 
             return endGameCompletionSource.Task;
