@@ -39,6 +39,11 @@ namespace MahCard
             return card;
         }
 
+        public bool IsAllSame()
+        {
+            return Cards.All(c => c.Color == Cards[0].Color);
+        }
+
         public override string ToString()
         {
             return $"{Name} ({string.Join(", ", Cards.Select(c => c.ToString()))})";
