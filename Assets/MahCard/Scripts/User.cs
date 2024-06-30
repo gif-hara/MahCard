@@ -7,7 +7,7 @@ namespace MahCard
     /// <summary>
     /// 
     /// </summary>
-    public readonly struct User
+    public sealed class User
     {
         public string Name { get; }
 
