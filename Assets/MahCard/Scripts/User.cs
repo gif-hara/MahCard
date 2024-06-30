@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using MahCard.AI;
-using Unity.Mathematics;
 
 namespace MahCard
 {
