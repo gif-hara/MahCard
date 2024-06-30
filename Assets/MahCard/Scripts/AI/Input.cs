@@ -10,7 +10,7 @@ namespace MahCard.AI
     /// </summary>
     public sealed class Input : IAI
     {
-        public UniTask<int> DiscardAsync(CancellationToken scope)
+        public UniTask<int> DiscardAsync(User user, CancellationToken scope)
         {
             var source = new UniTaskCompletionSource<int>();
             Observable.EveryUpdate(scope)
@@ -37,6 +37,12 @@ namespace MahCard.AI
                         source.TrySetResult(4);
                     }
                 });
+            user.OnSelectedCardIndex
+                .Subscribe(x =>
+                {
+                    source.TrySetResult(x);
+                })
+                .RegisterTo(scope);
             return source.Task;
         }
     }

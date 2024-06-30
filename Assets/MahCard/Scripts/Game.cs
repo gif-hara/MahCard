@@ -96,10 +96,8 @@ namespace MahCard
                 endGameCompletionSource.TrySetResult();
                 return;
             }
-            var discardIndex = await user.AI.DiscardAsync(scope);
-            var card = user.Discard(discardIndex);
-            await view.OnDiscardAsync(this, user, card);
-            DiscardDeck.Push(card);
+            var discardIndex = await user.AI.DiscardAsync(user, scope);
+            await DiscardProcessAsync(user, discardIndex);
             turnCount++;
             stateMachine.Change(StateUserTurn);
         }
@@ -112,6 +110,13 @@ namespace MahCard
             {
                 Deck.Fill(DiscardDeck, random);
             }
+        }
+
+        private async UniTask DiscardProcessAsync(User user, int discardIndex)
+        {
+            var card = user.Discard(discardIndex);
+            await view.OnDiscardAsync(this, user, card);
+            DiscardDeck.Push(card);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MahCard.AI;
+using R3;
 
 namespace MahCard
 {
@@ -14,6 +15,8 @@ namespace MahCard
         public IAI AI { get; }
 
         public List<Card> Cards { get; }
+
+        public Subject<int> OnSelectedCardIndex { get; } = new Subject<int>();
 
         public User(string name, IAI ai)
         {
