@@ -11,5 +11,10 @@ namespace MahCard.View
         {
             return UniTask.CompletedTask;
         }
+
+        public virtual UniTask OnDeckShuffledAsync(Game game)
+        {
+            return UniTask.CompletedTask;
+        }
     }
 }

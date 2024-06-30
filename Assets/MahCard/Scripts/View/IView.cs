@@ -8,5 +8,7 @@ namespace MahCard.View
     public interface IView
     {
         UniTask OnGameStartAsync(Game game);
+
+        UniTask OnDeckShuffledAsync(Game game);
     }
 }

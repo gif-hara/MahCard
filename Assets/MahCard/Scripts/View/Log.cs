@@ -13,5 +13,11 @@ namespace MahCard.View
             Debug.Log("GameStart");
             return UniTask.CompletedTask;
         }
+
+        public override UniTask OnDeckShuffledAsync(Game game)
+        {
+            Debug.Log("DeckShuffled");
+            return UniTask.CompletedTask;
+        }
     }
 }
