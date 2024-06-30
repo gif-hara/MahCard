@@ -4,7 +4,7 @@ namespace MahCard
     /// <summary>
     /// 
     /// </summary>
-    public readonly struct Card
+    public sealed class Card
     {
         public Define.CardColor Color { get; }
 
