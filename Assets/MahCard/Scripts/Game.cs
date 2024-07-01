@@ -21,7 +21,7 @@ namespace MahCard
 
         public GameRules Rules { get; }
 
-        public int SubjectIndex { get; }
+        public int MainUserIndex { get; }
 
         private readonly IView view;
 
@@ -40,7 +40,7 @@ namespace MahCard
             GameRules rules,
             IView view,
             uint seed,
-            int subjectIndex
+            int mainUserIndex
             )
         {
             Users = new List<User>(users);
@@ -49,7 +49,7 @@ namespace MahCard
             Rules = rules;
             this.view = view;
             random = new Unity.Mathematics.Random(seed);
-            SubjectIndex = subjectIndex;
+            MainUserIndex = mainUserIndex;
         }
 
         public UniTask BeginAsync()
@@ -62,9 +62,9 @@ namespace MahCard
             return endGameCompletionSource.Task;
         }
 
-        public bool IsSubjectUser(User user)
+        public bool IsMainUser(User user)
         {
-            return Users[SubjectIndex] == user;
+            return Users[MainUserIndex] == user;
         }
 
         private async UniTask StateGameStart(CancellationToken scope)

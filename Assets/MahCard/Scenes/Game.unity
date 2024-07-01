@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugRoomData:
     gameRules: {fileID: 11400000, guid: 3d4eee8d23c33486bbf555af3dacf716, type: 2}
-    computerPlayerCount: 1
+    computerPlayerCount: 3
     view:
       rid: 8626900860404236534
   references:
