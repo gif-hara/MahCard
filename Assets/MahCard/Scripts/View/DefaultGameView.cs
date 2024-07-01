@@ -64,15 +64,15 @@ namespace MahCard.View
                     .RegisterTo(cardInstance.destroyCancellationToken);
             }
 
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: scope);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
         }
 
-        public override UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
+        public override async UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
         {
             var cardInstance = cardDocuments[card];
             cardDocuments.Remove(card);
             UnityEngine.Object.Destroy(cardInstance.gameObject);
-            return UniTask.CompletedTask;
+            await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
         }
     }
 }

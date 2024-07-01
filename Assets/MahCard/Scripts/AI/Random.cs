@@ -11,7 +11,7 @@ namespace MahCard.AI
     {
         public async UniTask<int> DiscardAsync(User user, CancellationToken scope)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: scope);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: scope);
             return UnityEngine.Random.Range(0, user.Cards.Count);
         }
     }
