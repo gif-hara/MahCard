@@ -45,5 +45,10 @@ namespace MahCard.View
         {
             return UniTask.CompletedTask;
         }
+
+        public virtual UniTask OnFilledDeckAsync(Game game)
+        {
+            return UniTask.CompletedTask;
+        }
     }
 }

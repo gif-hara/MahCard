@@ -51,5 +51,11 @@ namespace MahCard.View
             Debug.Log($"{user.Name} Discard {card}");
             return UniTask.CompletedTask;
         }
+        
+        public override UniTask OnFilledDeckAsync(Game game)
+        {
+            Debug.Log("Filled Deck");
+            return UniTask.CompletedTask;
+        }
     }
 }
