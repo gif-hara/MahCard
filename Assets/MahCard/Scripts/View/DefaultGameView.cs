@@ -18,6 +18,9 @@ namespace MahCard.View
     {
         [SerializeField]
         private HKUIDocument gameDocumentPrefab;
+        
+        [SerializeField]
+        private bool isAlwaysHandVisible;
 
         private HKUIDocument gameDocument;
         
@@ -59,7 +62,7 @@ namespace MahCard.View
             var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
             cardDocuments.Add(card, cardInstance);
             Apply(cardInstance, card, game.Rules);
-            SetCardPublicState(cardInstance, game.IsMainUser(user));
+            SetCardPublicState(cardInstance, game.IsMainUser(user) || isAlwaysHandVisible);
             if (game.IsMainUser(user))
             {
                 cardInstance.Q<Button>("MainImage").OnClickAsObservable()
