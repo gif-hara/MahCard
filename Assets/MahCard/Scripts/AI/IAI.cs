@@ -9,5 +9,7 @@ namespace MahCard.AI
     public interface IAI
     {
         UniTask<int> DiscardAsync(User user, CancellationToken scope);
+
+        UniTask<Define.DeckType> ChoiceDeckTypeAsync(User user, CancellationToken scope);
     }
 }

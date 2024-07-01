@@ -45,5 +45,17 @@ namespace MahCard.AI
                 .RegisterTo(scope);
             return source.Task;
         }
+
+        public UniTask<Define.DeckType> ChoiceDeckTypeAsync(User user, CancellationToken scope)
+        {
+            var source = new UniTaskCompletionSource<Define.DeckType>();
+            user.OnSelectedDeckType
+                .Subscribe(x =>
+                {
+                    source.TrySetResult(x);
+                })
+                .RegisterTo(scope);
+            return source.Task;
+        }
     }
 }
