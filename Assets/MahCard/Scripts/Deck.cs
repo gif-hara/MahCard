@@ -9,7 +9,7 @@ namespace MahCard
     public sealed class Deck
     {
         private readonly Stack<Card> cards;
-        
+
         public int Count => cards.Count;
 
         public Deck()
@@ -58,6 +58,11 @@ namespace MahCard
             {
                 cards.Push(other.Draw());
             }
+        }
+
+        public Card Peek()
+        {
+            return cards.Peek();
         }
     }
 }
