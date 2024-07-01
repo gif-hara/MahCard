@@ -18,6 +18,8 @@ namespace MahCard
 
         public Subject<int> OnSelectedCardIndex { get; } = new Subject<int>();
 
+        public Subject<Define.DeckType> OnSelectedDeckType { get; } = new Subject<Define.DeckType>();
+
         public User(string name, IAI ai)
         {
             Name = name;
