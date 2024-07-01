@@ -75,9 +75,14 @@ namespace MahCard.View
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
         }
 
-        public override UniTask OnGameStartAsync(Game game, CancellationToken scope)
+        public override UniTask OnBeginGameAsync(Game game, CancellationToken scope)
         {
             return BeginNotification("Game Start!", 1.0f, scope);
+        }
+
+        public override UniTask OnWinAsync(Game game, User user, CancellationToken scope)
+        {
+            return BeginNotification($"{user.Name} Win!", 1.0f, scope);
         }
 
         public override UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)

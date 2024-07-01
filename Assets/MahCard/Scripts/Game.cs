@@ -72,7 +72,7 @@ namespace MahCard
 
         private async UniTask StateBeginGame(CancellationToken scope)
         {
-            await view.OnGameStartAsync(this, scope);
+            await view.OnBeginGameAsync(this, scope);
             await DeckShuffleProcessAsync(scope);
             foreach (var user in Users)
             {
@@ -140,7 +140,7 @@ namespace MahCard
             }
             var card = user.Draw(Deck);
             await view.OnDrawCardAsync(this, user, card, scope);
-            if (user.IsAllSame())
+            if (user.IsWin(Rules))
             {
                 await view.OnWinAsync(this, user, scope);
                 return true;

@@ -10,7 +10,7 @@ namespace MahCard.View
     {
         void Setup(Game game);
 
-        UniTask OnGameStartAsync(Game game, CancellationToken scope);
+        UniTask OnBeginGameAsync(Game game, CancellationToken scope);
 
         UniTask OnDeckShuffledAsync(Game game, CancellationToken scope);
 

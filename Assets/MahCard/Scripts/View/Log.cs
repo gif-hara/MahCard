@@ -11,7 +11,7 @@ namespace MahCard.View
     [Serializable]
     public sealed class Log : View
     {
-        public override UniTask OnGameStartAsync(Game game, CancellationToken scope)
+        public override UniTask OnBeginGameAsync(Game game, CancellationToken scope)
         {
             Debug.Log("GameStart");
             return UniTask.CompletedTask;

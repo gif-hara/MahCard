@@ -39,9 +39,9 @@ namespace MahCard
             return card;
         }
 
-        public bool IsAllSame()
+        public bool IsWin(GameRules rules)
         {
-            return Cards.All(c => c.Color == Cards[0].Color);
+            return Cards.Count == rules.HandCardCount + 1 && Cards.All(c => c.Color == Cards[0].Color);
         }
 
         public int GetCardIndex(Card card)
