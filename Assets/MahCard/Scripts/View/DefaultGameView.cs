@@ -54,6 +54,7 @@ namespace MahCard.View
             const string mainImageKey = "MainImage";
             cardInstance.Q<Image>(mainImageKey).color = game.Rules.GetColor(card.Color);
             cardInstance.Q<TMP_Text>("AbilityText").SetText(card.Ability.ToString());
+            SetCardPublicState(cardInstance, game.IsMainUser(user));
             if (game.IsMainUser(user))
             {
                 cardInstance.Q<Button>(mainImageKey).OnClickAsObservable()
@@ -106,6 +107,12 @@ namespace MahCard.View
             notificationArea.SetActive(true);
             await UniTask.Delay(TimeSpan.FromSeconds(waitSeconds), cancellationToken: scope);
             notificationArea.SetActive(false);
+        }
+
+        private static void SetCardPublicState(HKUIDocument card, bool isPublic)
+        {
+            card.Q("PublicArea").SetActive(isPublic);
+            card.Q("PrivateArea").SetActive(!isPublic);
         }
     }
 }
