@@ -15,16 +15,31 @@ MonoBehaviour:
   cards:
   - color: 0
     ability: 0
-    count: 10
+    count: 7
   - color: 1
     ability: 0
-    count: 10
+    count: 7
   - color: 2
     ability: 0
-    count: 10
+    count: 7
   - color: 3
     ability: 0
-    count: 10
+    count: 7
   - color: 4
     ability: 0
-    count: 10
+    count: 7
+  - color: 0
+    ability: 1
+    count: 3
+  - color: 1
+    ability: 1
+    count: 3
+  - color: 2
+    ability: 1
+    count: 3
+  - color: 3
+    ability: 1
+    count: 3
+  - color: 4
+    ability: 1
+    count: 3

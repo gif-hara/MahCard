@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using HK;
 using R3;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,6 +52,7 @@ namespace MahCard.View
             cardDocuments.Add(card, cardInstance);
             const string mainImageKey = "MainImage";
             cardInstance.Q<Image>(mainImageKey).color = game.Rules.GetColor(card.Color);
+            cardInstance.Q<TMP_Text>("AbilityText").SetText(card.Ability.ToString());
             if (game.IsMainUser(user))
             {
                 cardInstance.Q<Button>(mainImageKey).OnClickAsObservable()
