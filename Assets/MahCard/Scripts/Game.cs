@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -71,37 +72,47 @@ namespace MahCard
 
         private async UniTask StateGameStart(CancellationToken scope)
         {
-            await view.OnGameStartAsync(this);
+            await view.OnGameStartAsync(this, scope);
             Deck.Shuffle(random);
-            await view.OnDeckShuffledAsync(this);
+            await view.OnDeckShuffledAsync(this, scope);
             foreach (var user in Users)
             {
                 for (var i = 0; i < Rules.HandCardCount; i++)
                 {
-                    await DrawProcessAsync(user);
+                    await DrawProcessAsync(user, scope);
                 }
             }
             parentIndex = random.NextInt(0, Users.Count);
-            await view.OnDecidedParentAsync(this, Users[parentIndex]);
-            stateMachine.Change(StateUserTurn);
+            await view.OnDecidedParentAsync(this, Users[parentIndex], scope);
+            stateMachine.Change(StateBeginTurn);
         }
 
-        private async UniTask StateUserTurn(CancellationToken scope)
+        private async UniTask StateBeginTurn(CancellationToken scope)
         {
             var index = CurrentUserIndex;
             var user = Users[index];
-            await view.OnStartTurnAsync(this, user);
-            await DrawProcessAsync(user);
+            await view.OnStartTurnAsync(this, user, scope);
+            await DrawProcessAsync(user, scope);
             if (user.IsAllSame())
             {
-                await view.OnWinAsync(this, user);
+                await view.OnWinAsync(this, user, scope);
                 stateMachine.Change(StateGameEnd);
                 return;
             }
             var discardIndex = await user.AI.DiscardAsync(user, scope);
-            await DiscardProcessAsync(user, discardIndex);
-            turnCount++;
-            stateMachine.Change(StateUserTurn);
+            var discardCard = await DiscardProcessAsync(user, discardIndex, scope);
+            switch (discardCard.Ability)
+            {
+                case Define.CardAbility.None:
+                    stateMachine.Change(StateEndTurn);
+                    break;
+                case Define.CardAbility.Double:
+                    stateMachine.Change(StateDiscardDoubleCard);
+                    break;
+                default:
+                    Assert.IsTrue(false, $"Invalid card ability: {discardCard.Ability}");
+                    break;
+            }
         }
         
         private async UniTask StateDiscardDoubleCard(CancellationToken scope)
@@ -109,18 +120,18 @@ namespace MahCard
             var index = CurrentUserIndex;
             var user = Users[index];
             var discardIndex = await user.AI.DiscardAsync(user, scope);
-            await DiscardProcessAsync(user, discardIndex);
+            await DiscardProcessAsync(user, discardIndex, scope);
             discardIndex = await user.AI.DiscardAsync(user, scope);
-            await DiscardProcessAsync(user, discardIndex);
-            await DrawProcessAsync(user);
-            await DrawProcessAsync(user);
+            await DiscardProcessAsync(user, discardIndex, scope);
+            await DrawProcessAsync(user, scope);
+            await DrawProcessAsync(user, scope);
             stateMachine.Change(StateEndTurn);
         }
         
         private UniTask StateEndTurn(CancellationToken scope)
         {
             turnCount++;
-            stateMachine.Change(StateUserTurn);
+            stateMachine.Change(StateBeginTurn);
             return UniTask.CompletedTask;
         }
         
@@ -130,23 +141,24 @@ namespace MahCard
             return UniTask.CompletedTask;
         }
 
-        private async UniTask DrawProcessAsync(User user)
+        private async UniTask DrawProcessAsync(User user, CancellationToken scope)
         {
             if (Deck.IsEmpty())
             {
                 Deck.Fill(DiscardDeck);
-                await view.OnFilledDeckAsync(this);
+                await view.OnFilledDeckAsync(this, scope);
                 Deck.Shuffle(random);
             }
             var card = user.Draw(Deck);
-            await view.OnDrawCardAsync(this, user, card);
+            await view.OnDrawCardAsync(this, user, card, scope);
         }
 
-        private async UniTask DiscardProcessAsync(User user, int discardIndex)
+        private async UniTask<Card> DiscardProcessAsync(User user, int discardIndex, CancellationToken scope)
         {
             var card = user.Discard(discardIndex);
-            await view.OnDiscardAsync(this, user, card);
+            await view.OnDiscardAsync(this, user, card, scope);
             DiscardDeck.Push(card);
+            return card;
         }
     }
 }

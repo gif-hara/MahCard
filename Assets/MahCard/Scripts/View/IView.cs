@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 
 namespace MahCard.View
@@ -9,20 +10,20 @@ namespace MahCard.View
     {
         void Setup(Game game);
 
-        UniTask OnGameStartAsync(Game game);
+        UniTask OnGameStartAsync(Game game, CancellationToken scope);
 
-        UniTask OnDeckShuffledAsync(Game game);
+        UniTask OnDeckShuffledAsync(Game game, CancellationToken scope);
 
-        UniTask OnDrawCardAsync(Game game, User user, Card card);
+        UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope);
 
-        UniTask OnDecidedParentAsync(Game game, User user);
+        UniTask OnDecidedParentAsync(Game game, User user, CancellationToken scope);
 
-        UniTask OnStartTurnAsync(Game game, User user);
+        UniTask OnStartTurnAsync(Game game, User user, CancellationToken scope);
 
-        UniTask OnWinAsync(Game game, User user);
+        UniTask OnWinAsync(Game game, User user, CancellationToken scope);
 
-        UniTask OnDiscardAsync(Game game, User user, Card card);
+        UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope);
         
-        UniTask OnFilledDeckAsync(Game game);
+        UniTask OnFilledDeckAsync(Game game, CancellationToken scope);
     }
 }

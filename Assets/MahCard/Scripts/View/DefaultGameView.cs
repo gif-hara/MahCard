@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using HK;
 using R3;
@@ -44,7 +45,7 @@ namespace MahCard.View
             }
         }
 
-        public override UniTask OnDrawCardAsync(Game game, User user, Card card)
+        public override async UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope)
         {
             var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card");
             var cardParent = userAreaDocuments[user].Q<RectTransform>("CardArea");
@@ -62,10 +63,11 @@ namespace MahCard.View
                     })
                     .RegisterTo(cardInstance.destroyCancellationToken);
             }
-            return UniTask.CompletedTask;
+
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: scope);
         }
 
-        public override UniTask OnDiscardAsync(Game game, User user, Card card)
+        public override UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
         {
             var cardInstance = cardDocuments[card];
             cardDocuments.Remove(card);
