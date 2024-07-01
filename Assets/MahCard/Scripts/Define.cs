@@ -21,5 +21,11 @@ namespace MahCard
             Reset,
             Trade,
         }
+
+        public enum DeckType
+        {
+            Deck,
+            DiscardDeck,
+        }
     }
 }
