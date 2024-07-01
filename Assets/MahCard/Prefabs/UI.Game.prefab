@@ -245,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[1].overrideName
-      value: Prefab.UI.Card.Inside
+      value: Prefab.UI.Card
       objectReference: {fileID: 0}
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[2].overrideName

@@ -45,7 +45,7 @@ namespace MahCard.View
 
         public override UniTask OnDrawCardAsync(Game game, User user, Card card)
         {
-            var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card.Inside");
+            var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card");
             var cardParent = userAreaDocuments[user].Q<RectTransform>("CardArea");
             var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
             cardDocuments.Add(card, cardInstance);
