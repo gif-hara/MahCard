@@ -60,7 +60,7 @@ namespace MahCard
             Assert.IsNull(endGameCompletionSource);
             endGameCompletionSource = new UniTaskCompletionSource();
             view.Setup(this);
-            stateMachine.Change(StateGameStart);
+            stateMachine.Change(StateBeginGame);
 
             return endGameCompletionSource.Task;
         }
@@ -70,7 +70,7 @@ namespace MahCard
             return Users[MainUserIndex] == user;
         }
 
-        private async UniTask StateGameStart(CancellationToken scope)
+        private async UniTask StateBeginGame(CancellationToken scope)
         {
             await view.OnGameStartAsync(this, scope);
             await DeckShuffleProcessAsync(scope);
@@ -94,7 +94,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, scope);
             if (isWin)
             {
-                stateMachine.Change(StateGameEnd);
+                stateMachine.Change(StateEndGame);
                 return;
             }
             var discardIndex = await user.AI.DiscardAsync(user, scope);
@@ -109,7 +109,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, scope);
             if (isWin)
             {
-                stateMachine.Change(StateGameEnd);
+                stateMachine.Change(StateEndGame);
                 return;
             }
             var discardIndex = await user.AI.DiscardAsync(user, scope);
@@ -124,7 +124,7 @@ namespace MahCard
             return UniTask.CompletedTask;
         }
         
-        private UniTask StateGameEnd(CancellationToken scope)
+        private UniTask StateEndGame(CancellationToken scope)
         {
             endGameCompletionSource.TrySetResult();
             return UniTask.CompletedTask;
