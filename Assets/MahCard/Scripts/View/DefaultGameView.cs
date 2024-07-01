@@ -141,12 +141,12 @@ namespace MahCard.View
         private void UpdateDeckView(HKUIDocument deckAreaDocument, Deck deck)
         {
             var deckAreaTransform = (RectTransform)deckAreaDocument.transform;
-            var thicknessDocument = deckAreaDocument.Q<RectTransform>("Thickness");
+            var thicknessTransform = deckAreaDocument.Q<RectTransform>("Thickness");
             var rate = (float)deck.Count / deckMaxCount;
             var p = deckAreaTransform.anchoredPosition;
             deckAreaDocument.gameObject.SetActive(deck.Count > 0);
             deckAreaTransform.anchoredPosition = new Vector2(p.x, -deckMaxCount * (1 - rate));
-            thicknessDocument.sizeDelta = new Vector2(thicknessDocument.sizeDelta.x, deckMaxCount * rate);
+            thicknessTransform.sizeDelta = new Vector2(thicknessTransform.sizeDelta.x, deckMaxCount * rate);
         }
     }
 }
