@@ -35,7 +35,7 @@ namespace MahCard
         private int parentIndex = 0;
 
         private int turnCount = 0;
-        
+
         private int CurrentUserIndex => (parentIndex + turnCount) % Users.Count;
 
         public Game(
@@ -70,15 +70,20 @@ namespace MahCard
             return Users[MainUserIndex] == user;
         }
 
+        public User GetMainUser()
+        {
+            return Users[MainUserIndex];
+        }
+
         private async UniTask StateBeginGame(CancellationToken scope)
         {
             await view.OnBeginGameAsync(this, scope);
-            await DeckShuffleProcessAsync(scope);
+            await DeckShuffleProcessAsync(Deck, scope);
             foreach (var user in Users)
             {
                 for (var i = 0; i < Rules.HandCardCount; i++)
                 {
-                    await DrawProcessAsync(user, scope);
+                    await DrawProcessAsync(user, Deck, scope);
                 }
             }
             parentIndex = random.NextInt(0, Users.Count);
@@ -91,7 +96,8 @@ namespace MahCard
             var index = CurrentUserIndex;
             var user = Users[index];
             await view.OnBeginTurnAsync(this, user, scope);
-            var isWin = await DrawProcessAsync(user, scope);
+            var deckType = await user.AI.ChoiceDeckTypeAsync(this, user, scope);
+            var isWin = await DrawProcessAsync(user, GetDeck(deckType), scope);
             if (isWin)
             {
                 stateMachine.Change(StateEndGame);
@@ -101,13 +107,13 @@ namespace MahCard
             var discardCard = await DiscardProcessAsync(user, discardIndex, scope);
             TryInvokeAbility(discardCard);
         }
-        
+
         private async UniTask StateDiscardRetryCard(CancellationToken scope)
         {
             var index = CurrentUserIndex;
             var user = Users[index];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Retry, scope);
-            var isWin = await DrawProcessAsync(user, scope);
+            var isWin = await DrawProcessAsync(user, Deck, scope);
             if (isWin)
             {
                 stateMachine.Change(StateEndGame);
@@ -117,7 +123,7 @@ namespace MahCard
             var discardCard = await DiscardProcessAsync(user, discardIndex, scope);
             TryInvokeAbility(discardCard);
         }
-        
+
         private async UniTask StateDiscardResetCard(CancellationToken scope)
         {
             var index = CurrentUserIndex;
@@ -129,7 +135,7 @@ namespace MahCard
             }
             for (var i = 0; i < Rules.HandCardCount; i++)
             {
-                await DrawProcessAsync(user, scope);
+                await DrawProcessAsync(user, Deck, scope);
             }
             stateMachine.Change(StateEndTurn);
         }
@@ -137,7 +143,7 @@ namespace MahCard
         private async UniTask StateDiscardTradeCard(CancellationToken scope)
         {
             // この効果は捨札に2枚以上のカードが無いと発動出来ない
-            if(DiscardDeck.Count < 2)
+            if (DiscardDeck.Count < 2)
             {
                 stateMachine.Change(StateEndTurn);
                 return;
@@ -159,28 +165,28 @@ namespace MahCard
             await DiscardProcessAsync(user, discardIndex, scope);
             stateMachine.Change(StateEndTurn);
         }
-        
+
         private UniTask StateEndTurn(CancellationToken scope)
         {
             turnCount++;
             stateMachine.Change(StateBeginTurn);
             return UniTask.CompletedTask;
         }
-        
+
         private UniTask StateEndGame(CancellationToken scope)
         {
             endGameCompletionSource.TrySetResult();
             return UniTask.CompletedTask;
         }
 
-        private async UniTask<bool> DrawProcessAsync(User user, CancellationToken scope)
+        private async UniTask<bool> DrawProcessAsync(User user, Deck deck, CancellationToken scope)
         {
-            if (Deck.IsEmpty())
+            if (deck == Deck && deck.IsEmpty())
             {
-                await DeckFillProcessAsync(Deck, DiscardDeck, scope);
-                await DeckShuffleProcessAsync(scope);
+                await DeckFillProcessAsync(deck, DiscardDeck, scope);
+                await DeckShuffleProcessAsync(deck, scope);
             }
-            var card = user.Draw(Deck);
+            var card = user.Draw(deck);
             await view.OnDrawCardAsync(this, user, card, scope);
             if (user.IsWin(Rules))
             {
@@ -198,16 +204,16 @@ namespace MahCard
             await view.OnDiscardAsync(this, user, card, scope);
             return card;
         }
-        
+
         private async UniTask DeckFillProcessAsync(Deck deck, Deck targetDeck, CancellationToken scope)
         {
             deck.Fill(targetDeck);
             await view.OnFilledDeckAsync(this, scope);
         }
-        
-        private async UniTask DeckShuffleProcessAsync(CancellationToken scope)
+
+        private async UniTask DeckShuffleProcessAsync(Deck deck, CancellationToken scope)
         {
-            Deck.Shuffle(random);
+            deck.Shuffle(random);
             await view.OnDeckShuffledAsync(this, scope);
         }
 
@@ -231,6 +237,16 @@ namespace MahCard
                     Assert.IsTrue(false, $"Invalid card ability: {card.Ability}");
                     break;
             }
+        }
+
+        private Deck GetDeck(Define.DeckType deckType)
+        {
+            return deckType switch
+            {
+                Define.DeckType.Deck => Deck,
+                Define.DeckType.DiscardDeck => DiscardDeck,
+                _ => throw new ArgumentOutOfRangeException(nameof(deckType), deckType, null),
+            };
         }
     }
 }
