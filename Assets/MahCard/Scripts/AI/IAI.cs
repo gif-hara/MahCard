@@ -10,6 +10,6 @@ namespace MahCard.AI
     {
         UniTask<int> DiscardAsync(User user, CancellationToken scope);
 
-        UniTask<Define.DeckType> ChoiceDeckTypeAsync(User user, CancellationToken scope);
+        UniTask<Define.DeckType> ChoiceDeckTypeAsync(Game game, User user, CancellationToken scope);
     }
 }

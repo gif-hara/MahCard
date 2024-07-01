@@ -46,7 +46,7 @@ namespace MahCard.AI
             return source.Task;
         }
 
-        public UniTask<Define.DeckType> ChoiceDeckTypeAsync(User user, CancellationToken scope)
+        public UniTask<Define.DeckType> ChoiceDeckTypeAsync(Game game, User user, CancellationToken scope)
         {
             var source = new UniTaskCompletionSource<Define.DeckType>();
             user.OnSelectedDeckType
