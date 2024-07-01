@@ -32,7 +32,7 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
-        public virtual UniTask OnStartTurnAsync(Game game, User user, CancellationToken scope)
+        public virtual UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
         {
             return UniTask.CompletedTask;
         }
@@ -48,6 +48,11 @@ namespace MahCard.View
         }
 
         public virtual UniTask OnFilledDeckAsync(Game game, CancellationToken scope)
+        {
+            return UniTask.CompletedTask;
+        }
+
+        public virtual UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)
         {
             return UniTask.CompletedTask;
         }

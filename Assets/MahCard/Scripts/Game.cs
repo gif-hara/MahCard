@@ -90,7 +90,7 @@ namespace MahCard
         {
             var index = CurrentUserIndex;
             var user = Users[index];
-            await view.OnStartTurnAsync(this, user, scope);
+            await view.OnBeginTurnAsync(this, user, scope);
             var isWin = await DrawProcessAsync(user, scope);
             if (isWin)
             {
@@ -106,6 +106,7 @@ namespace MahCard
         {
             var index = CurrentUserIndex;
             var user = Users[index];
+            await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Retry, scope);
             var isWin = await DrawProcessAsync(user, scope);
             if (isWin)
             {

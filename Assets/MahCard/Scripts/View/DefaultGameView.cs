@@ -80,6 +80,20 @@ namespace MahCard.View
             return BeginNotification("Game Start!", 1.0f, scope);
         }
 
+        public override UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
+        {
+            if (game.IsMainUser(user))
+            {
+                return BeginNotification($"{user.Name}'s Turn", 1.0f, scope);
+            }
+            return UniTask.CompletedTask;
+        }
+
+        public override UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)
+        {
+            return BeginNotification(ability.ToString(), 1.0f, scope);
+        }
+
         private async UniTask BeginNotification(string message, float waitSeconds, CancellationToken scope)
         {
             var notificationArea = gameDocument.Q("NotificationArea");
