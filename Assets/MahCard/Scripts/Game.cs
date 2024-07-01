@@ -93,13 +93,19 @@ namespace MahCard
             if (user.IsAllSame())
             {
                 await view.OnWinAsync(this, user);
-                endGameCompletionSource.TrySetResult();
+                stateMachine.Change(StateGameEnd);
                 return;
             }
             var discardIndex = await user.AI.DiscardAsync(user, scope);
             await DiscardProcessAsync(user, discardIndex);
             turnCount++;
             stateMachine.Change(StateUserTurn);
+        }
+        
+        private UniTask StateGameEnd(CancellationToken scope)
+        {
+            endGameCompletionSource.TrySetResult();
+            return UniTask.CompletedTask;
         }
 
         private async UniTask DrawProcessAsync(User user)
