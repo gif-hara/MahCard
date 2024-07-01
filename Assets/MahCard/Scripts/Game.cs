@@ -108,7 +108,8 @@ namespace MahCard
             await view.OnDrawCardAsync(this, user, card);
             if (Deck.IsEmpty())
             {
-                Deck.Fill(DiscardDeck, random);
+                Deck.Fill(DiscardDeck);
+                Deck.Shuffle(random);
             }
         }
 

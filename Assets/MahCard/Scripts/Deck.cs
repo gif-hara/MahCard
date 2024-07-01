@@ -37,9 +37,7 @@ namespace MahCard
             for (var i = cards.Length - 1; i > 0; i--)
             {
                 var j = random.NextInt(0, i + 1);
-                var temp = cards[i];
-                cards[i] = cards[j];
-                cards[j] = temp;
+                (cards[i], cards[j]) = (cards[j], cards[i]);
             }
             foreach (var card in cards)
             {
@@ -52,14 +50,12 @@ namespace MahCard
             return Cards.Count <= 0;
         }
 
-        public void Fill(Deck other, Unity.Mathematics.Random random)
+        public void Fill(Deck other)
         {
             while (!other.IsEmpty())
             {
                 Cards.Push(other.Draw());
             }
-            Shuffle(random);
-            Debug.Log("Deck filled");
         }
     }
 }
