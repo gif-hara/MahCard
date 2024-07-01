@@ -104,13 +104,14 @@ namespace MahCard
 
         private async UniTask DrawProcessAsync(User user)
         {
-            var card = user.Draw(Deck);
-            await view.OnDrawCardAsync(this, user, card);
             if (Deck.IsEmpty())
             {
                 Deck.Fill(DiscardDeck);
+                await view.OnFilledDeckAsync(this);
                 Deck.Shuffle(random);
             }
+            var card = user.Draw(Deck);
+            await view.OnDrawCardAsync(this, user, card);
         }
 
         private async UniTask DiscardProcessAsync(User user, int discardIndex)
