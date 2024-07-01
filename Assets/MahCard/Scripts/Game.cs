@@ -34,6 +34,8 @@ namespace MahCard
         private int parentIndex = 0;
 
         private int turnCount = 0;
+        
+        private int CurrentUserIndex => (parentIndex + turnCount) % Users.Count;
 
         public Game(
             IEnumerable<User> users,
@@ -86,7 +88,7 @@ namespace MahCard
 
         private async UniTask StateUserTurn(CancellationToken scope)
         {
-            var index = (parentIndex + turnCount) % Users.Count;
+            var index = CurrentUserIndex;
             var user = Users[index];
             await view.OnStartTurnAsync(this, user);
             await DrawProcessAsync(user);
@@ -100,6 +102,26 @@ namespace MahCard
             await DiscardProcessAsync(user, discardIndex);
             turnCount++;
             stateMachine.Change(StateUserTurn);
+        }
+        
+        private async UniTask StateDiscardDoubleCard(CancellationToken scope)
+        {
+            var index = CurrentUserIndex;
+            var user = Users[index];
+            var discardIndex = await user.AI.DiscardAsync(user, scope);
+            await DiscardProcessAsync(user, discardIndex);
+            discardIndex = await user.AI.DiscardAsync(user, scope);
+            await DiscardProcessAsync(user, discardIndex);
+            await DrawProcessAsync(user);
+            await DrawProcessAsync(user);
+            stateMachine.Change(StateEndTurn);
+        }
+        
+        private UniTask StateEndTurn(CancellationToken scope)
+        {
+            turnCount++;
+            stateMachine.Change(StateUserTurn);
+            return UniTask.CompletedTask;
         }
         
         private UniTask StateGameEnd(CancellationToken scope)

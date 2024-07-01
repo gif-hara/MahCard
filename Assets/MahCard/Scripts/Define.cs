@@ -17,6 +17,7 @@ namespace MahCard
         public enum CardAbility
         {
             None,
+            Double,
         }
     }
 }
