@@ -133,6 +133,32 @@ namespace MahCard
             }
             stateMachine.Change(StateEndTurn);
         }
+
+        private async UniTask StateDiscardTradeCard(CancellationToken scope)
+        {
+            // この効果は捨札に2枚以上のカードが無いと発動出来ない
+            if(DiscardDeck.Count < 2)
+            {
+                stateMachine.Change(StateEndTurn);
+                return;
+            }
+            var index = CurrentUserIndex;
+            var user = Users[index];
+            await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Trade, scope);
+            // この段階ではTradeアビリティのカードが捨てられているので一度引いておく
+            var tempCard = DiscardDeck.Draw();
+            var drawCard = user.Draw(DiscardDeck);
+            DiscardDeck.Push(tempCard);
+            await view.OnDrawCardAsync(this, user, drawCard, scope);
+            if (user.IsWin(Rules))
+            {
+                stateMachine.Change(StateEndGame);
+                return;
+            }
+            var discardIndex = await user.AI.DiscardAsync(user, scope);
+            await DiscardProcessAsync(user, discardIndex, scope);
+            stateMachine.Change(StateEndTurn);
+        }
         
         private UniTask StateEndTurn(CancellationToken scope)
         {
@@ -151,7 +177,7 @@ namespace MahCard
         {
             if (Deck.IsEmpty())
             {
-                await DeckFillProcessAsync(scope);
+                await DeckFillProcessAsync(Deck, DiscardDeck, scope);
                 await DeckShuffleProcessAsync(scope);
             }
             var card = user.Draw(Deck);
@@ -168,14 +194,14 @@ namespace MahCard
         private async UniTask<Card> DiscardProcessAsync(User user, int discardIndex, CancellationToken scope)
         {
             var card = user.Discard(discardIndex);
-            await view.OnDiscardAsync(this, user, card, scope);
             DiscardDeck.Push(card);
+            await view.OnDiscardAsync(this, user, card, scope);
             return card;
         }
         
-        private async UniTask DeckFillProcessAsync(CancellationToken scope)
+        private async UniTask DeckFillProcessAsync(Deck deck, Deck targetDeck, CancellationToken scope)
         {
-            Deck.Fill(DiscardDeck);
+            deck.Fill(targetDeck);
             await view.OnFilledDeckAsync(this, scope);
         }
         
@@ -197,6 +223,9 @@ namespace MahCard
                     break;
                 case Define.CardAbility.Reset:
                     stateMachine.Change(StateDiscardResetCard);
+                    break;
+                case Define.CardAbility.Trade:
+                    stateMachine.Change(StateDiscardTradeCard);
                     break;
                 default:
                     Assert.IsTrue(false, $"Invalid card ability: {card.Ability}");

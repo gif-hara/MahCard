@@ -19,6 +19,7 @@ namespace MahCard
             None,
             Retry,
             Reset,
+            Trade,
         }
     }
 }
