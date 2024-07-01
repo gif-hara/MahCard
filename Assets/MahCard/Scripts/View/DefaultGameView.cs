@@ -18,18 +18,18 @@ namespace MahCard.View
     {
         [SerializeField]
         private HKUIDocument gameDocumentPrefab;
-        
+
         [SerializeField]
         private bool isAlwaysHandVisible;
 
         private HKUIDocument gameDocument;
-        
+
         private HKUIDocument discardCardDocument;
-        
+
         private int deckMaxCount;
 
         private readonly Dictionary<Card, HKUIDocument> cardDocuments = new();
-        
+
         private readonly Dictionary<User, HKUIDocument> userAreaDocuments = new();
 
         public override void Setup(Game game)
@@ -51,12 +51,29 @@ namespace MahCard.View
                     userAreaDocuments.Add(user, subUserInstance);
                 }
             }
+            var mainUser = game.GetMainUser();
+            gameDocument.Q<Button>("DeckButton").OnClickAsObservable()
+                .Subscribe(_ =>
+                {
+                    mainUser.OnSelectedDeckType.OnNext(Define.DeckType.Deck);
+                    Debug.Log("DeckButton");
+                })
+                .RegisterTo(gameDocument.destroyCancellationToken);
+            gameDocument.Q<Button>("DiscardDeckButton").OnClickAsObservable()
+                .Subscribe(_ =>
+                {
+                    mainUser.OnSelectedDeckType.OnNext(Define.DeckType.DiscardDeck);
+                    Debug.Log("DiscardDeckButton");
+                })
+                .RegisterTo(gameDocument.destroyCancellationToken);
         }
 
         public override async UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope)
         {
             gameDocument.Q<TMP_Text>("DeckRemainingCount").SetText(game.Deck.Count.ToString());
             UpdateDeckView(gameDocument.Q<HKUIDocument>("DeckArea"), game.Deck);
+            UpdateDeckView(gameDocument.Q<HKUIDocument>("DiscardDeckArea"), game.DiscardDeck);
+            UpdateDiscardDeckView(game);
             var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card");
             var cardParent = userAreaDocuments[user].Q<RectTransform>("CardArea");
             var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
@@ -69,6 +86,7 @@ namespace MahCard.View
                     .Subscribe(_ =>
                     {
                         user.OnSelectedCardIndex.OnNext(user.GetCardIndex(card));
+                        Debug.Log("MainImage");
                     })
                     .RegisterTo(cardInstance.destroyCancellationToken);
             }
@@ -82,9 +100,7 @@ namespace MahCard.View
             var cardInstance = cardDocuments[card];
             cardDocuments.Remove(card);
             UnityEngine.Object.Destroy(cardInstance.gameObject);
-            discardCardDocument.gameObject.SetActive(true);
-            SetCardPublicState(discardCardDocument, true);
-            Apply(discardCardDocument, card, game.Rules);
+            UpdateDiscardDeckView(game);
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
         }
 
@@ -134,7 +150,7 @@ namespace MahCard.View
             card.Q("PublicArea").SetActive(isPublic);
             card.Q("PrivateArea").SetActive(!isPublic);
         }
-        
+
         private static void Apply(HKUIDocument cardDocument, Card card, GameRules rules)
         {
             cardDocument.Q<Image>("MainImage").color = rules.GetColor(card.Color);
@@ -150,6 +166,20 @@ namespace MahCard.View
             deckAreaDocument.gameObject.SetActive(deck.Count > 0);
             deckAreaTransform.anchoredPosition = new Vector2(p.x, -deckMaxCount * (1 - rate));
             thicknessTransform.sizeDelta = new Vector2(thicknessTransform.sizeDelta.x, deckMaxCount * rate);
+        }
+
+        private void UpdateDiscardDeckView(Game game)
+        {
+            if (game.DiscardDeck.Count > 0)
+            {
+                discardCardDocument.gameObject.SetActive(true);
+                SetCardPublicState(discardCardDocument, true);
+                Apply(discardCardDocument, game.DiscardDeck.Peek(), game.Rules);
+            }
+            else
+            {
+                discardCardDocument.gameObject.SetActive(false);
+            }
         }
     }
 }
