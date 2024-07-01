@@ -74,5 +74,19 @@ namespace MahCard.View
             UnityEngine.Object.Destroy(cardInstance.gameObject);
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
         }
+
+        public override UniTask OnGameStartAsync(Game game, CancellationToken scope)
+        {
+            return BeginNotification("Game Start!", 1.0f, scope);
+        }
+
+        private async UniTask BeginNotification(string message, float waitSeconds, CancellationToken scope)
+        {
+            var notificationArea = gameDocument.Q("NotificationArea");
+            gameDocument.Q<TMP_Text>("NotificationText").SetText(message);
+            notificationArea.SetActive(true);
+            await UniTask.Delay(TimeSpan.FromSeconds(waitSeconds), cancellationToken: scope);
+            notificationArea.SetActive(false);
+        }
     }
 }
