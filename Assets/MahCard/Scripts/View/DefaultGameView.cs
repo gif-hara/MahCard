@@ -47,6 +47,7 @@ namespace MahCard.View
 
         public override async UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope)
         {
+            gameDocument.Q<TMP_Text>("DeckRemainingCount").SetText(game.Deck.Count.ToString());
             var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card");
             var cardParent = userAreaDocuments[user].Q<RectTransform>("CardArea");
             var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);

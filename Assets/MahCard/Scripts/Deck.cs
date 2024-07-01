@@ -8,32 +8,34 @@ namespace MahCard
     /// </summary>
     public sealed class Deck
     {
-        public Stack<Card> Cards { get; }
+        private readonly Stack<Card> cards;
+        
+        public int Count => cards.Count;
 
         public Deck()
         {
-            Cards = new Stack<Card>();
+            cards = new Stack<Card>();
         }
 
         public Deck(IEnumerable<Card> cards)
         {
-            Cards = new Stack<Card>(cards);
+            this.cards = new Stack<Card>(cards);
         }
 
         public Card Draw()
         {
-            return Cards.Pop();
+            return cards.Pop();
         }
 
         public void Push(Card card)
         {
-            Cards.Push(card);
+            cards.Push(card);
         }
 
         public void Shuffle(Unity.Mathematics.Random random)
         {
-            var cards = Cards.ToArray();
-            Cards.Clear();
+            var cards = this.cards.ToArray();
+            this.cards.Clear();
             for (var i = cards.Length - 1; i > 0; i--)
             {
                 var j = random.NextInt(0, i + 1);
@@ -41,20 +43,20 @@ namespace MahCard
             }
             foreach (var card in cards)
             {
-                Cards.Push(card);
+                this.cards.Push(card);
             }
         }
 
         public bool IsEmpty()
         {
-            return Cards.Count <= 0;
+            return cards.Count <= 0;
         }
 
         public void Fill(Deck other)
         {
             while (!other.IsEmpty())
             {
-                Cards.Push(other.Draw());
+                cards.Push(other.Draw());
             }
         }
     }
