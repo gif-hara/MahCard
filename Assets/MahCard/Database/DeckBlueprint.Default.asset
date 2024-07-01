@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards:
   - color: 0
-    number: 0
+    ability: 0
     count: 10
   - color: 1
-    number: 0
+    ability: 0
     count: 10
   - color: 2
-    number: 0
+    ability: 0
     count: 10
   - color: 3
-    number: 0
+    ability: 0
     count: 10
   - color: 4
-    number: 0
+    ability: 0
     count: 10

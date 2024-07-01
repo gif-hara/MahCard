@@ -14,7 +14,7 @@ namespace MahCard
         private Define.CardColor color;
 
         [SerializeField]
-        private Define.CardAbility number;
+        private Define.CardAbility ability;
 
         [SerializeField]
         private int count;
@@ -23,7 +23,7 @@ namespace MahCard
         {
             for (var i = 0; i < count; i++)
             {
-                yield return new Card(color, number);
+                yield return new Card(color, ability);
             }
         }
     }
