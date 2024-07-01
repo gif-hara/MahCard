@@ -34,9 +34,8 @@ namespace MahCard.View
             gameDocument = UnityEngine.Object.Instantiate(gameDocumentPrefab);
             discardCardDocument = gameDocument.Q<HKUIDocument>("DiscardCard");
             deckMaxCount = game.Deck.Count;
-            for (var i = 0; i < game.Users.Count; i++)
+            foreach (var user in game.Users)
             {
-                var user = game.Users[i];
                 if (game.IsMainUser(user))
                 {
                     userAreaDocuments.Add(user, gameDocument.Q<HKUIDocument>("MainUserArea"));
@@ -59,7 +58,7 @@ namespace MahCard.View
             var cardParent = userAreaDocuments[user].Q<RectTransform>("CardArea");
             var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
             cardDocuments.Add(card, cardInstance);
-            Apply(cardInstance, game.Rules, card);
+            Apply(cardInstance, card, game.Rules);
             SetCardPublicState(cardInstance, game.IsMainUser(user));
             if (game.IsMainUser(user))
             {
@@ -82,7 +81,7 @@ namespace MahCard.View
             UnityEngine.Object.Destroy(cardInstance.gameObject);
             discardCardDocument.gameObject.SetActive(true);
             SetCardPublicState(discardCardDocument, true);
-            Apply(discardCardDocument, game.Rules, card);
+            Apply(discardCardDocument, card, game.Rules);
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
         }
 
@@ -133,7 +132,7 @@ namespace MahCard.View
             card.Q("PrivateArea").SetActive(!isPublic);
         }
         
-        private static void Apply(HKUIDocument cardDocument, GameRules rules, Card card)
+        private static void Apply(HKUIDocument cardDocument, Card card, GameRules rules)
         {
             cardDocument.Q<Image>("MainImage").color = rules.GetColor(card.Color);
             cardDocument.Q<TMP_Text>("AbilityText").SetText(card.Ability.ToString());
