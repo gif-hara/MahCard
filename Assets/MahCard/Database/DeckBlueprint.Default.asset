@@ -30,16 +30,31 @@ MonoBehaviour:
     count: 7
   - color: 0
     ability: 1
-    count: 3
+    count: 1
   - color: 1
     ability: 1
-    count: 3
+    count: 1
   - color: 2
     ability: 1
-    count: 3
+    count: 1
   - color: 3
     ability: 1
-    count: 3
+    count: 1
   - color: 4
     ability: 1
-    count: 3
+    count: 1
+  - color: 0
+    ability: 2
+    count: 1
+  - color: 1
+    ability: 2
+    count: 1
+  - color: 2
+    ability: 2
+    count: 1
+  - color: 3
+    ability: 2
+    count: 1
+  - color: 4
+    ability: 2
+    count: 1

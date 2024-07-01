@@ -39,6 +39,11 @@ namespace MahCard
             return card;
         }
 
+        public bool IsPossessionCard()
+        {
+            return Cards.Count > 0;
+        }
+
         public bool IsWin(GameRules rules)
         {
             return Cards.Count == rules.HandCardCount + 1 && Cards.All(c => c.Color == Cards[0].Color);

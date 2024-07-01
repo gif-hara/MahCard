@@ -118,6 +118,22 @@ namespace MahCard
             TryInvokeAbility(discardCard);
         }
         
+        private async UniTask StateDiscardResetCard(CancellationToken scope)
+        {
+            var index = CurrentUserIndex;
+            var user = Users[index];
+            await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Reset, scope);
+            while (user.IsPossessionCard())
+            {
+                await DiscardProcessAsync(user, 0, scope);
+            }
+            for (var i = 0; i < Rules.HandCardCount; i++)
+            {
+                await DrawProcessAsync(user, scope);
+            }
+            stateMachine.Change(StateEndTurn);
+        }
+        
         private UniTask StateEndTurn(CancellationToken scope)
         {
             turnCount++;
@@ -178,6 +194,9 @@ namespace MahCard
                     break;
                 case Define.CardAbility.Retry:
                     stateMachine.Change(StateDiscardRetryCard);
+                    break;
+                case Define.CardAbility.Reset:
+                    stateMachine.Change(StateDiscardResetCard);
                     break;
                 default:
                     Assert.IsTrue(false, $"Invalid card ability: {card.Ability}");
