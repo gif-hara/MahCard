@@ -73,8 +73,7 @@ namespace MahCard
         private async UniTask StateGameStart(CancellationToken scope)
         {
             await view.OnGameStartAsync(this, scope);
-            Deck.Shuffle(random);
-            await view.OnDeckShuffledAsync(this, scope);
+            await DeckShuffleProcessAsync(scope);
             foreach (var user in Users)
             {
                 for (var i = 0; i < Rules.HandCardCount; i++)
@@ -135,9 +134,8 @@ namespace MahCard
         {
             if (Deck.IsEmpty())
             {
-                Deck.Fill(DiscardDeck);
-                await view.OnFilledDeckAsync(this, scope);
-                Deck.Shuffle(random);
+                await DeckFillProcessAsync(scope);
+                await DeckShuffleProcessAsync(scope);
             }
             var card = user.Draw(Deck);
             await view.OnDrawCardAsync(this, user, card, scope);
@@ -156,6 +154,18 @@ namespace MahCard
             await view.OnDiscardAsync(this, user, card, scope);
             DiscardDeck.Push(card);
             return card;
+        }
+        
+        private async UniTask DeckFillProcessAsync(CancellationToken scope)
+        {
+            Deck.Fill(DiscardDeck);
+            await view.OnFilledDeckAsync(this, scope);
+        }
+        
+        private async UniTask DeckShuffleProcessAsync(CancellationToken scope)
+        {
+            Deck.Shuffle(random);
+            await view.OnDeckShuffledAsync(this, scope);
         }
 
         private void TryInvokeAbility(Card card)
