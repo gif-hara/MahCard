@@ -149,9 +149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugRoomData:
-    gameDesignData: {fileID: 11400000, guid: 2baccc2332b712441a422057521cfe7c, type: 2}
     gameRules: {fileID: 11400000, guid: 3d4eee8d23c33486bbf555af3dacf716, type: 2}
-    computerPlayerCount: 0
+    computerPlayerCount: 1
     view:
       rid: 8626900860404236534
   references:
