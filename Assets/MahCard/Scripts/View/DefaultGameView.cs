@@ -20,6 +20,8 @@ namespace MahCard.View
         private HKUIDocument gameDocumentPrefab;
 
         private HKUIDocument gameDocument;
+        
+        private HKUIDocument discardCardDocument;
 
         private readonly Dictionary<Card, HKUIDocument> cardDocuments = new();
         
@@ -28,6 +30,7 @@ namespace MahCard.View
         public override void Setup(Game game)
         {
             gameDocument = UnityEngine.Object.Instantiate(gameDocumentPrefab);
+            discardCardDocument = gameDocument.Q<HKUIDocument>("DiscardCard");
             for (var i = 0; i < game.Users.Count; i++)
             {
                 var user = game.Users[i];
@@ -52,13 +55,11 @@ namespace MahCard.View
             var cardParent = userAreaDocuments[user].Q<RectTransform>("CardArea");
             var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
             cardDocuments.Add(card, cardInstance);
-            const string mainImageKey = "MainImage";
-            cardInstance.Q<Image>(mainImageKey).color = game.Rules.GetColor(card.Color);
-            cardInstance.Q<TMP_Text>("AbilityText").SetText(card.Ability.ToString());
+            Apply(cardInstance, game.Rules, card);
             SetCardPublicState(cardInstance, game.IsMainUser(user));
             if (game.IsMainUser(user))
             {
-                cardInstance.Q<Button>(mainImageKey).OnClickAsObservable()
+                cardInstance.Q<Button>("MainImage").OnClickAsObservable()
                     .Subscribe(_ =>
                     {
                         user.OnSelectedCardIndex.OnNext(user.GetCardIndex(card));
@@ -74,11 +75,15 @@ namespace MahCard.View
             var cardInstance = cardDocuments[card];
             cardDocuments.Remove(card);
             UnityEngine.Object.Destroy(cardInstance.gameObject);
+            discardCardDocument.gameObject.SetActive(true);
+            SetCardPublicState(discardCardDocument, true);
+            Apply(discardCardDocument, game.Rules, card);
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
         }
 
         public override UniTask OnBeginGameAsync(Game game, CancellationToken scope)
         {
+            discardCardDocument.gameObject.SetActive(false);
             return BeginNotification("Game Start!", 1.0f, scope);
         }
 
@@ -114,6 +119,12 @@ namespace MahCard.View
         {
             card.Q("PublicArea").SetActive(isPublic);
             card.Q("PrivateArea").SetActive(!isPublic);
+        }
+        
+        private static void Apply(HKUIDocument cardDocument, GameRules rules, Card card)
+        {
+            cardDocument.Q<Image>("MainImage").color = rules.GetColor(card.Color);
+            cardDocument.Q<TMP_Text>("AbilityText").SetText(card.Ability.ToString());
         }
     }
 }
