@@ -107,26 +107,26 @@ namespace MahCard.View
         public override UniTask OnBeginGameAsync(Game game, CancellationToken scope)
         {
             discardCardDocument.gameObject.SetActive(false);
-            return BeginNotification("Game Start!", 1.0f, scope);
+            return BeginNotification("Game Start!", "", 1.0f, scope);
         }
 
         public override UniTask OnWinAsync(Game game, User user, CancellationToken scope)
         {
-            return BeginNotification($"{user.Name} Win!", 1.0f, scope);
+            return BeginNotification($"{user.Name} Win!", "", 1.0f, scope);
         }
 
         public override UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
         {
             if (game.IsMainUser(user))
             {
-                return BeginNotification($"{user.Name}'s Turn", 1.0f, scope);
+                return BeginNotification($"{user.Name}'s Turn", "", 1.0f, scope);
             }
             return UniTask.CompletedTask;
         }
 
         public override UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)
         {
-            return BeginNotification(ability.ToString(), 1.0f, scope);
+            return BeginNotification(ability.ToString(),  GetAbilitySubMessage(ability), 3.0f, scope);
         }
 
         public override UniTask OnFilledDeckAsync(Game game, CancellationToken scope)
@@ -136,10 +136,13 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
-        private async UniTask BeginNotification(string message, float waitSeconds, CancellationToken scope)
+        private async UniTask BeginNotification(string mainMessage, string subMessage, float waitSeconds, CancellationToken scope)
         {
             var notificationArea = gameDocument.Q("NotificationArea");
-            gameDocument.Q<TMP_Text>("NotificationText").SetText(message);
+            gameDocument.Q<TMP_Text>("NotificationMainText").SetText(mainMessage);
+            var subText = gameDocument.Q<TMP_Text>("NotificationSubText");
+            subText.SetText(subMessage);
+            subText.gameObject.SetActive(subMessage.Length > 0);
             notificationArea.SetActive(true);
             await UniTask.Delay(TimeSpan.FromSeconds(waitSeconds), cancellationToken: scope);
             notificationArea.SetActive(false);
@@ -181,6 +184,18 @@ namespace MahCard.View
             {
                 discardCardDocument.gameObject.SetActive(false);
             }
+        }
+        
+        private static string GetAbilitySubMessage(Define.CardAbility ability)
+        {
+            return ability switch
+            {
+                Define.CardAbility.Reset => "全ての手札を捨ててデッキから4枚カードを引きます",
+                Define.CardAbility.Retry => "もう1度デッキからカードを引いて1枚捨てます",
+                Define.CardAbility.Double => "2枚の手札を捨ててデッキから2枚引きます",
+                Define.CardAbility.Trade => "1番上にある捨札と引いて1枚捨てます",
+                _ => string.Empty
+            };
         }
     }
 }
