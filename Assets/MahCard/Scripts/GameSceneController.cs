@@ -24,7 +24,7 @@ namespace MahCard
             };
             for (var i = 0; i < debugRoomData.ComputerPlayerCount; i++)
             {
-                users.Add(new($"Computer {i + 1}", new AI.Random()));
+                users.Add(new($"Computer {i + 1}", new AI.Computer()));
             }
             var game = new Game(
                 users,
