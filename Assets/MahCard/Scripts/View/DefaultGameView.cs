@@ -97,9 +97,9 @@ namespace MahCard.View
         public override async UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
         {
             UpdateDeckView(gameDocument.Q<HKUIDocument>("DiscardDeckArea"), game.DiscardDeck);
-            var cardInstance = cardDocuments[card];
+            var cardDocument = cardDocuments[card];
             cardDocuments.Remove(card);
-            UnityEngine.Object.Destroy(cardInstance.gameObject);
+            UnityEngine.Object.Destroy(cardDocument.gameObject);
             UpdateDiscardDeckView(game);
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
         }
