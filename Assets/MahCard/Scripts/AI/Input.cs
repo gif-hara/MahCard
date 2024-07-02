@@ -72,5 +72,11 @@ namespace MahCard.AI
                 .RegisterTo(scope);
             return source.Task;
         }
+
+        public UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
+        {
+            return UniTask.CompletedTask;
+        }
+
     }
 }

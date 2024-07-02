@@ -23,5 +23,10 @@ namespace MahCard.AI
             }
             return UniTask.FromResult(UnityEngine.Random.Range(0, 2) == 0 ? Define.DeckType.Deck : Define.DeckType.DiscardDeck);
         }
+
+        public UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
+        {
+            return UniTask.CompletedTask;
+        }
     }
 }
