@@ -45,10 +45,10 @@ namespace MahCard.View
                 }
                 else
                 {
-                    var subUserAreaPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.OtherUser");
+                    var otherUserAreaPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.OtherUser");
                     var parent = gameDocument.Q<Transform>("OtherUserArea");
-                    var subUserInstance = UnityEngine.Object.Instantiate(subUserAreaPrefab, parent);
-                    userAreaDocuments.Add(user, subUserInstance);
+                    var otherUserDocument = UnityEngine.Object.Instantiate(otherUserAreaPrefab, parent);
+                    userAreaDocuments.Add(user, otherUserDocument);
                 }
             }
             var mainUser = game.GetMainUser();
