@@ -20,6 +20,11 @@ namespace MahCard
 
         public Subject<Define.DeckType> OnSelectedDeckType { get; } = new();
 
+        /// <summary>
+        /// リーチ状態かどうか
+        /// </summary>
+        public bool IsReadyHand(GameRules rules) => Cards.Count == rules.HandCardCount && Cards.All(c => c.Color == Cards[0].Color);
+
         public User(string name, IAI ai)
         {
             Name = name;
