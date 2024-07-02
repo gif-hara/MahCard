@@ -160,6 +160,23 @@ namespace MahCard
             await DiscardProcessAsync(user, discardIndex, scope);
             stateMachine.Change(StateEndTurn);
         }
+        
+        private async UniTask StateDiscardDoubleCard(CancellationToken scope)
+        {
+            var user = Users[CurrentUserIndex];
+            await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Double, scope);
+            for (var i = 0; i < 2; i++)
+            {
+                var discardIndex = await user.AI.DiscardAsync(user, scope);
+                await DiscardProcessAsync(user, discardIndex, scope);
+            }
+
+            for (var i = 0; i < 2; i++)
+            {
+                await DrawProcessAsync(user, Deck, scope);
+            }
+            stateMachine.Change(StateEndTurn);
+        }
 
         private UniTask StateEndTurn(CancellationToken scope)
         {
@@ -227,6 +244,9 @@ namespace MahCard
                     break;
                 case Define.CardAbility.Trade:
                     stateMachine.Change(StateDiscardTradeCard);
+                    break;
+                case Define.CardAbility.Double:
+                    stateMachine.Change(StateDiscardDoubleCard);
                     break;
                 default:
                     Assert.IsTrue(false, $"Invalid card ability: {card.Ability}");

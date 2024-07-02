@@ -20,6 +20,7 @@ namespace MahCard
             Retry,
             Reset,
             Trade,
+            Double,
         }
 
         public enum DeckType
