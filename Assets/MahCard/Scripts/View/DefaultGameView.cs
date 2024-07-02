@@ -56,14 +56,12 @@ namespace MahCard.View
                 .Subscribe(_ =>
                 {
                     mainUser.OnSelectedDeckType.OnNext(Define.DeckType.Deck);
-                    Debug.Log("DeckButton");
                 })
                 .RegisterTo(gameDocument.destroyCancellationToken);
             gameDocument.Q<Button>("DiscardDeckButton").OnClickAsObservable()
                 .Subscribe(_ =>
                 {
                     mainUser.OnSelectedDeckType.OnNext(Define.DeckType.DiscardDeck);
-                    Debug.Log("DiscardDeckButton");
                 })
                 .RegisterTo(gameDocument.destroyCancellationToken);
         }
