@@ -80,11 +80,10 @@ namespace MahCard.View
             SetCardPublicState(cardDocument, game.IsMainUser(user) || isAlwaysHandVisible);
             if (game.IsMainUser(user))
             {
-                cardDocument.Q<Button>("MainImage").OnClickAsObservable()
+                cardDocument.Q<Button>("Button").OnClickAsObservable()
                     .Subscribe(_ =>
                     {
                         user.OnSelectedCardIndex.OnNext(user.GetCardIndex(card));
-                        Debug.Log("MainImage");
                     })
                     .RegisterTo(cardDocument.destroyCancellationToken);
             }
