@@ -162,10 +162,11 @@ namespace MahCard.View
             var deckAreaTransform = (RectTransform)deckAreaDocument.transform;
             var thicknessTransform = deckAreaDocument.Q<RectTransform>("Thickness");
             var rate = (float)deck.Count / deckMaxCount;
-            var p = deckAreaTransform.anchoredPosition;
+            var v = deckAreaTransform.anchoredPosition;
             deckAreaDocument.gameObject.SetActive(deck.Count > 0);
-            deckAreaTransform.anchoredPosition = new Vector2(p.x, -deckMaxCount * (1 - rate));
-            thicknessTransform.sizeDelta = new Vector2(thicknessTransform.sizeDelta.x, deckMaxCount * rate);
+            deckAreaTransform.anchoredPosition = new Vector2(v.x, -deckMaxCount * (1 - rate));
+            v = thicknessTransform.sizeDelta;
+            thicknessTransform.sizeDelta = new Vector2(v.x, deckMaxCount * rate);
         }
 
         private void UpdateDiscardDeckView(Game game)
