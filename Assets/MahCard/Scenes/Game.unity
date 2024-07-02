@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugRoomData:
     gameRules: {fileID: 11400000, guid: 3d4eee8d23c33486bbf555af3dacf716, type: 2}
-    computerPlayerCount: 1
+    computerPlayerCount: 3
     view:
       rid: 8626900860404236534
   references:
@@ -160,7 +160,7 @@ MonoBehaviour:
       type: {class: DefaultGameView, ns: MahCard.View, asm: Assembly-CSharp}
       data:
         gameDocumentPrefab: {fileID: 1114346149357140837, guid: 8ac40448869092140b1972e2da18d504, type: 3}
-        isAlwaysHandVisible: 1
+        isAlwaysHandVisible: 0
 --- !u!4 &23293993
 Transform:
   m_ObjectHideFlags: 0
