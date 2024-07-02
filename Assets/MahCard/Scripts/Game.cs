@@ -100,7 +100,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, GetDeck(deckType), scope);
             if (isWin)
             {
-                stateMachine.Change(StateEndGame);
+                stateMachine.Change(StateCompleteRecovery);
                 return;
             }
             var discardIndex = await user.AI.DiscardAsync(user, scope);
@@ -115,7 +115,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, Deck, scope);
             if (isWin)
             {
-                stateMachine.Change(StateEndGame);
+                stateMachine.Change(StateCompleteRecovery);
                 return;
             }
             var discardIndex = await user.AI.DiscardAsync(user, scope);
@@ -154,7 +154,7 @@ namespace MahCard
             await view.OnDrawCardAsync(this, user, drawCard, scope);
             if (user.IsWin(Rules))
             {
-                stateMachine.Change(StateEndGame);
+                stateMachine.Change(StateCompleteRecovery);
                 return;
             }
             var discardIndex = await user.AI.DiscardAsync(user, scope);
@@ -190,6 +190,20 @@ namespace MahCard
         {
             endGameCompletionSource.TrySetResult();
             return UniTask.CompletedTask;
+        }
+
+        private async UniTask StateCompleteRecovery(CancellationToken scope)
+        {
+            foreach (var user in Users)
+            {
+                while (user.IsPossessionCard())
+                {
+                    await DiscardProcessAsync(user, 0, scope);
+                }
+            }
+            await DeckFillProcessAsync(Deck, DiscardDeck, scope);
+            await DeckShuffleProcessAsync(Deck, scope);
+            stateMachine.Change(StateBeginGame);
         }
 
         private async UniTask<bool> DrawProcessAsync(User user, Deck deck, CancellationToken scope)
