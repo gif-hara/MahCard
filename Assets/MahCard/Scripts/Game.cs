@@ -109,8 +109,7 @@ namespace MahCard
 
         private async UniTask StateDiscardRetryCard(CancellationToken scope)
         {
-            var index = CurrentUserIndex;
-            var user = Users[index];
+            var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Retry, scope);
             var isWin = await DrawProcessAsync(user, Deck, scope);
             if (isWin)
@@ -125,8 +124,7 @@ namespace MahCard
 
         private async UniTask StateDiscardResetCard(CancellationToken scope)
         {
-            var index = CurrentUserIndex;
-            var user = Users[index];
+            var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Reset, scope);
             while (user.IsPossessionCard())
             {
@@ -147,8 +145,7 @@ namespace MahCard
                 stateMachine.Change(StateEndTurn);
                 return;
             }
-            var index = CurrentUserIndex;
-            var user = Users[index];
+            var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Trade, scope);
             // この段階ではTradeアビリティのカードが捨てられているので一度引いておく
             var tempCard = DiscardDeck.Draw();
