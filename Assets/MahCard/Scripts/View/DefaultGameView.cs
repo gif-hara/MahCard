@@ -197,7 +197,7 @@ namespace MahCard.View
                 Define.CardAbility.Reset => "全ての手札を捨ててデッキから4枚カードを引きます",
                 Define.CardAbility.Retry => "もう1度デッキからカードを引いて1枚捨てます",
                 Define.CardAbility.Double => "2枚の手札を捨ててデッキから2枚引きます",
-                Define.CardAbility.Trade => "1番上にある捨札と引いて1枚捨てます",
+                Define.CardAbility.Trade => "1番上にある捨札を引いて1枚捨てます",
                 _ => string.Empty
             };
         }
