@@ -36,6 +36,8 @@ namespace MahCard.View
         {
             gameDocument = UnityEngine.Object.Instantiate(gameDocumentPrefab);
             discardCardDocument = gameDocument.Q<HKUIDocument>("DiscardCard");
+            var deckCardDocument = gameDocument.Q<HKUIDocument>("DeckCard");
+            SetCardPublicState(deckCardDocument, false);
             deckMaxCount = game.Deck.Count;
             foreach (var user in game.Users)
             {
