@@ -108,9 +108,15 @@ namespace MahCard.View
             return BeginNotification("Game Start!", "", 1.0f, scope);
         }
 
-        public override UniTask OnWinAsync(Game game, User user, CancellationToken scope)
+        public override async UniTask OnWinAsync(Game game, User user, CancellationToken scope)
         {
-            return BeginNotification($"{user.Name} Win!", "", 1.0f, scope);
+            foreach (var card in user.Cards)
+            {
+                var cardDocument = cardDocuments[card];
+                SetCardPublicState(cardDocument, true);
+            }
+            await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: scope);
+            await BeginNotification($"{user.Name} Win!", "", 3.0f, scope);
         }
 
         public override UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
@@ -124,7 +130,7 @@ namespace MahCard.View
 
         public override UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)
         {
-            return BeginNotification(ability.ToString(),  GetAbilitySubMessage(ability), 3.0f, scope);
+            return BeginNotification(ability.ToString(), GetAbilitySubMessage(ability), 3.0f, scope);
         }
 
         public override UniTask OnFilledDeckAsync(Game game, CancellationToken scope)
@@ -183,7 +189,7 @@ namespace MahCard.View
                 discardCardDocument.gameObject.SetActive(false);
             }
         }
-        
+
         private static string GetAbilitySubMessage(Define.CardAbility ability)
         {
             return ability switch
