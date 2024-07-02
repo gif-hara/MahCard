@@ -139,8 +139,7 @@ namespace MahCard
 
         private async UniTask StateDiscardTradeCard(CancellationToken scope)
         {
-            // この効果は捨札に2枚以上のカードが無いと発動出来ない
-            if (DiscardDeck.Count < 2)
+            if (!CanInvokeTradeAbility())
             {
                 stateMachine.Change(StateEndTurn);
                 return;
@@ -243,6 +242,11 @@ namespace MahCard
                 Define.DeckType.DiscardDeck => DiscardDeck,
                 _ => throw new ArgumentOutOfRangeException(nameof(deckType), deckType, null),
             };
+        }
+        
+        private bool CanInvokeTradeAbility()
+        {
+            return DiscardDeck.Count >= 2;
         }
     }
 }
