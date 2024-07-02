@@ -76,19 +76,19 @@ namespace MahCard.View
             UpdateDiscardDeckView(game);
             var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card");
             var cardParent = userAreaDocuments[user].Q<RectTransform>("CardArea");
-            var cardInstance = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
-            cardDocuments.Add(card, cardInstance);
-            Apply(cardInstance, card, game.Rules);
-            SetCardPublicState(cardInstance, game.IsMainUser(user) || isAlwaysHandVisible);
+            var cardDocument = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
+            cardDocuments.Add(card, cardDocument);
+            Apply(cardDocument, card, game.Rules);
+            SetCardPublicState(cardDocument, game.IsMainUser(user) || isAlwaysHandVisible);
             if (game.IsMainUser(user))
             {
-                cardInstance.Q<Button>("MainImage").OnClickAsObservable()
+                cardDocument.Q<Button>("MainImage").OnClickAsObservable()
                     .Subscribe(_ =>
                     {
                         user.OnSelectedCardIndex.OnNext(user.GetCardIndex(card));
                         Debug.Log("MainImage");
                     })
-                    .RegisterTo(cardInstance.destroyCancellationToken);
+                    .RegisterTo(cardDocument.destroyCancellationToken);
             }
 
             await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
@@ -145,10 +145,10 @@ namespace MahCard.View
             notificationArea.SetActive(false);
         }
 
-        private static void SetCardPublicState(HKUIDocument card, bool isPublic)
+        private static void SetCardPublicState(HKUIDocument cardDocument, bool isPublic)
         {
-            card.Q("PublicArea").SetActive(isPublic);
-            card.Q("PrivateArea").SetActive(!isPublic);
+            cardDocument.Q("PublicArea").SetActive(isPublic);
+            cardDocument.Q("PrivateArea").SetActive(!isPublic);
         }
 
         private static void Apply(HKUIDocument cardDocument, Card card, GameRules rules)
