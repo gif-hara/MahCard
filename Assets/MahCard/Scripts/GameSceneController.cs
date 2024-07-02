@@ -28,8 +28,7 @@ namespace MahCard
             }
             var game = new Game(
                 users,
-                debugRoomData.GameRules,
-                debugRoomData.View,
+                debugRoomData,
                 (uint)DateTime.Now.Ticks,
                 0
                 );

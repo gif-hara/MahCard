@@ -40,17 +40,16 @@ namespace MahCard
 
         public Game(
             IEnumerable<User> users,
-            GameRules rules,
-            IView view,
+            RoomData roomData,
             uint seed,
             int mainUserIndex
             )
         {
             Users = new List<User>(users);
-            Deck = rules.DeckBlueprint.CreateDeck();
+            Rules = roomData.GameRules;
+            Deck = Rules.DeckBlueprint.CreateDeck();
             DiscardDeck = new Deck();
-            Rules = rules;
-            this.view = view;
+            this.view = roomData.View;
             random = new Unity.Mathematics.Random(seed);
             MainUserIndex = mainUserIndex;
         }
