@@ -94,6 +94,7 @@ namespace MahCard
         {
             var index = CurrentUserIndex;
             var user = Users[index];
+            await user.AI.OnBeginTurnAsync(this, user, scope);
             await view.OnBeginTurnAsync(this, user, scope);
             var deckType = await user.AI.ChoiceDeckTypeAsync(this, user, scope);
             var isWin = await DrawProcessAsync(user, GetDeck(deckType), scope);
@@ -160,7 +161,7 @@ namespace MahCard
             await DiscardProcessAsync(user, discardIndex, scope);
             stateMachine.Change(StateEndTurn);
         }
-        
+
         private async UniTask StateDiscardDoubleCard(CancellationToken scope)
         {
             var user = Users[CurrentUserIndex];
@@ -263,7 +264,7 @@ namespace MahCard
                 _ => throw new ArgumentOutOfRangeException(nameof(deckType), deckType, null),
             };
         }
-        
+
         private bool CanInvokeTradeAbility()
         {
             return DiscardDeck.Count >= 2;
