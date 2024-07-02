@@ -1506,6 +1506,11 @@ PrefabInstance:
       addedObject: {fileID: 3798116379383449172}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3808e74dc81e8b04b8da63a30aa36fd3, type: 3}
+--- !u!1 &860553721540081632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1605889046648734887, guid: 3808e74dc81e8b04b8da63a30aa36fd3, type: 3}
+  m_PrefabInstance: {fileID: 2141477671978742599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &947488752918966156 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1197436987600051403, guid: 3808e74dc81e8b04b8da63a30aa36fd3, type: 3}
@@ -1526,7 +1531,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.size
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[0].document
@@ -1581,6 +1586,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1407882696032151656}
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
+      propertyPath: elements.Array.data[13].document
+      value: 
+      objectReference: {fileID: 860553721540081632}
+    - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[0].overrideName
       value: 
       objectReference: {fileID: 0}
@@ -1623,6 +1632,10 @@ PrefabInstance:
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[12].overrideName
       value: NotificationSubText
+      objectReference: {fileID: 0}
+    - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
+      propertyPath: elements.Array.data[13].overrideName
+      value: DeckCard
       objectReference: {fileID: 0}
     - target: {fileID: 2404120827522946084, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: m_Pivot.x
