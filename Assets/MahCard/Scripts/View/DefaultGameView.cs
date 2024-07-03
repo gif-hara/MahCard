@@ -143,14 +143,17 @@ namespace MahCard.View
 
         private async UniTask BeginNotification(string mainMessage, string subMessage, CancellationToken scope)
         {
-            var notificationArea = gameDocument.Q("NotificationArea");
-            gameDocument.Q<TMP_Text>("NotificationMainText").SetText(mainMessage);
-            var subText = gameDocument.Q<TMP_Text>("NotificationSubText");
-            subText.SetText(subMessage);
-            subText.gameObject.SetActive(subMessage.Length > 0);
-            notificationArea.SetActive(true);
-            await gameDocument.Q<Button>("NotificationButton").OnClickAsync(scope);
-            notificationArea.SetActive(false);
+            var notificationDocument = gameDocument.Q<HKUIDocument>("NotificationArea");
+            notificationDocument
+                .Q<HKUIDocument>("MainTextArea")
+                .Q<TMP_Text>("Text")
+                .SetText(mainMessage);
+            var subTextAreaDocument = notificationDocument.Q<HKUIDocument>("SubTextArea");
+            subTextAreaDocument.Q<TMP_Text>("Text").SetText(subMessage);
+            subTextAreaDocument.gameObject.SetActive(subMessage.Length > 0);
+            notificationDocument.gameObject.SetActive(true);
+            await notificationDocument.Q<Button>("Button").OnClickAsync(scope);
+            notificationDocument.gameObject.SetActive(false);
         }
 
         private static void SetCardPublicState(HKUIDocument cardDocument, bool isPublic)
