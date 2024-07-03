@@ -36,11 +36,12 @@ namespace HK
             InitializeInternalAsync().Forget();
         }
 
-        private static async UniTask InitializeInternalAsync()
+        private static UniTask InitializeInternalAsync()
         {
             initializeState = InitializeState.Initializing;
             // 何か共通の処理をここに書く
             initializeState = InitializeState.Initialized;
+            return UniTask.CompletedTask;
         }
     }
 }
