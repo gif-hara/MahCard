@@ -22,7 +22,7 @@ namespace MahCard
         [SerializeField]
         private List<ColorData> colorDatabase;
 
-        public Color GetColor(Define.CardColor type)
+        public ColorData GetColorData(Define.CardColor type)
         {
             var data = colorDatabase.Find(c => c.Type == type);
             if (data == null)
@@ -30,7 +30,7 @@ namespace MahCard
                 Assert.IsTrue(false, $"Not found color data. type: {type}");
             }
 
-            return data.Color;
+            return data;
         }
 
         [Serializable]
@@ -39,6 +39,10 @@ namespace MahCard
             [SerializeField]
             private Define.CardColor type;
             public Define.CardColor Type => type;
+
+            [SerializeField]
+            private Sprite sprite;
+            public Sprite Sprite => sprite;
 
             [SerializeField]
             private Color color;

@@ -164,7 +164,9 @@ namespace MahCard.View
 
         private static void Apply(HKUIDocument cardDocument, Card card, GameRules rules)
         {
-            cardDocument.Q<Image>("MainImage").color = rules.GetColor(card.Color);
+            var colorData = rules.GetColorData(card.Color);
+            cardDocument.Q<Image>("MainImage").sprite = colorData.Sprite;
+            cardDocument.Q<Image>("Background").color = colorData.Color;
             cardDocument.Q<TMP_Text>("AbilityText").SetText(card.Ability.ToString());
         }
 
