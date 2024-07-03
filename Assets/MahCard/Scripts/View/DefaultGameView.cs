@@ -26,16 +26,22 @@ namespace MahCard.View
 
         private HKUIDocument discardCardDocument;
 
+        private HKUIDocument supplementDescriptionAreaDocument;
+
+        private HKUIDocument sequencesDocument;
+
         private int deckMaxCount;
 
         private readonly Dictionary<Card, HKUIDocument> cardDocuments = new();
 
         private readonly Dictionary<User, HKUIDocument> userAreaDocuments = new();
 
-        public override void Setup(Game game)
+        public override void Setup(Game game, CancellationToken scope)
         {
             gameDocument = UnityEngine.Object.Instantiate(gameDocumentPrefab);
             discardCardDocument = gameDocument.Q<HKUIDocument>("DiscardCard");
+            supplementDescriptionAreaDocument = gameDocument.Q<HKUIDocument>("SupplementDescriptionArea");
+            sequencesDocument = gameDocument.Q<HKUIDocument>("Sequences");
             var deckCardDocument = gameDocument.Q<HKUIDocument>("DeckCard");
             SetCardPublicState(deckCardDocument, false);
             deckMaxCount = game.Deck.Count;
@@ -66,6 +72,8 @@ namespace MahCard.View
                     mainUser.OnSelectedDeckType.OnNext(Define.DeckType.DiscardDeck);
                 })
                 .RegisterTo(gameDocument.destroyCancellationToken);
+            supplementDescriptionAreaDocument.gameObject.SetActive(false);
+            sequencesDocument.Q<SequenceMonobehaviour>("SupplementDescriptionAnimation").PlayAsync(scope).Forget();
         }
 
         public override async UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope)
@@ -106,7 +114,7 @@ namespace MahCard.View
         public override UniTask OnBeginGameAsync(Game game, CancellationToken scope)
         {
             discardCardDocument.gameObject.SetActive(false);
-            return BeginNotification("Game Start!", "", scope);
+            return BeginNotification("Game Start!", $"同じ絵柄のカードを{game.Rules.HandCardCount + 1}枚揃えると勝利です", scope);
         }
 
         public override async UniTask OnWinAsync(Game game, User user, CancellationToken scope)
@@ -120,13 +128,19 @@ namespace MahCard.View
             await BeginNotification($"{user.Name} Win!", "", scope);
         }
 
-        public override UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
+        public override async UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
         {
             if (game.IsMainUser(user))
             {
-                return BeginNotification($"{user.Name}'s Turn", "", scope);
+                await BeginNotification($"{user.Name}'s Turn", "", scope);
+                SetSupplementDescription("デッキまたは捨札をタップしてカードを引いてください");
+                user.OnSelectedDeckType
+                    .Subscribe(_ =>
+                    {
+                        ClearSupplementDescription();
+                    })
+                    .RegisterTo(scope);
             }
-            return UniTask.CompletedTask;
         }
 
         public override UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)
@@ -202,6 +216,17 @@ namespace MahCard.View
             {
                 discardCardDocument.gameObject.SetActive(false);
             }
+        }
+
+        private void SetSupplementDescription(string description)
+        {
+            supplementDescriptionAreaDocument.Q<TMP_Text>("Description").SetText(description);
+            supplementDescriptionAreaDocument.gameObject.SetActive(true);
+        }
+
+        private void ClearSupplementDescription()
+        {
+            supplementDescriptionAreaDocument.gameObject.SetActive(false);
         }
 
         private static string GetAbilitySubMessage(Define.CardAbility ability, GameRules rules)

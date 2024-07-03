@@ -8,7 +8,7 @@ namespace MahCard.View
     /// </summary>
     public interface IView
     {
-        void Setup(Game game);
+        void Setup(Game game, CancellationToken scope);
 
         UniTask OnBeginGameAsync(Game game, CancellationToken scope);
 
