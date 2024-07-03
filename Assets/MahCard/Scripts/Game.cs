@@ -89,6 +89,7 @@ namespace MahCard
                 }
             }
             parentIndex = random.NextInt(0, Users.Count);
+            turnCount = 0;
             await view.OnDecidedParentAsync(this, Users[parentIndex], scope);
             stateMachine.Change(StateBeginTurn);
         }
