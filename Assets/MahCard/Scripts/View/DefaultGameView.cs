@@ -131,7 +131,7 @@ namespace MahCard.View
 
         public override UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)
         {
-            return BeginNotification(ability.ToString(), GetAbilitySubMessage(ability), scope);
+            return BeginNotification(ability.ToString(), GetAbilitySubMessage(ability, game.Rules), scope);
         }
 
         public override UniTask OnFilledDeckAsync(Game game, CancellationToken scope)
@@ -196,11 +196,11 @@ namespace MahCard.View
             }
         }
 
-        private static string GetAbilitySubMessage(Define.CardAbility ability)
+        private static string GetAbilitySubMessage(Define.CardAbility ability, GameRules rules)
         {
             return ability switch
             {
-                Define.CardAbility.Reset => "全ての手札を捨ててデッキから4枚カードを引きます",
+                Define.CardAbility.Reset => $"全ての手札を捨ててデッキから{rules.HandCardCount}枚カードを引きます",
                 Define.CardAbility.Retry => "もう1度デッキからカードを引いて1枚捨てます",
                 Define.CardAbility.Double => "2枚の手札を捨ててデッキから2枚引きます",
                 Define.CardAbility.Trade => "1番上にある捨札を引いて1枚捨てます",
