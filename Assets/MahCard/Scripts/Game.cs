@@ -30,6 +30,8 @@ namespace MahCard
 
         private UniTaskCompletionSource endGameCompletionSource = null;
 
+        private CancellationTokenSource endGameScope = null;
+
         private Unity.Mathematics.Random random;
 
         private int parentIndex = 0;
@@ -58,7 +60,8 @@ namespace MahCard
         {
             Assert.IsNull(endGameCompletionSource);
             endGameCompletionSource = new UniTaskCompletionSource();
-            view.Setup(this);
+            endGameScope = new CancellationTokenSource();
+            view.Setup(this, endGameScope.Token);
             stateMachine.Change(StateBeginGame);
 
             return endGameCompletionSource.Task;
@@ -189,6 +192,8 @@ namespace MahCard
         private UniTask StateEndGame(CancellationToken scope)
         {
             endGameCompletionSource.TrySetResult();
+            endGameScope.Cancel();
+            endGameScope.Dispose();
             return UniTask.CompletedTask;
         }
 
