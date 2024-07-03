@@ -106,6 +106,7 @@ namespace MahCard
                 stateMachine.Change(StateCompleteRecovery);
                 return;
             }
+            await view.OnSelectDiscardAsync(this, user, scope);
             var discardIndex = await user.AI.DiscardAsync(user, scope);
             var discardCard = await DiscardProcessAsync(user, discardIndex, scope);
             TryInvokeAbility(discardCard);
@@ -121,6 +122,7 @@ namespace MahCard
                 stateMachine.Change(StateCompleteRecovery);
                 return;
             }
+            await view.OnSelectDiscardAsync(this, user, scope);
             var discardIndex = await user.AI.DiscardAsync(user, scope);
             var discardCard = await DiscardProcessAsync(user, discardIndex, scope);
             TryInvokeAbility(discardCard);
@@ -160,6 +162,7 @@ namespace MahCard
                 stateMachine.Change(StateCompleteRecovery);
                 return;
             }
+            await view.OnSelectDiscardAsync(this, user, scope);
             var discardIndex = await user.AI.DiscardAsync(user, scope);
             await DiscardProcessAsync(user, discardIndex, scope);
             stateMachine.Change(StateEndTurn);
@@ -171,6 +174,7 @@ namespace MahCard
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Double, scope);
             for (var i = 0; i < 2; i++)
             {
+                await view.OnSelectDiscardAsync(this, user, scope);
                 var discardIndex = await user.AI.DiscardAsync(user, scope);
                 await DiscardProcessAsync(user, discardIndex, scope);
             }
