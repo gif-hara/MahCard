@@ -16,12 +16,14 @@ MonoBehaviour:
   deckBlueprint: {fileID: 11400000, guid: 7fcff5db294c1407294d172d088a5439, type: 2}
   colorDatabase:
   - type: 0
-    color: {r: 1, g: 0, b: 0, a: 1}
+    sprite: {fileID: 21300000, guid: 10227cecef9807649bbb9b6aa7c2b1c8, type: 3}
+    color: {r: 1, g: 0.58679235, b: 0.58679235, a: 1}
   - type: 1
-    color: {r: 0, g: 0, b: 1, a: 1}
+    sprite: {fileID: 21300000, guid: d35881ea4ed4a414e93c7506d527ac67, type: 3}
+    color: {r: 0.57924527, g: 0.62508297, b: 1, a: 1}
   - type: 2
-    color: {r: 0, g: 1, b: 0, a: 1}
+    sprite: {fileID: 21300000, guid: 56484a73260d9a74fb4de27ba42f6732, type: 3}
+    color: {r: 0.5587026, g: 1, b: 0.5264151, a: 1}
   - type: 3
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - type: 4
-    color: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
+    sprite: {fileID: 21300000, guid: 7ae6ca3d51e45fa4a8c53664af08eafb, type: 3}
+    color: {r: 0.82641506, g: 0.82641506, b: 0.82641506, a: 1}
