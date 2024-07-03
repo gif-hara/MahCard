@@ -115,6 +115,11 @@ namespace MahCard.View
 
         public override UniTask OnBeginGameAsync(Game game, CancellationToken scope)
         {
+            foreach (var document in userAreaDocuments.Values)
+            {
+                document.Q<Image>("Background").color = game.Rules.DefaultUserBackgroundColor;
+                document.Q<TMP_Text>("UserName").color = game.Rules.DefaultUserNameColor;
+            }
             discardCardDocument.gameObject.SetActive(false);
             return BeginNotification("Game Start!", $"同じ絵柄のカードを{game.Rules.HandCardCount + 1}枚揃えると勝利です", scope);
         }
@@ -132,6 +137,8 @@ namespace MahCard.View
 
         public override async UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
         {
+            userAreaDocuments[user].Q<Image>("Background").color = game.Rules.CurrentTurnUserBackgroundColor;
+            userAreaDocuments[user].Q<TMP_Text>("UserName").color = game.Rules.CurrentTurnUserNameColor;
             if (game.IsMainUser(user))
             {
                 await BeginNotification($"{user.Name}'s Turn", "", scope);
@@ -143,6 +150,13 @@ namespace MahCard.View
                     })
                     .RegisterTo(scope);
             }
+        }
+
+        public override UniTask OnEndTurnAsync(Game game, User user, CancellationToken scope)
+        {
+            userAreaDocuments[user].Q<Image>("Background").color = game.Rules.DefaultUserBackgroundColor;
+            userAreaDocuments[user].Q<TMP_Text>("UserName").color = game.Rules.DefaultUserNameColor;
+            return UniTask.CompletedTask;
         }
 
         public override UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)

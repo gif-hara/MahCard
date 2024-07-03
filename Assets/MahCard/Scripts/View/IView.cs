@@ -20,6 +20,8 @@ namespace MahCard.View
 
         UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope);
 
+        UniTask OnEndTurnAsync(Game game, User user, CancellationToken scope);
+
         UniTask OnWinAsync(Game game, User user, CancellationToken scope);
 
         UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope);
