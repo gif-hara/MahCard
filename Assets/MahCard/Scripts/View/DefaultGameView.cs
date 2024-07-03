@@ -167,7 +167,9 @@ namespace MahCard.View
             var colorData = rules.GetColorData(card.Color);
             cardDocument.Q<Image>("MainImage").sprite = colorData.Sprite;
             cardDocument.Q<Image>("Background").color = colorData.Color;
-            cardDocument.Q<TMP_Text>("AbilityText").SetText(card.Ability.ToString());
+            var abilityText = cardDocument.Q<TMP_Text>("AbilityText");
+            abilityText.SetText(card.Ability.ToString());
+            abilityText.gameObject.SetActive(card.Ability != Define.CardAbility.None);
         }
 
         private void UpdateDeckView(HKUIDocument deckAreaDocument, Deck deck)
