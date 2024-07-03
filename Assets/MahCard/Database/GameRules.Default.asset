@@ -27,3 +27,7 @@ MonoBehaviour:
   - type: 3
     sprite: {fileID: 21300000, guid: 7ae6ca3d51e45fa4a8c53664af08eafb, type: 3}
     color: {r: 0.82641506, g: 0.82641506, b: 0.82641506, a: 1}
+  currentTurnUserBackgroundColor: {r: 0.5999999, g: 0.5871428, b: 0, a: 0.47058824}
+  currentTurnUserNameColor: {r: 1, g: 0.40188706, b: 0, a: 1}
+  defaultUserBackgroundColor: {r: 0, g: 0, b: 0, a: 0.47058824}
+  defaultUserNameColor: {r: 1, g: 1, b: 1, a: 1}
