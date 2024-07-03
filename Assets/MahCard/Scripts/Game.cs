@@ -182,11 +182,12 @@ namespace MahCard
             stateMachine.Change(StateEndTurn);
         }
 
-        private UniTask StateEndTurn(CancellationToken scope)
+        private async UniTask StateEndTurn(CancellationToken scope)
         {
+            var user = Users[CurrentUserIndex];
+            await view.OnEndTurnAsync(this, user, scope);
             turnCount++;
             stateMachine.Change(StateBeginTurn);
-            return UniTask.CompletedTask;
         }
 
         private UniTask StateEndGame(CancellationToken scope)
