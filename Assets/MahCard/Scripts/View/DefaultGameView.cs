@@ -106,7 +106,7 @@ namespace MahCard.View
         public override UniTask OnBeginGameAsync(Game game, CancellationToken scope)
         {
             discardCardDocument.gameObject.SetActive(false);
-            return BeginNotification("Game Start!", "", 1.0f, scope);
+            return BeginNotification("Game Start!", "", scope);
         }
 
         public override async UniTask OnWinAsync(Game game, User user, CancellationToken scope)
@@ -117,21 +117,21 @@ namespace MahCard.View
                 SetCardPublicState(cardDocument, true);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: scope);
-            await BeginNotification($"{user.Name} Win!", "", 3.0f, scope);
+            await BeginNotification($"{user.Name} Win!", "", scope);
         }
 
         public override UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
         {
             if (game.IsMainUser(user))
             {
-                return BeginNotification($"{user.Name}'s Turn", "", 1.0f, scope);
+                return BeginNotification($"{user.Name}'s Turn", "", scope);
             }
             return UniTask.CompletedTask;
         }
 
         public override UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)
         {
-            return BeginNotification(ability.ToString(), GetAbilitySubMessage(ability), 3.0f, scope);
+            return BeginNotification(ability.ToString(), GetAbilitySubMessage(ability), scope);
         }
 
         public override UniTask OnFilledDeckAsync(Game game, CancellationToken scope)
@@ -141,7 +141,7 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
-        private async UniTask BeginNotification(string mainMessage, string subMessage, float waitSeconds, CancellationToken scope)
+        private async UniTask BeginNotification(string mainMessage, string subMessage, CancellationToken scope)
         {
             var notificationArea = gameDocument.Q("NotificationArea");
             gameDocument.Q<TMP_Text>("NotificationMainText").SetText(mainMessage);
@@ -149,7 +149,7 @@ namespace MahCard.View
             subText.SetText(subMessage);
             subText.gameObject.SetActive(subMessage.Length > 0);
             notificationArea.SetActive(true);
-            await UniTask.Delay(TimeSpan.FromSeconds(waitSeconds), cancellationToken: scope);
+            await gameDocument.Q<Button>("NotificationButton").OnClickAsync(scope);
             notificationArea.SetActive(false);
         }
 
