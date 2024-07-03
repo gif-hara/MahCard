@@ -22,6 +22,22 @@ namespace MahCard
         [SerializeField]
         private List<ColorData> colorDatabase;
 
+        [SerializeField]
+        private Color currentTurnUserBackgroundColor;
+        public Color CurrentTurnUserBackgroundColor => currentTurnUserBackgroundColor;
+
+        [SerializeField]
+        private Color currentTurnUserNameColor;
+        public Color CurrentTurnUserNameColor => currentTurnUserNameColor;
+
+        [SerializeField]
+        private Color defaultUserBackgroundColor;
+        public Color DefaultUserBackgroundColor => defaultUserBackgroundColor;
+
+        [SerializeField]
+        private Color defaultUserNameColor;
+        public Color DefaultUserNameColor => defaultUserNameColor;
+
         public ColorData GetColorData(Define.CardColor type)
         {
             var data = colorDatabase.Find(c => c.Type == type);
