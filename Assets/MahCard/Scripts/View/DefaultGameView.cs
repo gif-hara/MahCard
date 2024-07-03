@@ -100,7 +100,10 @@ namespace MahCard.View
                     .RegisterTo(cardDocument.destroyCancellationToken);
             }
 
-            await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
+            await cardDocument
+                .Q<HKUIDocument>("Sequences")
+                .Q<SequenceMonobehaviour>("InAnimation")
+                .PlayAsync(scope);
         }
 
         public override async UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
