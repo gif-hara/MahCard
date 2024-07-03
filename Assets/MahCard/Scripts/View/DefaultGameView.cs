@@ -102,7 +102,7 @@ namespace MahCard.View
 
             await cardDocument
                 .Q<HKUIDocument>("Sequences")
-                .Q<SequenceMonobehaviour>("InAnimation")
+                .Q<SequenceMonobehaviour>("DefaultInAnimation")
                 .PlayAsync(scope);
         }
 
@@ -111,9 +111,12 @@ namespace MahCard.View
             UpdateDeckView(gameDocument.Q<HKUIDocument>("DiscardDeckArea"), game.DiscardDeck);
             var cardDocument = cardDocuments[card];
             cardDocuments.Remove(card);
-            UnityEngine.Object.Destroy(cardDocument.gameObject);
             UpdateDiscardDeckView(game);
-            await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
+            await cardDocument
+                .Q<HKUIDocument>("Sequences")
+                .Q<SequenceMonobehaviour>("DefaultOutAnimation")
+                .PlayAsync(scope);
+            UnityEngine.Object.Destroy(cardDocument.gameObject);
         }
 
         public override UniTask OnBeginGameAsync(Game game, CancellationToken scope)
