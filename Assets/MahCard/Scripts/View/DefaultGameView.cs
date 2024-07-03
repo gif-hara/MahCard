@@ -106,8 +106,21 @@ namespace MahCard.View
                 .PlayAsync(scope);
         }
 
+        public override UniTask OnSelectDiscardAsync(Game game, User user, CancellationToken scope)
+        {
+            if (game.IsMainUser(user))
+            {
+                SetSupplementDescription("手札をタップして捨てるカードを選択してください");
+            }
+            return UniTask.CompletedTask;
+        }
+
         public override async UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
         {
+            if (game.IsMainUser(user))
+            {
+                ClearSupplementDescription();
+            }
             UpdateDeckView(gameDocument.Q<HKUIDocument>("DiscardDeckArea"), game.DiscardDeck);
             var cardDocument = cardDocuments[card];
             cardDocuments.Remove(card);
