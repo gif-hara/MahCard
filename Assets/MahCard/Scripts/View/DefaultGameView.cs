@@ -143,6 +143,7 @@ namespace MahCard.View
 
         private async UniTask BeginNotification(string mainMessage, string subMessage, CancellationToken scope)
         {
+            var scopeSource = CancellationTokenSource.CreateLinkedTokenSource(scope);
             var notificationDocument = gameDocument.Q<HKUIDocument>("NotificationArea");
             notificationDocument
                 .Q<HKUIDocument>("MainTextArea")
@@ -152,8 +153,13 @@ namespace MahCard.View
             subTextAreaDocument.Q<TMP_Text>("Text").SetText(subMessage);
             subTextAreaDocument.gameObject.SetActive(subMessage.Length > 0);
             notificationDocument.gameObject.SetActive(true);
-            await notificationDocument.Q<Button>("Button").OnClickAsync(scope);
+            var sequencesDocument = gameDocument.Q<HKUIDocument>("Sequences");
+            var clickHereAnimation = sequencesDocument.Q<SequenceMonobehaviour>("ClickHereAnimation");
+            clickHereAnimation.PlayAsync(scopeSource.Token).Forget();
+            await notificationDocument.Q<Button>("Button").OnClickAsync(scopeSource.Token);
             notificationDocument.gameObject.SetActive(false);
+            scopeSource.Cancel();
+            scopeSource.Dispose();
         }
 
         private static void SetCardPublicState(HKUIDocument cardDocument, bool isPublic)
