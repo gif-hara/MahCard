@@ -155,10 +155,9 @@ namespace MahCard
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Trade, scope);
             // この段階ではTradeアビリティのカードが捨てられているので一度引いておく
             var tempCard = DiscardDeck.Draw();
-            var drawCard = user.Draw(DiscardDeck);
+            var isWin = await DrawProcessAsync(user, DiscardDeck, scope);
             DiscardDeck.Push(tempCard);
-            await view.OnDrawCardAsync(this, user, drawCard, scope);
-            if (user.IsWin(Rules))
+            if (isWin)
             {
                 stateMachine.Change(StateCompleteRecovery);
                 return;
