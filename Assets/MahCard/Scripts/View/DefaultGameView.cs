@@ -134,6 +134,10 @@ namespace MahCard.View
                 .Q<HKUIDocument>("Sequences")
                 .Q<SequenceMonobehaviour>("DefaultOutAnimation")
                 .PlayAsync(scope);
+            if (card.Ability != Define.CardAbility.None && game.CanInvokeAbility)
+            {
+                await PlayBrillianceEffectAnimationAsync(discardCardDocument, scope);
+            }
             UnityEngine.Object.Destroy(cardDocument.gameObject);
         }
 
@@ -154,6 +158,7 @@ namespace MahCard.View
             {
                 var cardDocument = cardDocuments[card];
                 SetCardPublicState(cardDocument, true);
+                PlayBrillianceEffectAnimationAsync(cardDocument, scope).Forget();
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: scope);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: scope);
@@ -268,6 +273,14 @@ namespace MahCard.View
         private void ClearSupplementDescription()
         {
             supplementDescriptionAreaDocument.gameObject.SetActive(false);
+        }
+
+        private UniTask PlayBrillianceEffectAnimationAsync(HKUIDocument cardDocument, CancellationToken scope)
+        {
+            return cardDocument
+                .Q<HKUIDocument>("Sequences")
+                .Q<SequenceMonobehaviour>("BrillianceEffectAnimation")
+                .PlayAsync(scope);
         }
 
         private static string GetAbilitySubMessage(Define.CardAbility ability, GameRules rules)
