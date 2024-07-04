@@ -126,7 +126,7 @@ namespace MahCard
             await view.OnSelectDiscardAsync(this, user, scope);
             var discardIndex = await user.AI.DiscardAsync(user, scope);
             var discardCard = await DiscardProcessAsync(user, discardIndex, scope);
-            TryInvokeAbility(discardCard);
+            stateMachine.Change(StateEndTurn);
         }
 
         private async UniTask StateDiscardResetCard(CancellationToken scope)
