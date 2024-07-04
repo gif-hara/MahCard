@@ -478,6 +478,96 @@ MonoBehaviour:
       type: {class: Delay, ns: UnitySequencerSystem.StandardSequences, asm: UnitySequencerSystem}
       data:
         seconds: 0.2
+--- !u!1 &2916533762438750635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 655286786076403946}
+  - component: {fileID: 5398233471117804914}
+  - component: {fileID: 7284147809435195814}
+  - component: {fileID: 7576568091995642506}
+  m_Layer: 5
+  m_Name: BrillianceEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &655286786076403946
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916533762438750635}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8767131019433745646}
+  m_Father: {fileID: 6893170766103295148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5398233471117804914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916533762438750635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 0
+--- !u!222 &7284147809435195814
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916533762438750635}
+  m_CullTransparentMesh: 1
+--- !u!114 &7576568091995642506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916533762438750635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d294e271f4ba7554ab0439284ec0d57f, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3202269104788828905
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +673,254 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!1 &3526966045569847233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8767131019433745646}
+  m_Layer: 5
+  m_Name: AnimationArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8767131019433745646
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526966045569847233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4234804509643782297}
+  - {fileID: 8276202598053805322}
+  m_Father: {fileID: 655286786076403946}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -232.7, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &4416706136843683026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7401343434017197597}
+  - component: {fileID: 4771895358181039242}
+  m_Layer: 5
+  m_Name: BrillianceEffectAnimation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7401343434017197597
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416706136843683026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3698109574418973842}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4771895358181039242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416706136843683026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868f96161af5bb04c877aea540858563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sequences:
+  - rid: 7288459251946881216
+  - rid: 7288459251946881239
+  references:
+    version: 2
+    RefIds:
+    - rid: 7288459251946881216
+      type: {class: Forget, ns: UnitySequencerSystem.StandardSequences, asm: UnitySequencerSystem}
+      data:
+        sequencesResolver:
+          rid: 7288459251946881217
+    - rid: 7288459251946881217
+      type: {class: SequencesResolver/List, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value:
+        - rid: 7288459273922674761
+        - rid: 7288459273922674771
+        - rid: 7288459273922674779
+    - rid: 7288459251946881239
+      type: {class: Delay, ns: UnitySequencerSystem.StandardSequences, asm: UnitySequencerSystem}
+      data:
+        seconds: 0.5
+    - rid: 7288459273922674761
+      type: {class: BindToAnchoredPositionX, ns: UnitySequencerSystem.LitMotion, asm: UnitySequencerSystem}
+      data:
+        targetResolver:
+          rid: 7288459273922674762
+        parameters:
+          fromResolver:
+            rid: 7288459273922674763
+          toResolver:
+            rid: 7288459273922674764
+          durationResolver:
+            rid: 7288459273922674765
+          delayResolver:
+            rid: 7288459273922674766
+          loopCountResolver:
+            rid: 7288459273922674767
+          loopType: 0
+          motionSchedulerResolver:
+            rid: 7288459273922674768
+          ease: 8
+    - rid: 7288459273922674762
+      type: {class: RectTransformResolver/Reference, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        target: {fileID: 8767131019433745646}
+    - rid: 7288459273922674763
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: -300
+    - rid: 7288459273922674764
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 300
+    - rid: 7288459273922674765
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 0.5
+    - rid: 7288459273922674766
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 0
+    - rid: 7288459273922674767
+      type: {class: IntResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 1
+    - rid: 7288459273922674768
+      type: {class: MotionSchedulerResolver/Update, ns: UnitySequencerSystem.Resolvers.LitMotion, asm: UnitySequencerSystem}
+      data: 
+    - rid: 7288459273922674771
+      type: {class: BindToLocalScale, ns: UnitySequencerSystem.LitMotion, asm: UnitySequencerSystem}
+      data:
+        targetResolver:
+          rid: 7288459273922674772
+        parameters:
+          fromResolver:
+            rid: 7288459273922674773
+          toResolver:
+            rid: 7288459273922674774
+          durationResolver:
+            rid: 7288459273922674775
+          delayResolver:
+            rid: 7288459273922674776
+          loopCountResolver:
+            rid: 7288459273922674777
+          loopType: 0
+          motionSchedulerResolver:
+            rid: 7288459273922674778
+          ease: 8
+    - rid: 7288459273922674772
+      type: {class: TransformResolver/Reference, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        target: {fileID: 6893170766103295148}
+    - rid: 7288459273922674773
+      type: {class: Vector3Resolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: {x: 1, y: 1, z: 1}
+    - rid: 7288459273922674774
+      type: {class: Vector3Resolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: {x: 1.2, y: 1.2, z: 1.2}
+    - rid: 7288459273922674775
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 0.25
+    - rid: 7288459273922674776
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 0
+    - rid: 7288459273922674777
+      type: {class: IntResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 1
+    - rid: 7288459273922674778
+      type: {class: MotionSchedulerResolver/Update, ns: UnitySequencerSystem.Resolvers.LitMotion, asm: UnitySequencerSystem}
+      data: 
+    - rid: 7288459273922674779
+      type: {class: BindToLocalScale, ns: UnitySequencerSystem.LitMotion, asm: UnitySequencerSystem}
+      data:
+        targetResolver:
+          rid: 7288459273922674780
+        parameters:
+          fromResolver:
+            rid: 7288459273922674781
+          toResolver:
+            rid: 7288459273922674782
+          durationResolver:
+            rid: 7288459273922674783
+          delayResolver:
+            rid: 7288459273922674784
+          loopCountResolver:
+            rid: 7288459273922674785
+          loopType: 0
+          motionSchedulerResolver:
+            rid: 7288459273922674786
+          ease: 29
+    - rid: 7288459273922674780
+      type: {class: TransformResolver/Reference, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        target: {fileID: 6893170766103295148}
+    - rid: 7288459273922674781
+      type: {class: Vector3Resolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: {x: 1.2, y: 1.2, z: 1.2}
+    - rid: 7288459273922674782
+      type: {class: Vector3Resolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: {x: 1, y: 1, z: 1}
+    - rid: 7288459273922674783
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 0.25
+    - rid: 7288459273922674784
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 0.25
+    - rid: 7288459273922674785
+      type: {class: IntResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 1
+    - rid: 7288459273922674786
+      type: {class: MotionSchedulerResolver/Update, ns: UnitySequencerSystem.Resolvers.LitMotion, asm: UnitySequencerSystem}
+      data: 
 --- !u!1 &4542828911103058202
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,6 +1132,7 @@ RectTransform:
   - {fileID: 712450554094406532}
   - {fileID: 7217809818542280895}
   - {fileID: 2956944664152672929}
+  - {fileID: 7401343434017197597}
   m_Father: {fileID: 1197436987600051403}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -820,6 +1159,83 @@ MonoBehaviour:
     overrideName: 
   - document: {fileID: 8605127219859200531}
     overrideName: 
+  - document: {fileID: 4416706136843683026}
+    overrideName: 
+--- !u!1 &5567068702087776074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8276202598053805322}
+  - component: {fileID: 3939632529098750497}
+  - component: {fileID: 2823072703014861160}
+  m_Layer: 5
+  m_Name: Image (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8276202598053805322
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5567068702087776074}
+  m_LocalRotation: {x: -0, y: -0, z: -0.2940404, w: 0.955793}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8767131019433745646}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -34.2}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -68.72, y: 0}
+  m_SizeDelta: {x: 19.4, y: 400}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3939632529098750497
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5567068702087776074}
+  m_CullTransparentMesh: 1
+--- !u!114 &2823072703014861160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5567068702087776074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5652784244209436243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1526,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &7070577926396626604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4234804509643782297}
+  - component: {fileID: 2730074263668993442}
+  - component: {fileID: 1898443132349788890}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4234804509643782297
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070577926396626604}
+  m_LocalRotation: {x: -0, y: -0, z: -0.2940404, w: 0.955793}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8767131019433745646}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -34.2}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 60, y: 400}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2730074263668993442
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070577926396626604}
+  m_CullTransparentMesh: 1
+--- !u!114 &1898443132349788890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070577926396626604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.87169814, g: 0.87169814, b: 0.87169814, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7170181983767159068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,6 +1964,7 @@ RectTransform:
   - {fileID: 6819820468213797229}
   - {fileID: 5174311115802223938}
   - {fileID: 5099795978528576063}
+  - {fileID: 655286786076403946}
   m_Father: {fileID: 6458880843727285737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
