@@ -25,6 +25,9 @@ MonoBehaviour:
   - color: 3
     ability: 0
     count: 10
+  - color: 4
+    ability: 0
+    count: 10
   - color: 0
     ability: 1
     count: 1
@@ -37,6 +40,9 @@ MonoBehaviour:
   - color: 3
     ability: 1
     count: 1
+  - color: 4
+    ability: 1
+    count: 1
   - color: 0
     ability: 2
     count: 1
@@ -49,6 +55,9 @@ MonoBehaviour:
   - color: 3
     ability: 2
     count: 1
+  - color: 4
+    ability: 2
+    count: 1
   - color: 0
     ability: 3
     count: 1
@@ -59,6 +68,9 @@ MonoBehaviour:
     ability: 3
     count: 1
   - color: 3
+    ability: 3
+    count: 1
+  - color: 4
     ability: 3
     count: 1
   - color: 0
@@ -71,5 +83,8 @@ MonoBehaviour:
     ability: 4
     count: 1
   - color: 3
+    ability: 4
+    count: 1
+  - color: 4
     ability: 4
     count: 1
