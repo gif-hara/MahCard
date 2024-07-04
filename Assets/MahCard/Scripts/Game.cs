@@ -24,6 +24,8 @@ namespace MahCard
 
         public int MainUserIndex { get; }
 
+        public bool CanInvokeAbility { get; private set; }
+
         private readonly IView view;
 
         private readonly TinyStateMachine stateMachine = new();
@@ -96,6 +98,7 @@ namespace MahCard
 
         private async UniTask StateBeginTurn(CancellationToken scope)
         {
+            CanInvokeAbility = true;
             var index = CurrentUserIndex;
             var user = Users[index];
             await user.AI.OnBeginTurnAsync(this, user, scope);
@@ -115,6 +118,7 @@ namespace MahCard
 
         private async UniTask StateDiscardRetryCard(CancellationToken scope)
         {
+            CanInvokeAbility = false;
             var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Retry, scope);
             var isWin = await DrawProcessAsync(user, Deck, scope);
@@ -131,6 +135,7 @@ namespace MahCard
 
         private async UniTask StateDiscardResetCard(CancellationToken scope)
         {
+            CanInvokeAbility = false;
             var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Reset, scope);
             while (user.IsPossessionCard())
@@ -146,11 +151,7 @@ namespace MahCard
 
         private async UniTask StateDiscardTradeCard(CancellationToken scope)
         {
-            if (!CanInvokeTradeAbility())
-            {
-                stateMachine.Change(StateEndTurn);
-                return;
-            }
+            CanInvokeAbility = false;
             var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Trade, scope);
             // この段階ではTradeアビリティのカードが捨てられているので一度引いておく
@@ -170,6 +171,7 @@ namespace MahCard
 
         private async UniTask StateDiscardDoubleCard(CancellationToken scope)
         {
+            CanInvokeAbility = false;
             var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Double, scope);
             for (var i = 0; i < 2; i++)
@@ -204,6 +206,7 @@ namespace MahCard
 
         private async UniTask StateCompleteRecovery(CancellationToken scope)
         {
+            CanInvokeAbility = false;
             foreach (var user in Users)
             {
                 while (user.IsPossessionCard())
@@ -268,7 +271,15 @@ namespace MahCard
                     stateMachine.Change(StateDiscardResetCard);
                     break;
                 case Define.CardAbility.Trade:
-                    stateMachine.Change(StateDiscardTradeCard);
+                    if (CanInvokeTradeAbility())
+                    {
+                        stateMachine.Change(StateDiscardTradeCard);
+                    }
+                    else
+                    {
+                        CanInvokeAbility = false;
+                        stateMachine.Change(StateEndTurn);
+                    }
                     break;
                 case Define.CardAbility.Double:
                     stateMachine.Change(StateDiscardDoubleCard);
