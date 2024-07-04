@@ -154,6 +154,7 @@ namespace MahCard.View
             {
                 var cardDocument = cardDocuments[card];
                 SetCardPublicState(cardDocument, true);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: scope);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: scope);
             await BeginNotificationAsync($"{user.Name} Win!", "", scope);
