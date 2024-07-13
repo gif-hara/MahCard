@@ -247,7 +247,7 @@ namespace MahCard.View
             deckAreaDocument.gameObject.SetActive(deck.Count > 0);
             deckAreaTransform.anchoredPosition = new Vector2(v.x, -deckMaxCount * (1 - rate));
             v = thicknessTransform.sizeDelta;
-            thicknessTransform.sizeDelta = new Vector2(v.x, deckMaxCount * rate);
+            thicknessTransform.sizeDelta = new Vector2(v.x, deckMaxCount * rate + 27);
         }
 
         private void UpdateDiscardDeckView(Game game)
