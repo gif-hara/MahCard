@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using MahCard;
 using UnityEngine;
 
 namespace HK
@@ -36,12 +37,19 @@ namespace HK
             InitializeInternalAsync().Forget();
         }
 
-        private static UniTask InitializeInternalAsync()
+        private static async UniTask InitializeInternalAsync()
         {
             initializeState = InitializeState.Initializing;
-            // 何か共通の処理をここに書く
+            await InitializeAudioManagerAsync();
             initializeState = InitializeState.Initialized;
-            return UniTask.CompletedTask;
+        }
+
+        private static async UniTask InitializeAudioManagerAsync()
+        {
+            var audioManagerPrefab = await AssetLoader.LoadAsync<AudioManager>("System.AudioManager");
+            var audioManager = Object.Instantiate(audioManagerPrefab);
+            Object.DontDestroyOnLoad(audioManager.gameObject);
+            TinyServiceLocator.Register(audioManager);
         }
     }
 }
