@@ -28,5 +28,11 @@ namespace MahCard
             Deck,
             DiscardDeck,
         }
+
+        public enum SfxType
+        {
+            DrawCard,
+            DiscardCard,
+        }
     }
 }
