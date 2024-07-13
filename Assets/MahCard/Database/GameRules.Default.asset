@@ -34,3 +34,8 @@ MonoBehaviour:
   currentTurnUserNameColor: {r: 1, g: 0.40188706, b: 0, a: 1}
   defaultUserBackgroundColor: {r: 0, g: 0, b: 0, a: 0.47058824}
   defaultUserNameColor: {r: 1, g: 1, b: 1, a: 1}
+  sfxDatabase:
+  - type: 0
+    clip: {fileID: 8300000, guid: ac53bd6022554a54cbb298654a01a17d, type: 3}
+  - type: 1
+    clip: {fileID: 8300000, guid: b0f08d85dba3f504b86ed15af11a0267, type: 3}

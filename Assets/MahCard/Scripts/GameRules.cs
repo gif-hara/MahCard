@@ -38,6 +38,20 @@ namespace MahCard
         private Color defaultUserNameColor;
         public Color DefaultUserNameColor => defaultUserNameColor;
 
+        [SerializeField]
+        private List<SfxData> sfxDatabase;
+
+        public AudioClip GetSfxClip(Define.SfxType type)
+        {
+            var data = sfxDatabase.Find(s => s.Type == type);
+            if (data == null)
+            {
+                Assert.IsTrue(false, $"Not found sfx data. type: {type}");
+            }
+
+            return data.Clip;
+        }
+
         public ColorData GetColorData(Define.CardColor type)
         {
             var data = colorDatabase.Find(c => c.Type == type);
@@ -63,6 +77,18 @@ namespace MahCard
             [SerializeField]
             private Color color;
             public Color Color => color;
+        }
+
+        [Serializable]
+        public class SfxData
+        {
+            [SerializeField]
+            private Define.SfxType type;
+            public Define.SfxType Type => type;
+
+            [SerializeField]
+            private AudioClip clip;
+            public AudioClip Clip => clip;
         }
     }
 }
