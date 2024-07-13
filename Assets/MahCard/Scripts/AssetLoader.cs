@@ -8,7 +8,7 @@ namespace MahCard
     /// </summary>
     public sealed class AssetLoader
     {
-        public async UniTask<T> LoadAsync<T>(string path) where T : UnityEngine.Object
+        public async UniTask<T> LoadAsync<T>(string path) where T : Object
         {
             var result = await Resources.LoadAsync<T>(path).ToUniTask();
             return result as T;
