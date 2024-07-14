@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HK;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -39,18 +40,9 @@ namespace MahCard
         public Color DefaultUserNameColor => defaultUserNameColor;
 
         [SerializeField]
-        private List<SfxData> sfxDatabase;
+        private SfxData.DictionaryList sfxDatabase;
 
-        public AudioClip GetSfxClip(Define.SfxType type)
-        {
-            var data = sfxDatabase.Find(s => s.Type == type);
-            if (data == null)
-            {
-                Assert.IsTrue(false, $"Not found sfx data. type: {type}");
-            }
-
-            return data.Clip;
-        }
+        public AudioClip GetSfxClip(string key) => sfxDatabase.Get(key).Clip;
 
         public ColorData GetColorData(Define.CardColor type)
         {
@@ -83,12 +75,20 @@ namespace MahCard
         public class SfxData
         {
             [SerializeField]
-            private Define.SfxType type;
-            public Define.SfxType Type => type;
+            private string key;
+            public string Key => key;
 
             [SerializeField]
             private AudioClip clip;
             public AudioClip Clip => clip;
+
+            [Serializable]
+            public class DictionaryList : DictionaryList<string, SfxData>
+            {
+                public DictionaryList() : base(s => s.Key)
+                {
+                }
+            }
         }
     }
 }
