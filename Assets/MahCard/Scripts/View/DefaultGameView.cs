@@ -158,8 +158,8 @@ namespace MahCard.View
             }
             discardCardDocument.gameObject.SetActive(false);
             return BeginNotificationAsync(
-                "Game Start!",
-                $"同じ絵柄のカードを{game.Rules.HandCardCount + 1}枚揃えると勝利です",
+                "ゲーム開始！",
+                $"同じ絵柄のカードを{game.Rules.HandCardCount + 1}枚揃えると勝利です！",
                 game.Rules.GetSfxClip("Notification.Default"),
                 scope
                 );
@@ -243,9 +243,9 @@ namespace MahCard.View
             subTextAreaDocument.gameObject.SetActive(subMessage.Length > 0);
             notificationDocument.gameObject.SetActive(true);
             var sequencesDocument = gameDocument.Q<HKUIDocument>("Sequences");
-            var clickHereAnimation = sequencesDocument.Q<SequenceMonobehaviour>("ClickHereAnimation");
             AudioManager.PlaySFX(sfx);
-            clickHereAnimation.PlayAsync(scopeSource.Token).Forget();
+            sequencesDocument.Q<SequenceMonobehaviour>("Notification.In.Animation").PlayAsync(scopeSource.Token).Forget();
+            sequencesDocument.Q<SequenceMonobehaviour>("ClickHereAnimation").PlayAsync(scopeSource.Token).Forget();
             await notificationDocument.Q<Button>("Button").OnClickAsync(scopeSource.Token);
             notificationDocument.gameObject.SetActive(false);
             scopeSource.Cancel();
