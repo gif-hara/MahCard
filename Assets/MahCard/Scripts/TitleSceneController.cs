@@ -8,9 +8,6 @@ namespace MahCard
     /// </summary>
     public sealed class TitleSceneController : MonoBehaviour
     {
-        [SerializeField]
-        private RoomData debugRoomData;
-
         async void Start()
         {
             await BootSystem.IsReady;
