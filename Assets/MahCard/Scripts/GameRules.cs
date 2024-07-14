@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HK;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 namespace MahCard
 {
@@ -40,9 +41,10 @@ namespace MahCard
         public Color DefaultUserNameColor => defaultUserNameColor;
 
         [SerializeField]
-        private SfxData.DictionaryList sfxDatabase;
+        [FormerlySerializedAs("sfxDatabase")]
+        private AudioData.DictionaryList audioDatabase;
 
-        public AudioClip GetSfxClip(string key) => sfxDatabase.Get(key).Clip;
+        public AudioClip GetAudioClip(string key) => audioDatabase.Get(key).Clip;
 
         public ColorData GetColorData(Define.CardColor type)
         {
@@ -72,20 +74,16 @@ namespace MahCard
         }
 
         [Serializable]
-        public class SfxData
+        public class AudioData
         {
-            [SerializeField]
-            private string key;
-            public string Key => key;
-
             [SerializeField]
             private AudioClip clip;
             public AudioClip Clip => clip;
 
             [Serializable]
-            public class DictionaryList : DictionaryList<string, SfxData>
+            public class DictionaryList : DictionaryList<string, AudioData>
             {
-                public DictionaryList() : base(s => s.Key)
+                public DictionaryList() : base(s => s.clip.name)
                 {
                 }
             }

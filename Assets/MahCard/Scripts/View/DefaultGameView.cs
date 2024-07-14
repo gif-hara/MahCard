@@ -83,7 +83,7 @@ namespace MahCard.View
             await BeginNotificationAsync(
                 $"{user.Name}が親です",
                 "",
-                game.Rules.GetSfxClip("Notification.Default"),
+                game.Rules.GetAudioClip("Sfx.Notification.Default.0"),
                 scope
                 );
         }
@@ -108,7 +108,7 @@ namespace MahCard.View
                     })
                     .RegisterTo(cardDocument.destroyCancellationToken);
             }
-            AudioManager.PlaySFX(game.Rules.GetSfxClip("DrawCard"));
+            AudioManager.PlaySFX(game.Rules.GetAudioClip("Sfx.DrawCard.0"));
 
             await cardDocument
                 .Q<HKUIDocument>("Sequences")
@@ -135,14 +135,14 @@ namespace MahCard.View
             var cardDocument = cardDocuments[card];
             cardDocuments.Remove(card);
             UpdateDiscardDeckView(game);
-            AudioManager.PlaySFX(game.Rules.GetSfxClip("DiscardCard"));
+            AudioManager.PlaySFX(game.Rules.GetAudioClip("Sfx.DiscardCard.0"));
             await cardDocument
                 .Q<HKUIDocument>("Sequences")
                 .Q<SequenceMonobehaviour>("DefaultOutAnimation")
                 .PlayAsync(scope);
             if (card.Ability != Define.CardAbility.None && game.CanInvokeAbility)
             {
-                AudioManager.PlaySFX(game.Rules.GetSfxClip("InvokeAbility"));
+                AudioManager.PlaySFX(game.Rules.GetAudioClip("Sfx.InvokeAbility.0"));
                 await PlayBrillianceEffectAnimationAsync(discardCardDocument, scope);
             }
             UnityEngine.Object.Destroy(cardDocument.gameObject);
@@ -156,17 +156,18 @@ namespace MahCard.View
                 document.Q<TMP_Text>("UserName").color = game.Rules.DefaultUserNameColor;
             }
             discardCardDocument.gameObject.SetActive(false);
+            AudioManager.PlayBGM(game.Rules.GetAudioClip("Bgm.Game.0"));
             return BeginNotificationAsync(
                 "ゲーム開始！",
                 $"同じ絵柄のカードを{game.Rules.HandCardCount + 1}枚揃えると勝利です！",
-                game.Rules.GetSfxClip("Notification.Default"),
+                game.Rules.GetAudioClip("Sfx.Notification.Default.0"),
                 scope
                 );
         }
 
         public override async UniTask OnWinAsync(Game game, User user, CancellationToken scope)
         {
-            AudioManager.PlaySFX(game.Rules.GetSfxClip("Win"));
+            AudioManager.PlaySFX(game.Rules.GetAudioClip("Sfx.Win.0"));
             foreach (var card in user.Cards)
             {
                 var cardDocument = cardDocuments[card];
@@ -178,7 +179,7 @@ namespace MahCard.View
             await BeginNotificationAsync(
                 $"{user.Name}の勝利！",
                 "",
-                game.Rules.GetSfxClip("Notification.Win"),
+                game.Rules.GetAudioClip("Sfx.Notification.Win.0"),
                 scope
                 );
         }
@@ -192,7 +193,7 @@ namespace MahCard.View
                 await BeginNotificationAsync(
                     $"あなたのターンです",
                     "",
-                    game.Rules.GetSfxClip("Notification.Default"),
+                    game.Rules.GetAudioClip("Sfx.Notification.Default.0"),
                     scope
                     );
                 SetSupplementDescription("デッキまたは捨札をタップしてカードを引いてください");
@@ -217,7 +218,7 @@ namespace MahCard.View
             return BeginNotificationAsync(
                 ability.ToString(),
                 GetAbilitySubMessage(ability, game.Rules),
-                game.Rules.GetSfxClip("Notification.Default"),
+                game.Rules.GetAudioClip("Sfx.Notification.Default.0"),
                 scope
                 );
         }
