@@ -18,11 +18,11 @@ namespace MahCard
             this.documentPrefab = documentPrefab;
         }
 
-        public async UniTask OpenAsync(CancellationTokenSource scope)
+        public async UniTask OpenAsync(CancellationToken scope)
         {
             var document = Object.Instantiate(documentPrefab);
 
-            await document.Q<Button>("Button.Close").OnClickAsync(scope.Token);
+            await document.Q<Button>("Button.Close").OnClickAsync(scope);
 
             Object.Destroy(document.gameObject);
         }
