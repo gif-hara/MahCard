@@ -30,46 +30,46 @@ MonoBehaviour:
     count: 10
   - color: 0
     ability: 1
-    count: 1
+    count: 3
   - color: 1
     ability: 1
-    count: 1
+    count: 3
   - color: 2
     ability: 1
-    count: 1
+    count: 3
   - color: 3
     ability: 1
-    count: 1
+    count: 3
   - color: 4
     ability: 1
-    count: 1
+    count: 3
   - color: 0
     ability: 3
-    count: 1
+    count: 3
   - color: 1
     ability: 3
-    count: 1
+    count: 3
   - color: 2
     ability: 3
-    count: 1
+    count: 3
   - color: 3
     ability: 3
-    count: 1
+    count: 3
   - color: 4
     ability: 3
-    count: 1
+    count: 3
   - color: 0
     ability: 4
-    count: 1
+    count: 3
   - color: 1
     ability: 4
-    count: 1
+    count: 3
   - color: 2
     ability: 4
-    count: 1
+    count: 3
   - color: 3
     ability: 4
-    count: 1
+    count: 3
   - color: 4
     ability: 4
-    count: 1
+    count: 3
