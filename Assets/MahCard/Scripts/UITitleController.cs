@@ -17,9 +17,10 @@ namespace MahCard
 
         private readonly HKUIDocument guideBookDocumentPrefab;
 
-        public UITitleController(HKUIDocument document)
+        public UITitleController(HKUIDocument titleDocumentPrefab, HKUIDocument guideBookDocumentPrefab)
         {
-            this.titleDocumentPrefab = document;
+            this.titleDocumentPrefab = titleDocumentPrefab;
+            this.guideBookDocumentPrefab = guideBookDocumentPrefab;
         }
 
         public void Open(CancellationToken scope)
@@ -27,6 +28,8 @@ namespace MahCard
             var document = Object.Instantiate(this.titleDocumentPrefab);
             var anyClickAreaDocument = document.Q<HKUIDocument>("Area.AnyClick");
             var mainAreaDocument = document.Q<HKUIDocument>("Area.Main");
+            anyClickAreaDocument.gameObject.SetActive(true);
+            mainAreaDocument.gameObject.SetActive(false);
 
             anyClickAreaDocument.Q<Button>("Button").OnClickAsObservable()
                 .Subscribe(_ =>
