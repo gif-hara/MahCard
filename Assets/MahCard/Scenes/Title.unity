@@ -163,16 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c2ae2d60299bc4419890325d10a8808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugRoomData:
-    gameRules: {fileID: 0}
-    computerPlayerCount: 0
-    view:
-      rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+  titleDocumentPrefab: {fileID: 1114346149357140837, guid: 5c41a31568bb5a7499301eca72b908ea, type: 3}
+  guideBookDocumentPrefab: {fileID: 1114346149357140837, guid: 6a448afcef88c49e1990bfcd21e00bdd, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
