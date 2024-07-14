@@ -41,7 +41,6 @@ namespace MahCard
         public Color DefaultUserNameColor => defaultUserNameColor;
 
         [SerializeField]
-        [FormerlySerializedAs("sfxDatabase")]
         private AudioData.DictionaryList audioDatabase;
 
         public AudioClip GetAudioClip(string key) => audioDatabase.Get(key).Clip;
