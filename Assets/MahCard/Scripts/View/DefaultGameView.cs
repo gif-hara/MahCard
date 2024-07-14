@@ -138,6 +138,7 @@ namespace MahCard.View
                 .PlayAsync(scope);
             if (card.Ability != Define.CardAbility.None && game.CanInvokeAbility)
             {
+                AudioManager.PlaySFX(game.Rules.GetSfxClip("InvokeAbility"));
                 await PlayBrillianceEffectAnimationAsync(discardCardDocument, scope);
             }
             UnityEngine.Object.Destroy(cardDocument.gameObject);
