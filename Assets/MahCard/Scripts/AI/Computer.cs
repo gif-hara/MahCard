@@ -35,7 +35,7 @@ namespace MahCard.AI
 
         public async UniTask<int> DiscardAsync(User user, CancellationToken scope)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(0.2f), cancellationToken: scope);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: scope);
             if (isHonesty)
             {
                 var discardCard = user.Cards
