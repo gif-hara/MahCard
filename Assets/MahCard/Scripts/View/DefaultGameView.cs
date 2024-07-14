@@ -167,6 +167,7 @@ namespace MahCard.View
 
         public override async UniTask OnWinAsync(Game game, User user, CancellationToken scope)
         {
+            AudioManager.StopBGM();
             AudioManager.PlaySFX(game.Rules.GetAudioClip("Sfx.Win.0"));
             foreach (var card in user.Cards)
             {
