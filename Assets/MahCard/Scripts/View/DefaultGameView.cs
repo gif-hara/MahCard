@@ -244,9 +244,10 @@ namespace MahCard.View
             notificationDocument.gameObject.SetActive(true);
             var sequencesDocument = gameDocument.Q<HKUIDocument>("Sequences");
             AudioManager.PlaySFX(sfx);
-            sequencesDocument.Q<SequenceMonobehaviour>("Notification.In.Animation").PlayAsync(scopeSource.Token).Forget();
+            await sequencesDocument.Q<SequenceMonobehaviour>("Notification.In.Animation").PlayAsync(scopeSource.Token);
             sequencesDocument.Q<SequenceMonobehaviour>("ClickHereAnimation").PlayAsync(scopeSource.Token).Forget();
             await notificationDocument.Q<Button>("Button").OnClickAsync(scopeSource.Token);
+            await sequencesDocument.Q<SequenceMonobehaviour>("Notification.Out.Animation").PlayAsync(scopeSource.Token);
             notificationDocument.gameObject.SetActive(false);
             scopeSource.Cancel();
             scopeSource.Dispose();
