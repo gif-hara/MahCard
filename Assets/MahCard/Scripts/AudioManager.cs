@@ -26,5 +26,11 @@ namespace MahCard
             var instance = TinyServiceLocator.Resolve<AudioManager>();
             instance.sfxSource.PlayOneShot(clip);
         }
+
+        public static void StopBGM()
+        {
+            var instance = TinyServiceLocator.Resolve<AudioManager>();
+            instance.bgmSource.Stop();
+        }
     }
 }
