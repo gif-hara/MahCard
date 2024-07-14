@@ -26,9 +26,12 @@ namespace MahCard
             var document = Object.Instantiate(documentPrefab);
             var pageAreaDocument = document.Q<HKUIDocument>("Area.Page");
             var indexAreaDocument = document.Q<HKUIDocument>("Area.Index");
+            var sequencesDocument = document.Q<HKUIDocument>("Sequences");
             var nextButton = indexAreaDocument.Q<Button>("Button.Next");
             var previousButton = indexAreaDocument.Q<Button>("Button.Previous");
             var indexText = indexAreaDocument.Q<TMP_Text>("Text");
+            var nextAnimation = sequencesDocument.Q<SequenceMonobehaviour>("Animation.Next");
+            var previousAnimation = sequencesDocument.Q<SequenceMonobehaviour>("Animation.Previous");
             var pages = new List<GameObject>();
             var currentPageIndex = 0;
             while (true)
@@ -63,12 +66,21 @@ namespace MahCard
 
             void ChangePage(int nextPageIndex)
             {
+                var isNext = nextPageIndex >= currentPageIndex;
                 pages[currentPageIndex].SetActive(false);
                 pages[nextPageIndex].SetActive(true);
                 currentPageIndex = nextPageIndex;
                 nextButton.gameObject.SetActive(nextPageIndex < pages.Count - 1);
                 previousButton.gameObject.SetActive(nextPageIndex > 0);
                 indexText.text = $"{nextPageIndex + 1}/{pages.Count}";
+                if (isNext)
+                {
+                    nextAnimation.PlayAsync().Forget();
+                }
+                else
+                {
+                    previousAnimation.PlayAsync().Forget();
+                }
             }
         }
     }
