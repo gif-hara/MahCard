@@ -104,6 +104,7 @@ namespace MahCard.View
                     })
                     .RegisterTo(cardDocument.destroyCancellationToken);
             }
+            AudioManager.PlaySFX(game.Rules.GetSfxClip(Define.SfxType.DrawCard));
 
             await cardDocument
                 .Q<HKUIDocument>("Sequences")
@@ -130,6 +131,7 @@ namespace MahCard.View
             var cardDocument = cardDocuments[card];
             cardDocuments.Remove(card);
             UpdateDiscardDeckView(game);
+            AudioManager.PlaySFX(game.Rules.GetSfxClip(Define.SfxType.DiscardCard));
             await cardDocument
                 .Q<HKUIDocument>("Sequences")
                 .Q<SequenceMonobehaviour>("DefaultOutAnimation")
