@@ -34,7 +34,7 @@ MonoBehaviour:
   currentTurnUserNameColor: {r: 1, g: 0.40188706, b: 0, a: 1}
   defaultUserBackgroundColor: {r: 0, g: 0, b: 0, a: 0.47058824}
   defaultUserNameColor: {r: 1, g: 1, b: 1, a: 1}
-  sfxDatabase:
+  audioDatabase:
     list:
     - key: DrawCard
       clip: {fileID: 8300000, guid: ac53bd6022554a54cbb298654a01a17d, type: 3}
@@ -48,3 +48,5 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: e1e18320f3b46e043ac75c9426f03f02, type: 3}
     - key: Notification.Default
       clip: {fileID: 8300000, guid: cf145a4deef820f478b7aa95781ae125, type: 3}
+    - key: Bgm.Game.0
+      clip: {fileID: 8300000, guid: cf4b87060fee23a489f438d887666541, type: 3}
