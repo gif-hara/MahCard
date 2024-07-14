@@ -24,7 +24,17 @@ namespace HK
         /// <returns>The component of type T if found; otherwise, null.</returns>
         public T Q<T>(string name) where T : Component
         {
-            var e = Q(name);
+            var e = TryQ<T>(name);
+            if (e == null)
+            {
+                Debug.LogError($"Component not found: {typeof(T)} on object {name}");
+            }
+            return e;
+        }
+
+        public T TryQ<T>(string name) where T : Component
+        {
+            var e = TryQ(name);
             if (e == null)
             {
                 return null;
@@ -47,7 +57,6 @@ namespace HK
                 return newComponent;
             }
 
-            Debug.LogError($"Component not found: {typeof(T)} on object {name}");
             return null;
         }
 
@@ -57,6 +66,16 @@ namespace HK
         /// <param name="name">The name of the UI element.</param>
         /// <returns>The UI element if found; otherwise, null.</returns>
         public GameObject Q(string name)
+        {
+            var result = TryQ(name);
+            if (result == null)
+            {
+                Debug.LogError($"Element not found: {name}");
+            }
+            return result;
+        }
+
+        public GameObject TryQ(string name)
         {
             if (elementMap.Count == 0)
             {
@@ -70,11 +89,8 @@ namespace HK
             {
                 return e;
             }
-            else
-            {
-                Debug.LogError($"Element not found: {name}");
-                return null;
-            }
+
+            return null;
         }
 
         [Serializable]

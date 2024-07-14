@@ -20,6 +20,9 @@ namespace MahCard.View
         private HKUIDocument gameDocumentPrefab;
 
         [SerializeField]
+        private HKUIDocument guideBookDocumentPrefab;
+
+        [SerializeField]
         private bool isAlwaysHandVisible;
 
         private HKUIDocument gameDocument;
@@ -72,6 +75,15 @@ namespace MahCard.View
                 .Subscribe(_ =>
                 {
                     mainUser.OnSelectedDeckType.OnNext(Define.DeckType.DiscardDeck);
+                })
+                .RegisterTo(gameDocument.destroyCancellationToken);
+            gameDocument.Q<HKUIDocument>("OptionArea")
+                .Q<Button>("GotoGuideBookButton")
+                .OnClickAsObservable()
+                .Subscribe(_ =>
+                {
+                    var guideBookController = new UIGuideBookController(guideBookDocumentPrefab);
+                    guideBookController.OpenAsync(scope).Forget();
                 })
                 .RegisterTo(gameDocument.destroyCancellationToken);
             supplementDescriptionAreaDocument.gameObject.SetActive(false);
