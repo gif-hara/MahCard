@@ -16,23 +16,15 @@ namespace MahCard
 
         public static void PlayBGM(AudioClip clip)
         {
-            TinyServiceLocator.Resolve<AudioManager>().PlayBGMInternal(clip);
+            var instance = TinyServiceLocator.Resolve<AudioManager>();
+            instance.bgmSource.clip = clip;
+            instance.bgmSource.Play();
         }
 
         public static void PlaySFX(AudioClip clip)
         {
-            TinyServiceLocator.Resolve<AudioManager>().PlaySFXInternal(clip);
-        }
-
-        private void PlayBGMInternal(AudioClip clip)
-        {
-            bgmSource.clip = clip;
-            bgmSource.Play();
-        }
-
-        private void PlaySFXInternal(AudioClip clip)
-        {
-            sfxSource.PlayOneShot(clip);
+            var instance = TinyServiceLocator.Resolve<AudioManager>();
+            instance.sfxSource.PlayOneShot(clip);
         }
     }
 }
