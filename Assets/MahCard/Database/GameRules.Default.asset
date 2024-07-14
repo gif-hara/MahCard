@@ -42,3 +42,9 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: b0f08d85dba3f504b86ed15af11a0267, type: 3}
     - key: InvokeAbility
       clip: {fileID: 8300000, guid: 0fbf04b3e0e5f094fa3de8e4b7d2ac5e, type: 3}
+    - key: Win
+      clip: {fileID: 8300000, guid: 29433f988cf236147a7c3d98d6b0619b, type: 3}
+    - key: Notification.Win
+      clip: {fileID: 8300000, guid: e1e18320f3b46e043ac75c9426f03f02, type: 3}
+    - key: Notification.Default
+      clip: {fileID: 8300000, guid: cf145a4deef820f478b7aa95781ae125, type: 3}

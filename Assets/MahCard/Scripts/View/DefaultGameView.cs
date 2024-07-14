@@ -80,7 +80,12 @@ namespace MahCard.View
 
         public override async UniTask OnDecidedParentAsync(Game game, User user, CancellationToken scope)
         {
-            await BeginNotificationAsync($"{user.Name}が親です", "", scope);
+            await BeginNotificationAsync(
+                $"{user.Name}が親です",
+                "",
+                game.Rules.GetSfxClip("Notification.Default"),
+                scope
+                );
         }
 
         public override async UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope)
@@ -152,11 +157,17 @@ namespace MahCard.View
                 document.Q<TMP_Text>("UserName").color = game.Rules.DefaultUserNameColor;
             }
             discardCardDocument.gameObject.SetActive(false);
-            return BeginNotificationAsync("Game Start!", $"同じ絵柄のカードを{game.Rules.HandCardCount + 1}枚揃えると勝利です", scope);
+            return BeginNotificationAsync(
+                "Game Start!",
+                $"同じ絵柄のカードを{game.Rules.HandCardCount + 1}枚揃えると勝利です",
+                game.Rules.GetSfxClip("Notification.Default"),
+                scope
+                );
         }
 
         public override async UniTask OnWinAsync(Game game, User user, CancellationToken scope)
         {
+            AudioManager.PlaySFX(game.Rules.GetSfxClip("Win"));
             foreach (var card in user.Cards)
             {
                 var cardDocument = cardDocuments[card];
@@ -165,7 +176,12 @@ namespace MahCard.View
                 await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: scope);
             }
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: scope);
-            await BeginNotificationAsync($"{user.Name} Win!", "", scope);
+            await BeginNotificationAsync(
+                $"{user.Name}の勝利！",
+                "",
+                game.Rules.GetSfxClip("Notification.Win"),
+                scope
+                );
         }
 
         public override async UniTask OnBeginTurnAsync(Game game, User user, CancellationToken scope)
@@ -174,7 +190,12 @@ namespace MahCard.View
             userAreaDocuments[user].Q<TMP_Text>("UserName").color = game.Rules.CurrentTurnUserNameColor;
             if (game.IsMainUser(user))
             {
-                await BeginNotificationAsync($"{user.Name}'s Turn", "", scope);
+                await BeginNotificationAsync(
+                    $"あなたのターンです",
+                    "",
+                    game.Rules.GetSfxClip("Notification.Default"),
+                    scope
+                    );
                 SetSupplementDescription("デッキまたは捨札をタップしてカードを引いてください");
                 user.OnSelectedDeckType
                     .Subscribe(_ =>
@@ -194,7 +215,12 @@ namespace MahCard.View
 
         public override UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope)
         {
-            return BeginNotificationAsync(ability.ToString(), GetAbilitySubMessage(ability, game.Rules), scope);
+            return BeginNotificationAsync(
+                ability.ToString(),
+                GetAbilitySubMessage(ability, game.Rules),
+                game.Rules.GetSfxClip("Notification.Default"),
+                scope
+                );
         }
 
         public override UniTask OnFilledDeckAsync(Game game, CancellationToken scope)
@@ -204,7 +230,7 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
-        private async UniTask BeginNotificationAsync(string mainMessage, string subMessage, CancellationToken scope)
+        private async UniTask BeginNotificationAsync(string mainMessage, string subMessage, AudioClip sfx, CancellationToken scope)
         {
             var scopeSource = CancellationTokenSource.CreateLinkedTokenSource(scope);
             var notificationDocument = gameDocument.Q<HKUIDocument>("NotificationArea");
@@ -218,6 +244,7 @@ namespace MahCard.View
             notificationDocument.gameObject.SetActive(true);
             var sequencesDocument = gameDocument.Q<HKUIDocument>("Sequences");
             var clickHereAnimation = sequencesDocument.Q<SequenceMonobehaviour>("ClickHereAnimation");
+            AudioManager.PlaySFX(sfx);
             clickHereAnimation.PlayAsync(scopeSource.Token).Forget();
             await notificationDocument.Q<Button>("Button").OnClickAsync(scopeSource.Token);
             notificationDocument.gameObject.SetActive(false);
