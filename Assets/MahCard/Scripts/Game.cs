@@ -105,7 +105,7 @@ namespace MahCard
             {
                 for (var i = 0; i < Rules.HandCardCount; i++)
                 {
-                    await DrawProcessAsync(user, Deck, scope);
+                    await DrawProcessAsync(user, Deck, 0, scope);
                 }
             }
             parentIndex = random.NextInt(0, Users.Count);
@@ -122,7 +122,7 @@ namespace MahCard
             await user.AI.OnBeginTurnAsync(this, user, scope);
             await view.OnBeginTurnAsync(this, user, scope);
             var deckType = await user.AI.ChoiceDeckTypeAsync(this, user, scope);
-            var isWin = await DrawProcessAsync(user, GetDeck(deckType), scope);
+            var isWin = await DrawProcessAsync(user, GetDeck(deckType), 0, scope);
             if (isWin)
             {
                 stateMachine.Change(StateCompleteRecovery);
@@ -139,7 +139,7 @@ namespace MahCard
             canInvokeAbility = false;
             var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Retry, scope);
-            var isWin = await DrawProcessAsync(user, Deck, scope);
+            var isWin = await DrawProcessAsync(user, Deck, 0, scope);
             if (isWin)
             {
                 stateMachine.Change(StateCompleteRecovery);
@@ -162,7 +162,7 @@ namespace MahCard
             }
             for (var i = 0; i < Rules.HandCardCount; i++)
             {
-                await DrawProcessAsync(user, Deck, scope);
+                await DrawProcessAsync(user, Deck, 0, scope);
             }
             stateMachine.Change(StateEndTurn);
         }
@@ -172,10 +172,7 @@ namespace MahCard
             canInvokeAbility = false;
             var user = Users[CurrentUserIndex];
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Trade, scope);
-            // この段階ではTradeアビリティのカードが捨てられているので一度引いておく
-            var tempCard = DiscardDeck.Draw();
-            var isWin = await DrawProcessAsync(user, DiscardDeck, scope);
-            DiscardDeck.Push(tempCard);
+            var isWin = await DrawProcessAsync(user, DiscardDeck, 1, scope);
             if (isWin)
             {
                 stateMachine.Change(StateCompleteRecovery);
@@ -201,7 +198,7 @@ namespace MahCard
 
             for (var i = 0; i < 2; i++)
             {
-                await DrawProcessAsync(user, Deck, scope);
+                await DrawProcessAsync(user, Deck, 0, scope);
             }
             stateMachine.Change(StateEndTurn);
         }
@@ -237,14 +234,14 @@ namespace MahCard
             stateMachine.Change(StateBeginGame);
         }
 
-        private async UniTask<bool> DrawProcessAsync(User user, Deck deck, CancellationToken scope)
+        private async UniTask<bool> DrawProcessAsync(User user, Deck deck, int offset, CancellationToken scope)
         {
             if (deck == Deck && deck.IsEmpty())
             {
                 await DeckFillProcessAsync(deck, DiscardDeck, scope);
                 await DeckShuffleProcessAsync(deck, scope);
             }
-            var card = user.Draw(deck);
+            var card = user.Draw(deck, offset);
             await view.OnDrawCardAsync(this, user, card, scope);
             if (user.IsWin(Rules))
             {

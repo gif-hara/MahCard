@@ -32,9 +32,9 @@ namespace MahCard
             Cards = new List<Card>();
         }
 
-        public Card Draw(Deck deck)
+        public Card Draw(Deck deck, int offset = 0)
         {
-            var result = deck.Draw();
+            var result = deck.Draw(offset);
             Cards.Add(result);
             return result;
         }

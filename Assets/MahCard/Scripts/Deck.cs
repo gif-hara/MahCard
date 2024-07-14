@@ -22,9 +22,19 @@ namespace MahCard
             this.cards = new Stack<Card>(cards);
         }
 
-        public Card Draw()
+        public Card Draw(int offset = 0)
         {
-            return cards.Pop();
+            var tempCards = new Stack<Card>();
+            for (var i = 0; i < offset; i++)
+            {
+                tempCards.Push(cards.Pop());
+            }
+            var result = cards.Pop();
+            while (tempCards.Count > 0)
+            {
+                cards.Push(tempCards.Pop());
+            }
+            return result;
         }
 
         public void Push(Card card)
