@@ -93,7 +93,6 @@ namespace MahCard.View
             gameDocument.Q<TMP_Text>("DeckRemainingCount").SetText(game.Deck.Count.ToString());
             UpdateDeckView(gameDocument.Q<HKUIDocument>("DeckArea"), game.Deck);
             UpdateDeckView(gameDocument.Q<HKUIDocument>("DiscardDeckArea"), game.DiscardDeck);
-            UpdateDiscardDeckView(game);
             var cardPrefab = gameDocument.Q<HKUIDocument>("Prefab.UI.Card");
             var cardParent = userAreaDocuments[user].Q<RectTransform>("CardArea");
             var cardDocument = UnityEngine.Object.Instantiate(cardPrefab, cardParent);
