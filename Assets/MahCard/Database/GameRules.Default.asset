@@ -35,7 +35,10 @@ MonoBehaviour:
   defaultUserBackgroundColor: {r: 0, g: 0, b: 0, a: 0.47058824}
   defaultUserNameColor: {r: 1, g: 1, b: 1, a: 1}
   sfxDatabase:
-  - type: 0
-    clip: {fileID: 8300000, guid: ac53bd6022554a54cbb298654a01a17d, type: 3}
-  - type: 1
-    clip: {fileID: 8300000, guid: b0f08d85dba3f504b86ed15af11a0267, type: 3}
+    list:
+    - key: DrawCard
+      clip: {fileID: 8300000, guid: ac53bd6022554a54cbb298654a01a17d, type: 3}
+    - key: DiscardCard
+      clip: {fileID: 8300000, guid: b0f08d85dba3f504b86ed15af11a0267, type: 3}
+    - key: InvokeAbility
+      clip: {fileID: 8300000, guid: 0fbf04b3e0e5f094fa3de8e4b7d2ac5e, type: 3}
