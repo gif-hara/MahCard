@@ -14,10 +14,13 @@ namespace MahCard
         [SerializeField]
         private HKUIDocument guideBookDocumentPrefab;
 
+        [SerializeField]
+        private GameRules gameRules;
+
         async void Start()
         {
             await BootSystem.IsReady;
-            var titleController = new UITitleController(titleDocumentPrefab, guideBookDocumentPrefab);
+            var titleController = new UITitleController(titleDocumentPrefab, guideBookDocumentPrefab, gameRules);
             titleController.Open(destroyCancellationToken);
         }
     }

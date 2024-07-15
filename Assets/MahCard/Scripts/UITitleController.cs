@@ -17,10 +17,13 @@ namespace MahCard
 
         private readonly HKUIDocument guideBookDocumentPrefab;
 
-        public UITitleController(HKUIDocument titleDocumentPrefab, HKUIDocument guideBookDocumentPrefab)
+        private readonly GameRules gameRules;
+
+        public UITitleController(HKUIDocument titleDocumentPrefab, HKUIDocument guideBookDocumentPrefab, GameRules gameRules)
         {
             this.titleDocumentPrefab = titleDocumentPrefab;
             this.guideBookDocumentPrefab = guideBookDocumentPrefab;
+            this.gameRules = gameRules;
         }
 
         public void Open(CancellationToken scope)
@@ -36,6 +39,7 @@ namespace MahCard
                 {
                     mainAreaDocument.gameObject.SetActive(true);
                     anyClickAreaDocument.gameObject.SetActive(false);
+                    AudioManager.PlaySFX(gameRules.GetAudioClip("Sfx.AnyClick.0"));
                 })
                 .RegisterTo(document.destroyCancellationToken);
 
