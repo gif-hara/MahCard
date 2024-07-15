@@ -25,7 +25,7 @@ namespace MahCard
 
         public void Open(CancellationToken scope)
         {
-            var document = Object.Instantiate(this.titleDocumentPrefab);
+            var document = Object.Instantiate(titleDocumentPrefab);
             var anyClickAreaDocument = document.Q<HKUIDocument>("Area.AnyClick");
             var mainAreaDocument = document.Q<HKUIDocument>("Area.Main");
             anyClickAreaDocument.gameObject.SetActive(true);
