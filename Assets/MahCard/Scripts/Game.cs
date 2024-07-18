@@ -125,7 +125,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, GetDeck(deckType), 0, false, scope);
             if (isWin)
             {
-                stateMachine.Change(StateCompleteRecovery);
+                WinProcess();
                 return;
             }
             await view.OnSelectDiscardAsync(this, user, scope);
@@ -142,7 +142,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, Deck, 0, false, scope);
             if (isWin)
             {
-                stateMachine.Change(StateCompleteRecovery);
+                WinProcess();
                 return;
             }
             await view.OnSelectDiscardAsync(this, user, scope);
@@ -175,7 +175,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, DiscardDeck, 1, false, scope);
             if (isWin)
             {
-                stateMachine.Change(StateCompleteRecovery);
+                WinProcess();
                 return;
             }
             await view.OnSelectDiscardAsync(this, user, scope);
@@ -303,6 +303,11 @@ namespace MahCard
                     Assert.IsTrue(false, $"Invalid card ability: {card.Ability}");
                     break;
             }
+        }
+
+        private void WinProcess()
+        {
+            stateMachine.Change(StateCompleteRecovery);
         }
 
         private Deck GetDeck(Define.DeckType deckType)
