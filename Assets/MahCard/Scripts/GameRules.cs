@@ -18,6 +18,10 @@ namespace MahCard
         public int HandCardCount => handCardCount;
 
         [SerializeField]
+        private int gameWinCount;
+        public int GameWinCount => gameWinCount;
+
+        [SerializeField]
         private DeckBlueprint deckBlueprint;
         public DeckBlueprint DeckBlueprint => deckBlueprint;
 
