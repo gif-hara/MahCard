@@ -20,7 +20,9 @@ namespace MahCard
 
         public Subject<Define.DeckType> OnSelectedDeckType { get; } = new();
 
-        public int WinCount { get; private set; }
+        private ReactiveProperty<int> winCount = new(0);
+
+        public ReadOnlyReactiveProperty<int> WinCountAsObservable() => winCount;
 
         /// <summary>
         /// リーチ状態かどうか
@@ -65,12 +67,12 @@ namespace MahCard
 
         public void Win()
         {
-            WinCount++;
+            winCount.Value++;
         }
 
         public bool IsGameWin(GameRules rules)
         {
-            return WinCount >= rules.GameWinCount;
+            return winCount.Value >= rules.GameWinCount;
         }
 
         public override string ToString()
