@@ -20,6 +20,8 @@ namespace MahCard
 
         public Subject<Define.DeckType> OnSelectedDeckType { get; } = new();
 
+        public int WinCount { get; private set; }
+
         /// <summary>
         /// リーチ状態かどうか
         /// </summary>
@@ -59,6 +61,16 @@ namespace MahCard
         public int GetCardIndex(Card card)
         {
             return Cards.FindIndex(c => c == card);
+        }
+
+        public void Win()
+        {
+            WinCount++;
+        }
+
+        public bool IsGameWin(GameRules rules)
+        {
+            return WinCount >= rules.GameWinCount;
         }
 
         public override string ToString()
