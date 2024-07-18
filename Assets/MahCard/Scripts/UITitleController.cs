@@ -34,7 +34,7 @@ namespace MahCard
             var sequencesDocument = document.Q<HKUIDocument>("Sequences");
             anyClickAreaDocument.gameObject.SetActive(true);
             mainAreaDocument.gameObject.SetActive(false);
-            sequencesDocument.Q<SequenceMonobehaviour>("Animation.AnyClick").PlayAsync().Forget();
+            sequencesDocument.Q<SequenceMonobehaviour>("Animation.Area.AnyClick.Loop").PlayAsync().Forget();
 
             anyClickAreaDocument.Q<Button>("Button").OnClickAsObservable()
                 .Subscribe(_ =>
@@ -42,6 +42,7 @@ namespace MahCard
                     mainAreaDocument.gameObject.SetActive(true);
                     anyClickAreaDocument.gameObject.SetActive(false);
                     AudioManager.PlaySFX(gameRules.GetAudioClip("Sfx.AnyClick.0"));
+                    sequencesDocument.Q<SequenceMonobehaviour>("Animation.Area.Main.In").PlayAsync().Forget();
                 })
                 .RegisterTo(document.destroyCancellationToken);
 
