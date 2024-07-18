@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameRules.Default
   m_EditorClassIdentifier: 
   handCardCount: 6
-  gameWinCount: 1
+  gameWinCount: 3
   deckBlueprint: {fileID: 11400000, guid: 7fcff5db294c1407294d172d088a5439, type: 2}
   colorDatabase:
   - type: 0
