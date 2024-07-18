@@ -100,7 +100,7 @@ namespace MahCard.View
                 );
         }
 
-        public override async UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope)
+        public override async UniTask OnDrawCardAsync(Game game, User user, Card card, bool isFastDraw, CancellationToken scope)
         {
             gameDocument.Q<TMP_Text>("DeckRemainingCount").SetText(game.Deck.Count.ToString());
             UpdateDeckView(gameDocument.Q<HKUIDocument>("DeckArea"), game.Deck);
@@ -123,10 +123,19 @@ namespace MahCard.View
             }
             AudioManager.PlaySFX(game.Rules.GetAudioClip("Sfx.DrawCard.0"));
 
-            await cardDocument
+            var animation = cardDocument
                 .Q<HKUIDocument>("Sequences")
                 .Q<SequenceMonobehaviour>("DefaultInAnimation")
                 .PlayAsync(scope);
+
+            if (isFastDraw)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: scope);
+            }
+            else
+            {
+                await animation;
+            }
         }
 
         public override UniTask OnSelectDiscardAsync(Game game, User user, CancellationToken scope)

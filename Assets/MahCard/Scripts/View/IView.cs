@@ -14,7 +14,7 @@ namespace MahCard.View
 
         UniTask OnDeckShuffledAsync(Game game, CancellationToken scope);
 
-        UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope);
+        UniTask OnDrawCardAsync(Game game, User user, Card card, bool isFastDraw, CancellationToken scope);
 
         UniTask OnDecidedParentAsync(Game game, User user, CancellationToken scope);
 

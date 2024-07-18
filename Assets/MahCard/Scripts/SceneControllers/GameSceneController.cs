@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using HK;
-using MahCard.View;
 using UnityEngine;
 
 namespace MahCard

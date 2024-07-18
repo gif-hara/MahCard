@@ -23,7 +23,7 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
-        public override UniTask OnDrawCardAsync(Game game, User user, Card card, CancellationToken scope)
+        public override UniTask OnDrawCardAsync(Game game, User user, Card card, bool isFastDraw, CancellationToken scope)
         {
             Debug.Log($"{user.Name} Draw {card}");
             return UniTask.CompletedTask;
@@ -52,7 +52,7 @@ namespace MahCard.View
             Debug.Log($"{user.Name} Discard {card}");
             return UniTask.CompletedTask;
         }
-        
+
         public override UniTask OnFilledDeckAsync(Game game, CancellationToken scope)
         {
             Debug.Log("Filled Deck");
