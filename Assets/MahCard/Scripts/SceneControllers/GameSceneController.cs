@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using HK;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MahCard
 {
@@ -32,7 +33,7 @@ namespace MahCard
                 0
                 );
             await game.BeginAsync();
-            Debug.Log("GameEnd");
+            SceneManager.LoadScene("Title");
         }
     }
 }
