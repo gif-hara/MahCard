@@ -130,7 +130,7 @@ namespace MahCard
             }
             await view.OnSelectDiscardAsync(this, user, scope);
             var discardIndex = await user.AI.DiscardAsync(user, scope);
-            var discardCard = await DiscardProcessAsync(user, discardIndex, scope);
+            var discardCard = await DiscardProcessAsync(user, discardIndex, false, scope);
             TryInvokeAbility(discardCard);
         }
 
@@ -147,7 +147,7 @@ namespace MahCard
             }
             await view.OnSelectDiscardAsync(this, user, scope);
             var discardIndex = await user.AI.DiscardAsync(user, scope);
-            var discardCard = await DiscardProcessAsync(user, discardIndex, scope);
+            var discardCard = await DiscardProcessAsync(user, discardIndex, false, scope);
             stateMachine.Change(StateEndTurn);
         }
 
@@ -158,7 +158,7 @@ namespace MahCard
             await view.OnInvokeAbilityAsync(this, user, Define.CardAbility.Reset, scope);
             while (user.IsPossessionCard())
             {
-                await DiscardProcessAsync(user, 0, scope);
+                await DiscardProcessAsync(user, 0, false, scope);
             }
             for (var i = 0; i < Rules.HandCardCount; i++)
             {
@@ -180,7 +180,7 @@ namespace MahCard
             }
             await view.OnSelectDiscardAsync(this, user, scope);
             var discardIndex = await user.AI.DiscardAsync(user, scope);
-            await DiscardProcessAsync(user, discardIndex, scope);
+            await DiscardProcessAsync(user, discardIndex, false, scope);
             stateMachine.Change(StateEndTurn);
         }
 
@@ -193,7 +193,7 @@ namespace MahCard
             {
                 await view.OnSelectDiscardAsync(this, user, scope);
                 var discardIndex = await user.AI.DiscardAsync(user, scope);
-                await DiscardProcessAsync(user, discardIndex, scope);
+                await DiscardProcessAsync(user, discardIndex, false, scope);
             }
 
             for (var i = 0; i < 2; i++)
@@ -226,7 +226,7 @@ namespace MahCard
             {
                 while (user.IsPossessionCard())
                 {
-                    await DiscardProcessAsync(user, 0, scope);
+                    await DiscardProcessAsync(user, 0, true, scope);
                 }
             }
             await DeckFillProcessAsync(Deck, DiscardDeck, scope);
@@ -252,11 +252,11 @@ namespace MahCard
             return false;
         }
 
-        private async UniTask<Card> DiscardProcessAsync(User user, int discardIndex, CancellationToken scope)
+        private async UniTask<Card> DiscardProcessAsync(User user, int discardIndex, bool isFastDraw, CancellationToken scope)
         {
             var card = user.Discard(discardIndex);
             DiscardDeck.Push(card);
-            await view.OnDiscardAsync(this, user, card, scope);
+            await view.OnDiscardAsync(this, user, card, isFastDraw, scope);
             return card;
         }
 

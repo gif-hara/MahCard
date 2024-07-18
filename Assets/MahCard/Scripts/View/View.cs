@@ -47,7 +47,7 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
-        public virtual UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
+        public virtual UniTask OnDiscardAsync(Game game, User user, Card card, bool isFastDraw, CancellationToken scope)
         {
             return UniTask.CompletedTask;
         }

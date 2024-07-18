@@ -47,7 +47,7 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
-        public override UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
+        public override UniTask OnDiscardAsync(Game game, User user, Card card, bool isFastDraw, CancellationToken scope)
         {
             Debug.Log($"{user.Name} Discard {card}");
             return UniTask.CompletedTask;

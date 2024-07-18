@@ -26,7 +26,7 @@ namespace MahCard.View
 
         UniTask OnSelectDiscardAsync(Game game, User user, CancellationToken scope);
 
-        UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope);
+        UniTask OnDiscardAsync(Game game, User user, Card card, bool isFastDraw, CancellationToken scope);
 
         UniTask OnFilledDeckAsync(Game game, CancellationToken scope);
 

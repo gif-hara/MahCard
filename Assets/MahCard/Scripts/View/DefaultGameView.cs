@@ -147,7 +147,7 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
-        public override async UniTask OnDiscardAsync(Game game, User user, Card card, CancellationToken scope)
+        public override async UniTask OnDiscardAsync(Game game, User user, Card card, bool isFastDraw, CancellationToken scope)
         {
             if (game.IsMainUser(user))
             {
@@ -158,10 +158,18 @@ namespace MahCard.View
             cardDocuments.Remove(card);
             UpdateDiscardDeckView(game);
             AudioManager.PlaySFX(game.Rules.GetAudioClip("Sfx.DiscardCard.0"));
-            await cardDocument
+            var animation = cardDocument
                 .Q<HKUIDocument>("Sequences")
                 .Q<SequenceMonobehaviour>("DefaultOutAnimation")
                 .PlayAsync(scope);
+            if (isFastDraw)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(0.1f), cancellationToken: scope);
+            }
+            else
+            {
+                await animation;
+            }
             if (card.Ability != Define.CardAbility.None && game.CanInvokeAbility)
             {
                 AudioManager.PlaySFX(game.Rules.GetAudioClip("Sfx.InvokeAbility.0"));
