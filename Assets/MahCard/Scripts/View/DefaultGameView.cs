@@ -53,7 +53,6 @@ namespace MahCard.View
                 if (game.IsMainUser(user))
                 {
                     userAreaDocuments.Add(user, gameDocument.Q<HKUIDocument>("MainUserArea"));
-                    userAreaDocuments[user].Q<TMP_Text>("UserName").SetText(user.Name);
                 }
                 else
                 {
@@ -61,8 +60,16 @@ namespace MahCard.View
                     var parent = gameDocument.Q<Transform>("OtherUserArea");
                     var otherUserDocument = UnityEngine.Object.Instantiate(otherUserAreaPrefab, parent);
                     userAreaDocuments.Add(user, otherUserDocument);
-                    otherUserDocument.Q<TMP_Text>("UserName").SetText(user.Name);
                 }
+
+                var userAreaDocument = userAreaDocuments[user];
+                userAreaDocument.Q<TMP_Text>("UserName").SetText(user.Name);
+                user.WinCountAsObservable()
+                    .Subscribe(count =>
+                    {
+                        userAreaDocument.Q<TMP_Text>("WinCount").SetText($"Win:{count}");
+                    })
+                    .RegisterTo(userAreaDocument.destroyCancellationToken);
             }
             var mainUser = game.GetMainUser();
             gameDocument.Q<Button>("DeckButton").OnClickAsObservable()
