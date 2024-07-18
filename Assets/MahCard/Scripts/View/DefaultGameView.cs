@@ -261,6 +261,16 @@ namespace MahCard.View
             return UniTask.CompletedTask;
         }
 
+        public override async UniTask OnGameWinAsync(Game game, User user, CancellationToken scope)
+        {
+            await BeginNotificationAsync(
+                "ゲーム終了！",
+                $"{user.Name}の勝利数が{game.Rules.GameWinCount}に達しました",
+                game.Rules.GetAudioClip("Sfx.GameWin.0"),
+                scope
+                );
+        }
+
         private async UniTask BeginNotificationAsync(string mainMessage, string subMessage, AudioClip sfx, CancellationToken scope)
         {
             var scopeSource = CancellationTokenSource.CreateLinkedTokenSource(scope);

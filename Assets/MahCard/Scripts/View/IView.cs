@@ -31,5 +31,7 @@ namespace MahCard.View
         UniTask OnFilledDeckAsync(Game game, CancellationToken scope);
 
         UniTask OnInvokeAbilityAsync(Game game, User user, Define.CardAbility ability, CancellationToken scope);
+
+        UniTask OnGameWinAsync(Game game, User user, CancellationToken scope);
     }
 }

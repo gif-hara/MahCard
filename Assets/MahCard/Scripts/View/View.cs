@@ -66,5 +66,10 @@ namespace MahCard.View
         {
             return UniTask.CompletedTask;
         }
+
+        public virtual UniTask OnGameWinAsync(Game game, User user, CancellationToken scope)
+        {
+            return UniTask.CompletedTask;
+        }
     }
 }

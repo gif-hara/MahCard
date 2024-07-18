@@ -42,6 +42,8 @@ namespace MahCard
 
         private int CurrentUserIndex => (parentIndex + turnCount) % Users.Count;
 
+        private User gameWinner;
+
         public bool CanInvokeAbility
         {
             get
@@ -125,7 +127,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, GetDeck(deckType), 0, false, scope);
             if (isWin)
             {
-                WinProcess();
+                WinProcess(user);
                 return;
             }
             await view.OnSelectDiscardAsync(this, user, scope);
@@ -142,7 +144,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, Deck, 0, false, scope);
             if (isWin)
             {
-                WinProcess();
+                WinProcess(user);
                 return;
             }
             await view.OnSelectDiscardAsync(this, user, scope);
@@ -175,7 +177,7 @@ namespace MahCard
             var isWin = await DrawProcessAsync(user, DiscardDeck, 1, false, scope);
             if (isWin)
             {
-                WinProcess();
+                WinProcess(user);
                 return;
             }
             await view.OnSelectDiscardAsync(this, user, scope);
@@ -211,12 +213,12 @@ namespace MahCard
             stateMachine.Change(StateBeginTurn);
         }
 
-        private UniTask StateEndGame(CancellationToken scope)
+        private async UniTask StateEndGame(CancellationToken scope)
         {
+            await view.OnGameWinAsync(this, gameWinner, scope);
             endGameCompletionSource.TrySetResult();
             endGameScope.Cancel();
             endGameScope.Dispose();
-            return UniTask.CompletedTask;
         }
 
         private async UniTask StateCompleteRecovery(CancellationToken scope)
@@ -305,9 +307,18 @@ namespace MahCard
             }
         }
 
-        private void WinProcess()
+        private void WinProcess(User user)
         {
-            stateMachine.Change(StateCompleteRecovery);
+            user.Win();
+            if (user.IsGameWin(Rules))
+            {
+                gameWinner = user;
+                stateMachine.Change(StateEndGame);
+            }
+            else
+            {
+                stateMachine.Change(StateCompleteRecovery);
+            }
         }
 
         private Deck GetDeck(Define.DeckType deckType)
