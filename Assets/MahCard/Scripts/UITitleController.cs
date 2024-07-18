@@ -31,8 +31,10 @@ namespace MahCard
             var document = Object.Instantiate(titleDocumentPrefab);
             var anyClickAreaDocument = document.Q<HKUIDocument>("Area.AnyClick");
             var mainAreaDocument = document.Q<HKUIDocument>("Area.Main");
+            var sequencesDocument = document.Q<HKUIDocument>("Sequences");
             anyClickAreaDocument.gameObject.SetActive(true);
             mainAreaDocument.gameObject.SetActive(false);
+            sequencesDocument.Q<SequenceMonobehaviour>("Animation.AnyClick").PlayAsync().Forget();
 
             anyClickAreaDocument.Q<Button>("Button").OnClickAsObservable()
                 .Subscribe(_ =>

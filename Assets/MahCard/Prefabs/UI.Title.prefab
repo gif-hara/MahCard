@@ -166,6 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1951147769263395032}
+  - component: {fileID: 1337294819774739577}
   m_Layer: 5
   m_Name: Sequences
   m_TagString: Untagged
@@ -193,6 +194,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1337294819774739577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173177610320006333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e580aec8256068647a0328d3aabe0cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elements:
+  - document: {fileID: 7420519326941002369}
+    overrideName: 
 --- !u!1 &1683171323770179722
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2335356025117602572
 RectTransform:
   m_ObjectHideFlags: 0
@@ -827,7 +843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &298346179774860033
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1069,6 +1085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2844330050298602553}
+  - component: {fileID: 1084933393365547947}
   m_Layer: 5
   m_Name: AnimationArea
   m_TagString: Untagged
@@ -1096,6 +1113,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1084933393365547947
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7380298663029771773}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7420519326941002369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,12 +1174,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sequences:
-  - rid: -2
+  - rid: 7288459487909249155
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7288459487909249155
+      type: {class: BindToCanvasGroupAlpha, ns: UnitySequencerSystem.LitMotion, asm: UnitySequencerSystem}
+      data:
+        targetResolver:
+          rid: 7288459487909249156
+        parameters:
+          fromResolver:
+            rid: 7288459487909249157
+          toResolver:
+            rid: 7288459487909249158
+          durationResolver:
+            rid: 7288459487909249159
+          delayResolver:
+            rid: 7288459487909249160
+          loopCountResolver:
+            rid: 7288459487909249161
+          loopType: 1
+          motionSchedulerResolver:
+            rid: 7288459487909249162
+          ease: 3
+    - rid: 7288459487909249156
+      type: {class: CanvasGroupResolver/Reference, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        target: {fileID: 1084933393365547947}
+    - rid: 7288459487909249157
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 0.2
+    - rid: 7288459487909249158
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 1
+    - rid: 7288459487909249159
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 1
+    - rid: 7288459487909249160
+      type: {class: FloatResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: 0
+    - rid: 7288459487909249161
+      type: {class: IntResolver/Constant, ns: UnitySequencerSystem.Resolvers, asm: UnitySequencerSystem}
+      data:
+        value: -1
+    - rid: 7288459487909249162
+      type: {class: MotionSchedulerResolver/Update, ns: UnitySequencerSystem.Resolvers.LitMotion, asm: UnitySequencerSystem}
+      data: 
 --- !u!1 &8071322319223257670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,7 +1271,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[0].document
@@ -1207,6 +1281,10 @@ PrefabInstance:
       propertyPath: elements.Array.data[1].document
       value: 
       objectReference: {fileID: 5403929916929845044}
+    - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
+      propertyPath: elements.Array.data[2].document
+      value: 
+      objectReference: {fileID: 1173177610320006333}
     - target: {fileID: -2769345785634595885, guid: 6e95d8e3442f67641845fc32bf72708f, type: 3}
       propertyPath: elements.Array.data[0].overrideName
       value: 
