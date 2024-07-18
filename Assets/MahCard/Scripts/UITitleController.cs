@@ -32,6 +32,7 @@ namespace MahCard
             var anyClickAreaDocument = document.Q<HKUIDocument>("Area.AnyClick");
             var mainAreaDocument = document.Q<HKUIDocument>("Area.Main");
             var sequencesDocument = document.Q<HKUIDocument>("Sequences");
+            AudioManager.PlayBGM(gameRules.GetAudioClip("Bgm.Title.0"));
             anyClickAreaDocument.gameObject.SetActive(true);
             mainAreaDocument.gameObject.SetActive(false);
             sequencesDocument.Q<SequenceMonobehaviour>("Animation.Area.AnyClick.Loop").PlayAsync().Forget();
